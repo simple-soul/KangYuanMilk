@@ -11,7 +11,7 @@
         <!--配置springmvc加载的配置文件(处理器、映射器、适配器等)-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>WEB-INF/dispatcher-servlet.xml</param-value>
+            <param-value>classpath*:spring/dispatcher-servlet.xml</param-value>
         </init-param>
     </servlet>
 

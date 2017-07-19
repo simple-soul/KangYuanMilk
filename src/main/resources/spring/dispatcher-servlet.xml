@@ -22,6 +22,20 @@
     <!--代替映射器和适配器-->
     <mvc:annotation-driven/>
 
+    <!--拦截器-->
+    <!--<mvc:interceptors>-->
+        <!--多个拦截器顺序执行-->
+        <!--<mvc:interceptor>-->
+            <!--表示所有url-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<bean class="com.springmvc.interceptor.LoginInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<bean class="com.springmvc.interceptor.IdentityInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+
     <!--视图解析器
     解析jsp，默认使用jstl标签-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

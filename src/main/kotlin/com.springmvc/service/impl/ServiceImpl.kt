@@ -1,7 +1,7 @@
 package com.springmvc.service.impl
 
 import com.springmvc.Bean.User
-import com.springmvc.dao.UserDao
+import com.springmvc.mapper.UserMapper
 import com.springmvc.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -23,10 +23,10 @@ open class UserServiceImpl:  UserService
 
     }
 
-    @Autowired lateinit var userDao: UserDao
+    @Autowired lateinit var userMapper: UserMapper
 
     override fun register(user: User)
     {
-        userDao.add(user)
+        userMapper.addUser(user)
     }
 }

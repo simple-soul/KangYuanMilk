@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--对sql进行分类隔离,指定对应的mapper接口-->
+<mapper namespace="com.springmvc.mapper.UserMapper">
+
+    <insert id="addUser" parameterType="user" >
+        INSERT INTO `kangyuan`.`user` (
+      `user_name`,
+      `user_pwd`,
+      `user_tel`,
+      `user_idcard`,
+      `user_head`,
+      `user_sex`,
+      `address_id`,
+      `user_registerdate`,
+      `remark`
+    )
+    VALUE
+      (
+        #{name},
+        #{pass},
+        #{tel},
+        #{idcard},
+        #{head},
+        #{sex},
+        #{address},
+        #{date},
+        #{remark}
+      ) ;
+
+    </insert>
+
+</mapper>

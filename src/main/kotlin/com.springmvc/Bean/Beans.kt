@@ -17,9 +17,13 @@ data class User(var name: String)
     var tel: String? = null
     var idCard: String? = null
     var address: Int? = null
-    var header: String? = null
+    var head: String? = null
     var sex: Boolean? = null
     var date: Date = Date()
     var remark: String? = null
 }
+
+@Bean
+data class Result(var result: Int)
+
 

@@ -8,7 +8,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource
 inline fun DBUtils() : DriverManagerDataSource
 {
     //设置数据库信息
-    var dm = DriverManagerDataSource()
+    val dm = DriverManagerDataSource()
     dm.setDriverClassName("com.mysql.jdbc.Driver")
     dm.url = "jdbc:mysql://localhost:3306/test"
     dm.username = "root"

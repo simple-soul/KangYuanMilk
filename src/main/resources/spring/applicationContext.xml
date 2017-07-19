@@ -14,30 +14,33 @@
                         http://www.springframework.org/schema/tx
                         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <!--加载db.properties-->
+    <context:property-placeholder location="db.properties"/>
     <!--jdbc操作-->
 
     <!--配置c3p0连接池-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <!--注入属性值-->
-        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test"/>
-        <property name="user" value="root"/>
-        <property name="password" value="gg123456"/>
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
 
     </bean>
 
-    <bean id="template" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-
-    <!--1.配置事务管理器-->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <!--注入DataSource-->
+    <!--mybatis-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--加载mybatis配置文件-->
+        <property name="configLocation" value="mybatis/configuration.xml"/>
+        <!--数据源-->
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!--开启事务注解扫描-->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <!--mapperInterface指定mapper接口-->
+        <property name="mapperInterface" value="com.springmvc.mapper.UserMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
 
     <!--启用spring基于annotation的DI-->
     <context:annotation-config/>

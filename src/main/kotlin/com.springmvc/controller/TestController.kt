@@ -2,12 +2,14 @@ package com.springmvc.controller
 
 import com.springmvc.Bean.User
 import com.springmvc.service.UserService
+import com.springmvc.service.impl.UserServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
+import javax.annotation.Resource
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -42,9 +44,9 @@ class TestController
 
 
     @RequestMapping("/register", method = arrayOf(RequestMethod.POST), consumes = arrayOf("application/json"))
-    fun register(@RequestBody user: User): Int
+    fun register(@RequestBody user: User, response: HttpServletResponse)
     {
         userService.register(user)
-        return 1
+        response.writer.write(1)
     }
 }

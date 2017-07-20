@@ -4,6 +4,15 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <!--加载多个spring文件-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/applicationContext.xml,classpath:spring/spring_mybatis.xml</param-value>
+    </context-param>
+
     <!--springmvc前段控制器配置-->
     <servlet>
         <servlet-name>dispatcher</servlet-name>
@@ -11,8 +20,9 @@
         <!--配置springmvc加载的配置文件(处理器、映射器、适配器等)-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath*:spring/dispatcher-servlet.xml</param-value>
+            <param-value>classpath:spring/dispatcher-servlet.xml</param-value>
         </init-param>
+
     </servlet>
 
     <servlet-mapping>

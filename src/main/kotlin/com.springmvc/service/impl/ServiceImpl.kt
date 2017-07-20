@@ -5,11 +5,12 @@ import com.springmvc.mapper.UserMapper
 import com.springmvc.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import javax.annotation.Resource
+import javax.annotation.Resources
 
 /**
  * Created by simple_soul on 2017/7/15.
  */
-
 @Service("userService")
 open class UserServiceImpl:  UserService
 {

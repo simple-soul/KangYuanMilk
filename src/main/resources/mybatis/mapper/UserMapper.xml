@@ -23,7 +23,7 @@
         #{name},
         #{pass},
         #{tel},
-        #{idcard},
+        #{idCard},
         #{head},
         #{sex},
         #{address},

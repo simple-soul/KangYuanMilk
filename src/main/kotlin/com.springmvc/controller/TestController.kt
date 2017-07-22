@@ -1,6 +1,8 @@
 package com.springmvc.controller
 
 import com.springmvc.Bean.User
+import com.springmvc.exception.SystemException
+import com.springmvc.service.StudentService
 import com.springmvc.service.UserService
 import com.springmvc.service.impl.UserServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,10 +20,11 @@ import javax.servlet.http.HttpServletResponse
  * Created by simple_soul on 2017/7/15.
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/test")
 class TestController
 {
     @Autowired lateinit var userService: UserService
+    @Autowired lateinit var studentService: StudentService
 
     @ResponseBody
     @RequestMapping("/getJson", method = arrayOf(RequestMethod.POST), consumes = arrayOf("application/json"))
@@ -43,10 +46,9 @@ class TestController
     }
 
 
-    @RequestMapping("/register", method = arrayOf(RequestMethod.POST), consumes = arrayOf("application/json"))
-    fun register(@RequestBody user: User, response: HttpServletResponse)
+    @RequestMapping("/tx", method = arrayOf(RequestMethod.POST), consumes = arrayOf("application/json"))
+    fun register(response: HttpServletResponse)
     {
-        userService.register(user)
-        response.writer.write(1)
+        studentService.account()
     }
 }

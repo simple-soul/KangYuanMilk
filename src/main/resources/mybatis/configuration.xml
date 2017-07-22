@@ -15,5 +15,6 @@
     <!--加载映射文件-->
     <mappers>
         <mapper resource="mybatis/mapper/UserMapper.xml"/>
+        <mapper resource="mybatis/mapper/StudentMapper.xml"/>
     </mappers>
 </configuration>

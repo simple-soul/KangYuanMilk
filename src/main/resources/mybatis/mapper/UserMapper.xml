@@ -6,20 +6,20 @@
 <!--对sql进行分类隔离,指定对应的mapper接口-->
 <mapper namespace="com.springmvc.mapper.UserMapper">
 
-    <insert id="addUser" parameterType="user" >
+    <insert id="addUser" parameterType="user">
         INSERT INTO `kangyuan`.`user` (
-      `user_name`,
-      `user_pwd`,
-      `user_tel`,
-      `user_idcard`,
-      `user_head`,
-      `user_sex`,
-      `address_id`,
-      `user_registerdate`,
-      `remark`
-    )
-    VALUE
-      (
+        `user_name`,
+        `user_pwd`,
+        `user_tel`,
+        `user_idcard`,
+        `user_head`,
+        `user_sex`,
+        `address_id`,
+        `user_registerdate`,
+        `remark`
+        )
+        VALUE
+        (
         #{name},
         #{pass},
         #{tel},
@@ -29,8 +29,41 @@
         #{address},
         #{date},
         #{remark}
-      ) ;
-
+        )
+        <!--<selectKey keyProperty="id" order="AFTER" >-->
+        <!--SELECT LAST_INSERT_ID()-->
+        <!--</selectKey>-->
+        <selectKey keyProperty="id" resultType="Int" order="AFTER">
+            SELECT @@IDENTITY AS id
+        </selectKey>
     </insert>
 
+    <select id="findUserByName" parameterType="user" resultType="user">
+        SELECT *
+        FROM USER
+        WHERE user_name = #{name}
+    </select>
+
+    <select id="findUserById" parameterType="user" resultType="user">
+        SELECT *
+        FROM USER
+        WHERE user_id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="user">
+        UPDATE
+        `kangyuan`.`user`
+        SET
+        `user_name` = ${},
+        `user_pwd` = ${},
+        `user_tel` = ${},
+        `user_head` = ${},
+        `user_sex` = ${},
+        `address_id` = ${},
+        `remark` = ${}
+        WHERE `user_id` = ${} ;
+        <selectKey keyProperty="id" resultType="Int" order="AFTER">
+            SELECT @@IDENTITY AS id
+        </selectKey>
+    </update>
 </mapper>

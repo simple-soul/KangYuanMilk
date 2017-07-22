@@ -18,11 +18,17 @@
 
 
     <!--ioc扫描-->
-    <context:component-scan base-package="com.springmvc"></context:component-scan>
+    <context:component-scan base-package="com.springmvc"/>
+
+    <!--开启aop自动扫描代理-->
+    <aop:aspectj-autoproxy/>
 
     <!--扩充注解驱动，可以将请求参数绑定到控制器参数-->
     <!--代替映射器和适配器-->
     <mvc:annotation-driven/>
+
+    <!--全局异常处理器-->
+    <bean class="com.springmvc.exception.SystemExceptionResolver"/>
 
     <!--视图解析器
     解析jsp，默认使用jstl标签-->

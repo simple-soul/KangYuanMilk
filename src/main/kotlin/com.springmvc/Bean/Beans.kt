@@ -10,7 +10,7 @@ import java.util.*
 
 @Bean
 @Component(value = "user")
-data class User(var name: String)
+data class User(var name: String?)
 {
     var id: Int? = null
     var pass: String? = null
@@ -24,6 +24,13 @@ data class User(var name: String)
 }
 
 @Bean
-data class Result(var result: Int)
+@Component(value = "student")
+data class Student(var name: String?)
+{
+    var id: Int? = null
+    var age: Int? = null
+    var money: Int? = null
+}
+
 
 

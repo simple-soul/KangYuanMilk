@@ -1,5 +1,6 @@
 package com.springmvc.mapper
 
+import com.springmvc.Bean.Address
 import com.springmvc.Bean.Student
 import com.springmvc.Bean.User
 
@@ -17,7 +18,11 @@ interface UserMapper
 
     fun updateUser(user: User):Int?
 
+    fun findHeadByName(name: String):String?
 
+    fun findAddressById(user: User):List<Address>?
+
+    fun findDefaultAddressIdById(user: User):Int?
 }
 
 //测试用

@@ -1,10 +1,12 @@
 package com.springmvc.service.impl
 
+import com.springmvc.Bean.Address
 import com.springmvc.Bean.User
 import com.springmvc.mapper.UserMapper
 import com.springmvc.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 /**
  * Created by simple_soul on 2017/7/15.
@@ -17,62 +19,57 @@ open class UserServiceImpl:  UserService
 {
     @Autowired lateinit var userMapper: UserMapper
 
-    /**
-     * 检查用户名是否重复
-     * @param user 从客户端传来的用户信息
-     * @return <code>true</code>没有重复
-     *         <code>false</code>用户名重复
-     */
+    override fun getUserDefaultAddress(user: User): Int?
+    {
+        val id = userMapper.findDefaultAddressIdById(user)
+        return id
+    }
+
+    override fun getUserAddress(user: User): List<Address>?
+    {
+        val list = userMapper.findAddressById(user)
+        return list
+    }
+
+    override fun getUserHead(name: String): String?
+    {
+        val head = userMapper.findHeadByName(name)
+        return head
+    }
+
     override fun checkName(user: User): Boolean
     {
         val fuser = userMapper.findUserByName(user)
-        if (fuser == null)
-            return true
-        else
-            return true
+        println("检查用户名---$fuser")
+        return (fuser == null)
     }
 
-    /**
-     * 修改用户信息
-     * @param user 从客户端传来的用户信息
-     * @return <code>true</code>修改成功
-     *         <code>false</code>修改失败
-     */
+
     override fun changeInfo(user: User): Boolean
     {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    /**
-     * 用户登录
-     * @param user 从客户端传来的用户信息
-     * @return 返回具体的用户信息
-     */
+
     override fun login(user: User): User
     {
         val fUser= userMapper.findUserByName(user)
         return user
     }
 
-    /**
-     * 忘记密码
-     */
+
     override fun forget()
     {
 
     }
 
-    /**
-     * 用户注册
-     * @param user 从客户端传来的用户信息
-     * @return <code>true</code>注册成功
-     *         <code>false</code>注册失败
-     */
+
     override fun register(user: User): Boolean
     {
         val fuser = userMapper.findUserByName(user)
         if (fuser == null)
         {
+            user.date = Date()
             val id = userMapper.addUser(user)
             if (id != null && id > 0)
             {

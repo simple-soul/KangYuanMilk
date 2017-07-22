@@ -39,14 +39,12 @@
     </insert>
 
     <select id="findUserByName" parameterType="user" resultType="user">
-        SELECT *
-        FROM USER
+        <include refid="selectUser"/>
         WHERE user_name = #{name}
     </select>
 
     <select id="findUserById" parameterType="user" resultType="user">
-        SELECT *
-        FROM USER
+        <include refid="selectUser"/>
         WHERE user_id = #{id}
     </select>
 
@@ -66,4 +64,32 @@
             SELECT @@IDENTITY AS id
         </selectKey>
     </update>
+
+    <select id="findHeadByName" parameterType="String" resultType="String">
+        SELECT user.`user_head` FROM USER WHERE `user_name`=${name}
+    </select>
+
+    <select id="findAddressById" parameterType="user" resultType="Address">
+        SELECT `address_id`, `address_content` FROM address WHERE `user_id` = ${id}
+    </select>
+
+    <select id="findDefaultAddressIdById" parameterType="user" resultType="Int">
+        SELECT `address_id` FROM user WHERE `user_id` = ${id}
+    </select>
+
+    <sql id="selectUser">
+        SELECT
+            user.`remark`,
+            user.`user_head`,
+            user.`user_id`,
+            user.`user_idcard`,
+            user.`user_name`,
+            user.`user_pwd`,
+            user.`user_registerdate`,
+            user.`user_sex`,
+            user.`user_tel`,
+            address.`address_content`
+        FROM USER
+            INNER JOIN address ON user.`address_id` = address.`address_id`
+    </sql>
 </mapper>

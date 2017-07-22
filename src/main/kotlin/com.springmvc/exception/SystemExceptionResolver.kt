@@ -46,7 +46,7 @@ class SystemExceptionResolver : HandlerExceptionResolver
         result.response = res
         val gson = Gson()
         response?.writer!!.write(gson.toJson(result))
-
+        println("服务器错误----------->${systemException.message}")
         return ModelAndView()
     }
 }

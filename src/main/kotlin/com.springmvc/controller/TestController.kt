@@ -33,19 +33,6 @@ class TestController
         return user
     }
 
-    @ResponseBody
-    @RequestMapping("/test")
-    fun test(request: HttpServletRequest, response: HttpServletResponse): User
-    {
-        println(request.getParameter("name"))
-
-        response.characterEncoding = "utf-8"
-        response.contentType = "application/json;charset=utf-8"
-        val user2 = User("barry")
-        return user2
-    }
-
-
     @RequestMapping("/tx", method = arrayOf(RequestMethod.POST), consumes = arrayOf("application/json"))
     fun register(response: HttpServletResponse)
     {

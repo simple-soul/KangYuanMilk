@@ -33,6 +33,11 @@ class UserResponse(override var result: Boolean): Response
     var user: User? = null
 }
 
+class AddressResponse(override var result: Boolean): Response
+{
+    var addresses: List<Address>? = null
+    var defaultId: Int? = null
+}
 
 
 

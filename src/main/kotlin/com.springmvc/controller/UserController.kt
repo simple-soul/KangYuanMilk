@@ -24,11 +24,11 @@ class UserController
      */
     @ResponseBody
     @RequestMapping("/register", method = arrayOf(RequestMethod.POST))
-    fun register(@RequestBody user: User): ServerResponse
+    fun register(@RequestBody user: User?): ServerResponse
     {
-        println("客户端传来的数据----------->$user")
-        val result = ServerResponse(200)
-        result.response.result = userService.register(user)
+        println("register客户端传来的数据----------->$user")
+        val result = ServerResponse(if (user == null) 400 else 200)
+        user?.let { result.response.result = userService.register(it) }
         return result
     }
 
@@ -37,11 +37,11 @@ class UserController
      */
     @ResponseBody
     @RequestMapping("/login", method = arrayOf(RequestMethod.POST))
-    fun login(@RequestBody user: User): ServerResponse
+    fun login(@RequestBody user: User?): ServerResponse
     {
-        println("客户端传来的数据----------->$user")
-        val result = ServerResponse(200)
-        val fuser = userService.login(user)
+        println("login客户端传来的数据----------->$user")
+        val result = ServerResponse(if (user == null) 400 else 200)
+        val fuser = user?.let { userService.login(it) }
         val response = UserResponse(fuser != null)
         fuser?.apply { response.user = fuser }
         result.response = response
@@ -52,12 +52,12 @@ class UserController
      * 检查用户名是否重复
      */
     @ResponseBody
-    @RequestMapping("/checkName", method = arrayOf(RequestMethod.POST))
-    fun checkName(@RequestBody user: User): ServerResponse
+    @RequestMapping("/checkName", method = arrayOf(RequestMethod.POST, RequestMethod.GET))
+    fun checkName(user_name: String?): ServerResponse
     {
-        println("客户端传来的数据----------->$user")
-        val result = ServerResponse(200)
-        result.response.result = userService.checkName(user)
+        println("checkName客户端传来的数据----------->$user_name")
+        val result = ServerResponse(if (user_name == null) 400 else 200)
+        user_name?.apply { result.response.result = userService.checkName(user_name) }
         return result
     }
 
@@ -65,14 +65,16 @@ class UserController
      * 获取用户头像
      */
     @ResponseBody
-    @RequestMapping("/getHead", method = arrayOf(RequestMethod.POST))
-    fun getHead(@RequestBody name: String): ServerResponse
+    @RequestMapping("/getHead", method = arrayOf(RequestMethod.POST, RequestMethod.GET))
+    fun getHead(user_name: String?): ServerResponse
     {
-        println("客户端传来的数据----------->$name")
-        val result = ServerResponse(200)
-        val headUrl = userService.getUserHead(name)
+        println("getHead客户端传来的数据----------->$user_name")
+        val result = ServerResponse(if (user_name == null) 400 else 200)
+        val headUrl = user_name?.let { userService.getUserHead(it) }
+        println("获取用户头像--------->$headUrl"+(headUrl != null))
         val response =  StringResponse(headUrl != null)
         headUrl?.apply { response.message = headUrl }
+        result.response = response
         return result
     }
 
@@ -81,12 +83,12 @@ class UserController
      */
     @ResponseBody
     @RequestMapping("/getAddress", method = arrayOf(RequestMethod.POST))
-    fun getAddress(@RequestBody user: User): ServerResponse
+    fun getAddress(@RequestBody user: User?): ServerResponse
     {
-        println("客户端传来的数据----------->$user")
-        val result = ServerResponse(200)
-        val list = userService.getUserAddress(user)
-        val id = userService.getUserDefaultAddress(user)
+        println("getAddress客户端传来的数据----------->$user")
+        val result = ServerResponse(if (user == null) 400 else 200)
+        val list = user?.let { userService.getUserAddress(it) }
+        val id = user?.let { userService.getUserDefaultAddress(it) }
         val response: AddressResponse
         if(list != null && id != null)
         {
@@ -100,6 +102,32 @@ class UserController
             response = AddressResponse(false)
         }
         result.response = response
+        return result
+    }
+
+    /**
+     * 删除收货地址
+     */
+    @ResponseBody
+    @RequestMapping("/deleteAddress", method = arrayOf(RequestMethod.POST, RequestMethod.GET))
+    fun deleteAddress(address_id: Int?): ServerResponse
+    {
+        println("deleteAddress客户端传来的数据----------->$address_id")
+        val result = ServerResponse(if (address_id == null) 400 else 200)
+        address_id?.let { result.response.result = userService.deleteAddress(it) }
+        return result
+    }
+
+    /**
+     * 设置默认收货地址
+     */
+    @ResponseBody
+    @RequestMapping("/setDefaultAddress", method = arrayOf(RequestMethod.POST, RequestMethod.GET))
+    fun setDefaultAddress(address_id: Int?): ServerResponse
+    {
+        println("deleteAddress客户端传来的数据----------->$address_id")
+        val result = ServerResponse(if (address_id == null) 400 else 200)
+        address_id?.let { result.response.result = userService.setDefaultAddress(it) }
         return result
     }
 }

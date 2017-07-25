@@ -1,44 +1,59 @@
 package com.springmvc.Bean
 
 import com.springmvc.annotations.Bean
-import org.springframework.stereotype.Component
+import java.math.BigDecimal
 import java.util.*
 
 /**
  * Created by simple_soul on 2017/7/15.
  */
-/**
- *
- */
+
 @Bean
-@Component(value = "user")
 data class User(
-        var name: String?,
-        var id: Int?,
-        var pass: String?,
-        var tel: String?,
-        var idCard: String?,
-        var address: String?,
-        var head: String?,
-        var sex: Boolean?,
-        var date: Date?,
-        var remark: String?
+        val user_name: String?,
+        val user_id: Int?,
+        val user_pwd: String?,
+        val user_tel: String?,
+        val user_idcard: String?,
+        val address_content: String?,
+        val user_head: String?,
+        val user_sex: Boolean?,
+        var user_registerdate: Date?,
+        val remark: String?
                )
 
 @Bean
-@Component(value = "student")
 data class Student(
-        var name: String?,
-        var id: Int?,
-        var age: Int?,
-        var money: Int?
+        val name: String?,
+        val id: Int?,
+        val age: Int?,
+        val money: Int?
                   )
 
 @Bean
 data class Address(
-        var id: Int?,
-        var content: String?
+        val address_id: Int?,
+        val address_content: String?
                   )
+
+@Bean
+data class Milk(
+        val milk_id: Int?,
+        val milk_name: String?,
+        val category_id: Int?,
+        val milk_price: BigDecimal?,
+        val milk_introduce: String?,
+        val milk_spec: String?,
+        val milk_sales: Int?,
+        val remark: String?
+               )
+
+@Bean
+data class MilkCategory(
+        val category_id: Int?,
+        val category_name: String?,
+        val remark: String?
+                       )
 
 
 

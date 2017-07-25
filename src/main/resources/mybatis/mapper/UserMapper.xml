@@ -14,68 +14,84 @@
         `user_idcard`,
         `user_head`,
         `user_sex`,
-        `address_id`,
         `user_registerdate`,
         `remark`
         )
         VALUE
         (
-        #{name},
-        #{pass},
-        #{tel},
-        #{idCard},
+        #{user_name},
+        #{user_pwd},
+        #{user_tel},
+        #{user_idcard},
         #{head},
-        #{sex},
-        #{address},
-        #{date},
+        #{user_sex},
+        #{user_registerdate},
         #{remark}
         )
-        <!--<selectKey keyProperty="id" order="AFTER" >-->
-        <!--SELECT LAST_INSERT_ID()-->
-        <!--</selectKey>-->
         <selectKey keyProperty="id" resultType="Int" order="AFTER">
             SELECT @@IDENTITY AS id
         </selectKey>
     </insert>
 
-    <select id="findUserByName" parameterType="user" resultType="user">
+    <select id="findUserByName" parameterType="String" resultType="user">
         <include refid="selectUser"/>
-        WHERE user_name = #{name}
+        WHERE user_name = #{user_name}
+        <include refid="notDelete_user"/>
     </select>
 
-    <select id="findUserById" parameterType="user" resultType="user">
+    <select id="findUserById" parameterType="Int" resultType="user">
         <include refid="selectUser"/>
-        WHERE user_id = #{id}
+        WHERE user_id = #{user_id}
+        <include refid="notDelete_user"/>
     </select>
 
     <update id="updateUser" parameterType="user">
         UPDATE
         `kangyuan`.`user`
         SET
-        `user_name` = ${},
-        `user_pwd` = ${},
-        `user_tel` = ${},
-        `user_head` = ${},
-        `user_sex` = ${},
-        `address_id` = ${},
-        `remark` = ${}
-        WHERE `user_id` = ${} ;
+        `user_name` = #{user_name},
+        `user_pwd` = #{user_pwd},
+        `user_tel` = #{user_tel},
+        `user_head` = #{user_head},
+        `user_sex` = #{user_sex},
+        `remark` = #{remark}
+        WHERE `user_id` = #{user_id}
+        <include refid="notDelete"/>
         <selectKey keyProperty="id" resultType="Int" order="AFTER">
             SELECT @@IDENTITY AS id
         </selectKey>
     </update>
 
     <select id="findHeadByName" parameterType="String" resultType="String">
-        SELECT user.`user_head` FROM USER WHERE `user_name`=${name}
+        SELECT user.`user_head` FROM USER WHERE `user_name`=#{name}
+        <include refid="notDelete"/>
     </select>
 
-    <select id="findAddressById" parameterType="user" resultType="Address">
-        SELECT `address_id`, `address_content` FROM address WHERE `user_id` = ${id}
+    <select id="findAddressById" parameterType="Int" resultType="address">
+        SELECT `address_id`, `address_content` FROM address WHERE `user_id` = #{user_id}
+        <include refid="notDelete"/>
     </select>
 
-    <select id="findDefaultAddressIdById" parameterType="user" resultType="Int">
-        SELECT `address_id` FROM user WHERE `user_id` = ${id}
+    <select id="findDefaultAddressIdById" parameterType="Int" resultType="Int">
+        SELECT `address_id` FROM user WHERE `user_id` = #{user_id}
+        <include refid="notDelete"/>
     </select>
+
+    <update id="deleteAddress" parameterType="Int">
+        UPDATE `address` SET `address_isdeleted` = 1 WHERE `address_id`=#{id}
+        <include refid="notDelete"/>
+        <selectKey keyProperty="id" resultType="Int" order="AFTER">
+            SELECT @@IDENTITY AS id
+        </selectKey>
+    </update>
+
+    <update id="setDefaultAddress" parameterType="Int">
+        UPDATE `user` SET `address_id` = 1 WHERE `user_id`=#{id}
+        <include refid="notDelete"/>
+        <selectKey keyProperty="id" resultType="Int" order="AFTER">
+            SELECT @@IDENTITY AS id
+        </selectKey>
+    </update>
 
     <sql id="selectUser">
         SELECT
@@ -92,4 +108,12 @@
         FROM USER
             INNER JOIN address ON user.`address_id` = address.`address_id`
     </sql>
+
+    <sql id="notDelete_user">
+            and user.`isdeleted`=0
+    </sql>
+    <sql id="notDelete">
+        and `isdeleted`=0
+    </sql>
+
 </mapper>

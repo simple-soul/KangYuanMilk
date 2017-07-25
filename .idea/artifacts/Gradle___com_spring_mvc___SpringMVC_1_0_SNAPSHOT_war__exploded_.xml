@@ -38,6 +38,7 @@
           <element id="library" level="project" name="Gradle: org.codehaus.jackson:jackson-core-asl:1.9.13" />
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.8.9" />
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.9" />
+          <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.8.1" />
           <element id="library" level="project" name="Gradle: org.mybatis:mybatis:3.4.4" />
           <element id="library" level="project" name="Gradle: asm:asm:3.3.1" />
           <element id="library" level="project" name="Gradle: org.javassist:javassist:3.20.0-GA" />
@@ -58,7 +59,10 @@
           <element id="library" level="project" name="Gradle: org.apache.ant:ant:1.9.6" />
           <element id="library" level="project" name="Gradle: org.jetbrains:annotations:13.0" />
           <element id="library" level="project" name="Gradle: org.apache.ant:ant-launcher:1.9.6" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.1/2a8e0aa38a2e21cb39e2f5a7d6704cbdc941da0/gson-2.8.1.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.qiniu/qiniu-java-sdk/7.2.7/e2de534c9fbc0324d34baf5c54eda18200a08c1c/qiniu-java-sdk-7.2.7.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.3.1/19047bdb6a4fc00a44124f64ca98e88fc204e7e3/okhttp-3.3.1.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.qiniu/happy-dns-java/0.1.4/21ccf89dcd322a25473854a471252cb75c1f8f1e/happy-dns-java-0.1.4.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.8.0/5ea7af56cc7c567ed9856d99efb30740e9b17ff/okio-1.8.0.jar" />
         </element>
       </element>
     </root>

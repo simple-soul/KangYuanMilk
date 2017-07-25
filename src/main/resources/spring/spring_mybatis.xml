@@ -36,8 +36,12 @@
     </bean>
 
     <bean id="studentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <!--mapperInterface指定mapper接口-->
         <property name="mapperInterface" value="com.springmvc.mapper.StudentMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="shopMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.springmvc.mapper.ShopMapper"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
 </beans>

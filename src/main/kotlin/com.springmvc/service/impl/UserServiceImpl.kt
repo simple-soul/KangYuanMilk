@@ -15,19 +15,33 @@ import java.util.*
  *  关于用户的功能的业务层的具体实现类
  */
 @Service("userService")
-open class UserServiceImpl:  UserService
+open class UserServiceImpl : UserService
 {
+    override fun setDefaultAddress(id: Int): Boolean
+    {
+        val result = userMapper.setDefaultAddress(id)
+        result?.let { return result > 0 }
+        return false
+    }
+
+    override fun deleteAddress(id: Int): Boolean
+    {
+        val result = userMapper.deleteAddress(id)
+        result?.let { return result > 0 }
+        return false
+    }
+
     @Autowired lateinit var userMapper: UserMapper
 
     override fun getUserDefaultAddress(user: User): Int?
     {
-        val id = userMapper.findDefaultAddressIdById(user)
+        val id = user.user_id?.let { userMapper.findDefaultAddressIdById(it) }
         return id
     }
 
     override fun getUserAddress(user: User): List<Address>?
     {
-        val list = userMapper.findAddressById(user)
+        val list = user.user_id?.let { userMapper.findAddressById(it) }
         return list
     }
 
@@ -37,9 +51,9 @@ open class UserServiceImpl:  UserService
         return head
     }
 
-    override fun checkName(user: User): Boolean
+    override fun checkName(name: String): Boolean
     {
-        val fuser = userMapper.findUserByName(user)
+        val fuser = userMapper.findUserByName(name)
         println("检查用户名---$fuser")
         return (fuser == null)
     }
@@ -51,10 +65,14 @@ open class UserServiceImpl:  UserService
     }
 
 
-    override fun login(user: User): User
+    override fun login(user: User): User?
     {
-        val fUser= userMapper.findUserByName(user)
-        return user
+        val fUser = user.user_name?.let { userMapper.findUserByName(it) }
+        fUser?.apply {
+            if (fUser.user_pwd == user.user_pwd)
+                return user
+        }
+        return null
     }
 
 
@@ -66,15 +84,13 @@ open class UserServiceImpl:  UserService
 
     override fun register(user: User): Boolean
     {
-        val fuser = userMapper.findUserByName(user)
+        val fuser = userMapper.findUserByName(user.user_name!!)
         if (fuser == null)
         {
-            user.date = Date()
+            user.user_registerdate = Date()
             val id = userMapper.addUser(user)
             if (id != null && id > 0)
-            {
                 return true
-            }
             return false
         }
         else

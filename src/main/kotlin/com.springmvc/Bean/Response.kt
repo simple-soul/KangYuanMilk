@@ -39,6 +39,16 @@ class AddressResponse(override var result: Boolean): Response
     var defaultId: Int? = null
 }
 
+class MilkResponse(override var result: Boolean): Response
+{
+    var milks: List<Milk>? = null
+}
+
+class MilkCategoryResponse(override var result: Boolean): Response
+{
+    var milkCategory: List<MilkCategory>? = null
+}
+
 
 
 

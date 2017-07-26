@@ -26,7 +26,10 @@ interface UserMapper
 
     fun deleteAddress(id: Int): Int?
 
-    fun setDefaultAddress(id: Int): Int?
+    fun setDefaultAddress(address: DefaultAddress): Int?
+
+    fun setAddress(address: DefaultAddress): Int?
+
 }
 
 //测试用

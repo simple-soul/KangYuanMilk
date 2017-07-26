@@ -37,6 +37,12 @@ data class Address(
                   )
 
 @Bean
+data class DefaultAddress(
+        val address_id: Int?,
+        val address_content: String?,
+        val user_id: Int?)
+
+@Bean
 data class Milk(
         val milk_id: Int?,
         val milk_name: String?,
@@ -54,7 +60,6 @@ data class MilkCategory(
         val category_name: String?,
         val remark: String?
                        )
-
 
 
 

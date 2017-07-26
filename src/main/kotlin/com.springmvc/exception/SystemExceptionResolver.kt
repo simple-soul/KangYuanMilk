@@ -32,13 +32,14 @@ class SystemExceptionResolver : HandlerExceptionResolver
             else
             {
                 systemException = SystemException("服务器发生未知错误")
-                result = ServerResponse(501)
+                result = ServerResponse(500)
             }
+            println("服务器错误----------->${ex.message}")
         }
         else
         {
             systemException = SystemException("服务器发生未知错误")
-            result = ServerResponse(501)
+            result = ServerResponse(500)
         }
 
         val res = StringResponse(false)
@@ -46,7 +47,6 @@ class SystemExceptionResolver : HandlerExceptionResolver
         result.response = res
         val gson = Gson()
         response?.writer!!.write(gson.toJson(result))
-        println("服务器错误----------->${systemException.message}")
         return ModelAndView()
     }
 }

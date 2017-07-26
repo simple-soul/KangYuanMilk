@@ -23,13 +23,13 @@
         #{user_pwd},
         #{user_tel},
         #{user_idcard},
-        #{head},
+        #{user_head},
         #{user_sex},
         #{user_registerdate},
         #{remark}
         )
-        <selectKey keyProperty="id" resultType="Int" order="AFTER">
-            SELECT @@IDENTITY AS id
+        <selectKey keyProperty="user_id" resultType="Int" order="AFTER">
+            SELECT @@IDENTITY AS user_id
         </selectKey>
     </insert>
 
@@ -57,9 +57,7 @@
         `remark` = #{remark}
         WHERE `user_id` = #{user_id}
         <include refid="notDelete"/>
-        <selectKey keyProperty="id" resultType="Int" order="AFTER">
-            SELECT @@IDENTITY AS id
-        </selectKey>
+
     </update>
 
     <select id="findHeadByName" parameterType="String" resultType="String">
@@ -78,20 +76,31 @@
     </select>
 
     <update id="deleteAddress" parameterType="Int">
-        UPDATE `address` SET `address_isdeleted` = 1 WHERE `address_id`=#{id}
+        UPDATE `address` SET `isdeleted` = 1 WHERE `address_id`=#{id}
         <include refid="notDelete"/>
-        <selectKey keyProperty="id" resultType="Int" order="AFTER">
-            SELECT @@IDENTITY AS id
-        </selectKey>
+
     </update>
 
-    <update id="setDefaultAddress" parameterType="Int">
-        UPDATE `user` SET `address_id` = 1 WHERE `user_id`=#{id}
+    <update id="setDefaultAddress" parameterType="defaultAddress">
+        UPDATE `user` SET `address_id` = #{address_id} WHERE `user_id`=#{user_id}
         <include refid="notDelete"/>
-        <selectKey keyProperty="id" resultType="Int" order="AFTER">
-            SELECT @@IDENTITY AS id
-        </selectKey>
     </update>
+
+    <insert id="setAddress" parameterType="defaultAddress">
+        INSERT INTO `kangyuan`.`address` (
+            `address_content`,
+            `user_id`
+        )
+        VALUES
+            (
+                #{address_content},
+                #{user_id}
+            )
+        <selectKey keyProperty="address_id" resultType="Int" order="AFTER">
+            SELECT @@IDENTITY AS address_id
+        </selectKey>
+
+    </insert>
 
     <sql id="selectUser">
         SELECT
@@ -106,11 +115,11 @@
             user.`user_tel`,
             address.`address_content`
         FROM USER
-            INNER JOIN address ON user.`address_id` = address.`address_id`
+            LEFT JOIN address ON user.`address_id` = address.`address_id`
     </sql>
 
     <sql id="notDelete_user">
-            and user.`isdeleted`=0
+        and user.`isdeleted`=0
     </sql>
     <sql id="notDelete">
         and `isdeleted`=0

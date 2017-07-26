@@ -1,6 +1,7 @@
 package com.springmvc.service.impl
 
 import com.springmvc.Bean.Address
+import com.springmvc.Bean.DefaultAddress
 import com.springmvc.Bean.User
 import com.springmvc.mapper.UserMapper
 import com.springmvc.service.UserService
@@ -17,9 +18,23 @@ import java.util.*
 @Service("userService")
 open class UserServiceImpl : UserService
 {
-    override fun setDefaultAddress(id: Int): Boolean
+    override fun setAddress(address: DefaultAddress): Boolean
     {
-        val result = userMapper.setDefaultAddress(id)
+        val result = userMapper.setAddress(address)
+        val dResult = userMapper.setDefaultAddress(address)
+        if (result != null && dResult != null)
+        {
+            if (result > 0 && dResult > 0)
+            {
+                return true
+            }
+        }
+        return false
+    }
+
+    override fun setDefaultAddress(address: DefaultAddress): Boolean
+    {
+        val result = userMapper.setDefaultAddress(address)
         result?.let { return result > 0 }
         return false
     }
@@ -33,15 +48,15 @@ open class UserServiceImpl : UserService
 
     @Autowired lateinit var userMapper: UserMapper
 
-    override fun getUserDefaultAddress(user: User): Int?
+    override fun getUserDefaultAddress(user_id: Int): Int?
     {
-        val id = user.user_id?.let { userMapper.findDefaultAddressIdById(it) }
+        val id = userMapper.findDefaultAddressIdById(user_id)
         return id
     }
 
-    override fun getUserAddress(user: User): List<Address>?
+    override fun getUserAddress(user_id: Int): List<Address>?
     {
-        val list = user.user_id?.let { userMapper.findAddressById(it) }
+        val list = userMapper.findAddressById(user_id)
         return list
     }
 
@@ -84,16 +99,16 @@ open class UserServiceImpl : UserService
 
     override fun register(user: User): Boolean
     {
-        val fuser = userMapper.findUserByName(user.user_name!!)
+        val fuser = user.user_name?.let { userMapper.findUserByName(it) }
         if (fuser == null)
         {
             user.user_registerdate = Date()
-            val id = userMapper.addUser(user)
-            if (id != null && id > 0)
+            val user_id = userMapper.addUser(user)
+            if (user_id != null && user_id > 0)
                 return true
             return false
         }
         else
-            return true
+            return false
     }
 }

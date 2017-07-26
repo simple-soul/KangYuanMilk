@@ -31,6 +31,7 @@ class StringResponse(override var result: Boolean): Response
 class UserResponse(override var result: Boolean): Response
 {
     var user: User? = null
+    var address: Address? = null
 }
 
 class AddressResponse(override var result: Boolean): Response

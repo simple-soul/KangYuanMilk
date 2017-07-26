@@ -1,9 +1,6 @@
 package com.springmvc.service
 
-import com.springmvc.Bean.Address
-import com.springmvc.Bean.Milk
-import com.springmvc.Bean.MilkCategory
-import com.springmvc.Bean.User
+import com.springmvc.Bean.*
 
 /**
  * Created by simple_soul on 2017/7/15.
@@ -56,17 +53,17 @@ interface UserService
 
     /**
      * 获取用户的所有地址信息
-     * @param user 从客户端传来的用户信息
+     * @param user_id 用户id
      * @return List<Address> 用户的所有地址信息
      */
-    fun getUserAddress(user: User): List<Address>?
+    fun getUserAddress(user_id: Int): List<Address>?
 
     /**
      * 获取用户的默认地址id
-     * @param user 从客户端传来的用户信息
+     * @param user_id 用户id
      * @return Int 用户的默认地址id
      */
-    fun getUserDefaultAddress(user: User): Int?
+    fun getUserDefaultAddress(user_id: Int): Int?
 
     /**
      * 删除收货地址
@@ -77,10 +74,17 @@ interface UserService
 
     /**
      * 设置默认收货地址
-     * @param id 收货地址的id
+     * @param address 收货地址的id和用户id
      * @return Boolean 是否设置成功
      */
-    fun setDefaultAddress(id: Int): Boolean
+    fun setDefaultAddress(address: DefaultAddress): Boolean
+
+    /**
+     * 添加收货地址
+     * @param address 收货地址的id和用户id
+     * @return Boolean 是否添加成功
+     */
+    fun setAddress(address: DefaultAddress): Boolean
 }
 
 interface StudentService

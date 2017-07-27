@@ -19,7 +19,6 @@ inline fun DBUtils(): DriverManagerDataSource
     return dm
 }
 
-@Test
 inline fun getKey()
 {
     val accessKey: String = "KXLzuFCOxgNar5whqU3-0bmrH6rTHOqaidcohRes"

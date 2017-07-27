@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 
 /**
- * Created by simple_soul on 2017/7/21.
+ * Created by simple_soul on 2017/7/21 <br>
  */
-
+/**
+ * 关于用户的表现层操作
+ */
 @Controller
 @RequestMapping("/user")
 class UserController

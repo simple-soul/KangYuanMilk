@@ -32,14 +32,6 @@ interface UserMapper
 
 }
 
-//测试用
-interface StudentMapper
-{
-    fun payMoney()
-
-    fun collectMoney()
-}
-
 /**
  * 关于商品的数据库操作
  */
@@ -48,4 +40,28 @@ interface ShopMapper
     fun getMilkData(): List<Milk>
 
     fun getMilkCategory(): List<MilkCategory>
+}
+
+/**
+ * 关于订单的数据库操作
+ */
+interface OrderMapper
+{
+    fun getOrderInfo(id: Int)
+
+    fun getCartInfo(id: Int)
+
+    fun setOrderInfo()
+
+    fun setCartInfo()
+}
+
+/**
+ * 其他的一些操作
+ */
+interface OtherMapper
+{
+    fun getDomainName(): String
+
+    fun getAdvert()
 }

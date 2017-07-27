@@ -3,6 +3,7 @@ package com.springmvc.service.impl
 import com.springmvc.Bean.Address
 import com.springmvc.Bean.DefaultAddress
 import com.springmvc.Bean.User
+import com.springmvc.mapper.OtherMapper
 import com.springmvc.mapper.UserMapper
 import com.springmvc.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,6 +19,14 @@ import java.util.*
 @Service("userService")
 open class UserServiceImpl : UserService
 {
+    @Autowired lateinit var userMapper: UserMapper
+    @Autowired lateinit var otherMapper: OtherMapper
+
+    override fun getUserInfo(id: Int): User?
+    {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun setAddress(address: DefaultAddress): Boolean
     {
         val result = userMapper.setAddress(address)
@@ -46,8 +55,6 @@ open class UserServiceImpl : UserService
         return false
     }
 
-    @Autowired lateinit var userMapper: UserMapper
-
     override fun getUserDefaultAddress(user_id: Int): Int?
     {
         val id = userMapper.findDefaultAddressIdById(user_id)
@@ -63,7 +70,8 @@ open class UserServiceImpl : UserService
     override fun getUserHead(name: String): String?
     {
         val head = userMapper.findHeadByName(name)
-        return head
+        val domainName = otherMapper.getDomainName()
+        return head?.let { domainName+it }
     }
 
     override fun checkName(name: String): Boolean
@@ -83,9 +91,14 @@ open class UserServiceImpl : UserService
     override fun login(user: User): User?
     {
         val fUser = user.user_name?.let { userMapper.findUserByName(it) }
+        val head = user.user_name?.let { getUserHead(it) }
         fUser?.apply {
             if (fUser.user_pwd == user.user_pwd)
-                return user
+            {
+                fUser.user_head =head
+                return fUser
+            }
+
         }
         return null
     }

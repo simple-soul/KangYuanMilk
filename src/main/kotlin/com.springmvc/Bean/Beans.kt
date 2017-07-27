@@ -1,6 +1,7 @@
 package com.springmvc.Bean
 
 import com.springmvc.annotations.Bean
+import sun.security.x509.DistributionPoint
 import java.math.BigDecimal
 import java.util.*
 
@@ -16,19 +17,11 @@ data class User(
         val user_tel: String?,
         val user_idcard: String?,
         val address_content: String?,
-        val user_head: String?,
+        var user_head: String?,
         val user_sex: Boolean?,
         var user_registerdate: Date?,
         val remark: String?
                )
-
-@Bean
-data class Student(
-        val name: String?,
-        val id: Int?,
-        val age: Int?,
-        val money: Int?
-                  )
 
 @Bean
 data class Address(
@@ -60,6 +53,21 @@ data class MilkCategory(
         val category_name: String?,
         val remark: String?
                        )
+
+@Bean
+data class Order(
+        val order_id: Int?,
+        val order_number: String?,
+        val user_id: Int?,
+        val address_content: String?,
+        val courier_id: Int?,
+        val distribution_startdate: Date?,
+        val distribution_enddate: Date?,
+        val distribution_renew: Int?,
+        var order_date: Date?,
+        val order_money: BigDecimal?,
+        val remark: String?
+                )
 
 
 

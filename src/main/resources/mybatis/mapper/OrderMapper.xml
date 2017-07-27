@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--对sql进行分类隔离,指定对应的mapper接口-->
+<mapper namespace="com.springmvc.mapper.OrderMapper" >
+    
+
+
+    <sql id="whereNotDelete">
+        <where>
+            `isdeleted`=0
+        </where>
+    </sql>
+</mapper>

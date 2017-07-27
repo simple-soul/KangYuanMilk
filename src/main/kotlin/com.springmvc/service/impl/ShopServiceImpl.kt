@@ -17,7 +17,6 @@ class ShopServiceImpl: ShopService
 
     override fun getMilkData(): List<Milk>?
     {
-
         return shopMapper.getMilkData()
     }
 

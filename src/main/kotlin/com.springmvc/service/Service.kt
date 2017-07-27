@@ -7,7 +7,7 @@ import com.springmvc.Bean.*
  */
 
 /**
- *  对用户操作的业务层,实现详见 {@link UserServiceImpl}
+ *  对用户操作的业务层,实现详见 {@link com.springmvc.service.impl.UserServiceImpl}
  */
 interface UserService
 {
@@ -85,16 +85,42 @@ interface UserService
      * @return Boolean 是否添加成功
      */
     fun setAddress(address: DefaultAddress): Boolean
+
+    /**
+     * 获取用户信息
+     * @param id 用户id
+     * @return User 用户信息
+     */
+    fun getUserInfo(id: Int): User?
 }
 
-interface StudentService
-{
-    fun account()
-}
-
+/**
+ *  对用户操作的业务层,实现详见 {@link UserServiceImpl}
+ */
 interface ShopService
 {
+    /**
+     * 获取牛奶数据
+     * @return List<Milk> 所有的牛奶数据
+     */
     fun getMilkData(): List<Milk>?
 
+    /**
+     * 获取牛奶分类
+     * @return List<MilkCategory> 所有的牛奶分类
+     */
     fun getMilkCategory(): List<MilkCategory>?
 }
+
+interface OrderService
+{
+    fun getOrderInfo(id: Int)
+
+    fun getCartInfo(id: Int)
+
+    fun setOrderInfo()
+
+    fun setCartInfo()
+}
+
+interface OtherService

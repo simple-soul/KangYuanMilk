@@ -20,31 +20,25 @@ class SystemExceptionResolver : HandlerExceptionResolver
     override fun resolveException(request: HttpServletRequest?, response: HttpServletResponse?, handler: Any?, ex: Exception?): ModelAndView
     {
         val systemException: SystemException?
-        val result: ServerResponse?
-
+        val result: ServerResponse = ServerResponse(500)
         if (null != ex)
         {
             if (ex.message != null && ex is Exception)
             {
                 systemException = SystemException(ex.message!!)
-                result = ServerResponse(500)
             }
             else
             {
                 systemException = SystemException("服务器发生未知错误")
-                result = ServerResponse(500)
             }
             println("服务器错误----------->${ex.message}")
         }
         else
         {
             systemException = SystemException("服务器发生未知错误")
-            result = ServerResponse(500)
         }
 
-        val res = StringResponse(false)
-        res.message = systemException.message
-        result.response = res
+        result.response = StringResponse(false, systemException.message)
         val gson = Gson()
         response?.writer!!.write(gson.toJson(result))
         return ModelAndView()

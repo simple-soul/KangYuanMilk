@@ -24,31 +24,15 @@ data class ServerResponse(var status: Int)
 
 class BooleanResponse(override var result: Boolean): Response
 
-class StringResponse(override var result: Boolean): Response
-{
-    var message: String? = null
-}
-class UserResponse(override var result: Boolean): Response
-{
-    var user: User? = null
-    var address: Address? = null
-}
+class StringResponse(override var result: Boolean, var message: String?): Response
 
-class AddressResponse(override var result: Boolean): Response
-{
-    var addresses: List<Address>? = null
-    var defaultId: Int? = null
-}
+class UserResponse(override var result: Boolean, var user: User? = null,var address: Address? = null): Response
 
-class MilkResponse(override var result: Boolean): Response
-{
-    var milks: List<Milk>? = null
-}
+class AddressResponse(override var result: Boolean, var addresses: List<Address>? = null, var defaultId: Int? = null): Response
 
-class MilkCategoryResponse(override var result: Boolean): Response
-{
-    var milkCategory: List<MilkCategory>? = null
-}
+class MilkResponse(override var result: Boolean, var milks: List<Milk>? = null): Response
+
+class MilkCategoryResponse(override var result: Boolean, var milkCategory: List<MilkCategory>? = null): Response
 
 
 

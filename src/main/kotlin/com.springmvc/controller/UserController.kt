@@ -1,6 +1,7 @@
 package com.springmvc.controller
 
 import com.springmvc.Bean.*
+import com.springmvc.service.OtherService
 import com.springmvc.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 class UserController
 {
     @Autowired lateinit var userService: UserService
+    @Autowired lateinit var otherService: OtherService
 
     /**
      * 用户注册
@@ -44,9 +46,7 @@ class UserController
         println("login客户端传来的数据----------->$user")
         val result = ServerResponse(if (user?.user_name == null) 400 else 200)
         val fuser = user?.let { userService.login(it) }
-        val response = UserResponse(fuser != null)
-        fuser?.apply { response.user = fuser }
-        result.response = response
+        result.response = UserResponse(fuser != null, fuser?.let{ it })
         return result
     }
 
@@ -74,9 +74,7 @@ class UserController
         val result = ServerResponse(if (user == null) 400 else 200)
         val headUrl = user?.user_name?.let { userService.getUserHead(it) }
         println("获取用户头像--------->$headUrl"+(headUrl != null))
-        val response =  StringResponse(headUrl != null)
-        headUrl?.apply { response.message = headUrl }
-        result.response = response
+        result.response = StringResponse(headUrl != null, headUrl?.let { it })
         return result
     }
 
@@ -91,19 +89,11 @@ class UserController
         val result = ServerResponse(if (user == null) 400 else 200)
         val list = user?.user_id?.let { userService.getUserAddress(it) }
         val id = user?.user_id?.let { userService.getUserDefaultAddress(it) }
-        val response: AddressResponse
-        if(list != null && id != null)
-        {
-            response = AddressResponse(true)
-            println("用户地址------$list")
-            response.addresses = list
-            response.defaultId = id
-        }
+        result.response = if(list != null && id != null)
+            AddressResponse(true, list, id)
         else
-        {
-            response = AddressResponse(false)
-        }
-        result.response = response
+            AddressResponse(false)
+
         return result
     }
 
@@ -149,6 +139,16 @@ class UserController
         {
             result.response.result = userService.setAddress(address)
         }
+        return result
+    }
+
+    @ResponseBody
+    @RequestMapping("/update", method = arrayOf(RequestMethod.POST))
+    fun update(@RequestBody user: User?): ServerResponse
+    {
+        println("update客户端传来的数据----------->$user")
+        val result = ServerResponse(if(user == null)400 else 200)
+        result.response = StringResponse(user?.let { userService.changeInfo(it) }?:false, otherService.getQiNiu())
         return result
     }
 }

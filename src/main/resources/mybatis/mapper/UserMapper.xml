@@ -52,6 +52,7 @@
         `user_name` = #{user_name},
         `user_pwd` = #{user_pwd},
         `user_tel` = #{user_tel},
+        `user_idcard` = #{user_idcard},
         `user_head` = #{user_head},
         `user_sex` = #{user_sex},
         `remark` = #{remark}

@@ -124,3 +124,6 @@ interface OrderService
 }
 
 interface OtherService
+{
+    fun getQiNiu(): String
+}

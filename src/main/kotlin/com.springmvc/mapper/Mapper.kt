@@ -10,6 +10,9 @@ import com.springmvc.Bean.*
  */
 interface UserMapper
 {
+    /**
+     *
+     */
     fun addUser(user: User): Int?
 
     fun findUserByName(name: String): User?

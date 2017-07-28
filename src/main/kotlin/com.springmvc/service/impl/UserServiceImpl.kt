@@ -76,15 +76,16 @@ open class UserServiceImpl : UserService
 
     override fun checkName(name: String): Boolean
     {
-        val fuser = userMapper.findUserByName(name)
-        println("检查用户名---$fuser")
-        return (fuser == null)
+        val fUser = userMapper.findUserByName(name)
+        println("检查用户名---$fUser")
+        return (fUser == null)
     }
 
 
     override fun changeInfo(user: User): Boolean
     {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val result = userMapper.updateUser(user)
+        return result?.let { result > 0}?:false
     }
 
 

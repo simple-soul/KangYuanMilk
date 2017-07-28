@@ -1,6 +1,8 @@
 package com.springmvc.service.impl
 
+import com.springmvc.mapper.OtherMapper
 import com.springmvc.service.OtherService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 /**
@@ -8,3 +10,11 @@ import org.springframework.stereotype.Service
  */
 @Service(value = "otherService")
 class OtherServiceImpl: OtherService
+{
+    @Autowired lateinit var otherMapper: OtherMapper
+
+    override fun getQiNiu(): String
+    {
+        return otherMapper.getDomainName()
+    }
+}

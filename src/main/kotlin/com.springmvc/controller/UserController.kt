@@ -115,7 +115,7 @@ class UserController
      */
     @ResponseBody
     @RequestMapping("/setDefaultAddress", method = arrayOf(RequestMethod.POST))
-    fun setDefaultAddress(@RequestBody address: DefaultAddress?): ServerResponse
+    fun setDefaultAddress(@RequestBody address: Address?): ServerResponse
     {
         println("deleteAddress客户端传来的数据----------->$address")
         val result = ServerResponse(if (address?.address_id == null || address.user_id == null) 400 else 200)
@@ -131,7 +131,7 @@ class UserController
      */
     @ResponseBody
     @RequestMapping("/setAddress", method = arrayOf(RequestMethod.POST))
-    fun setAddress(@RequestBody address: DefaultAddress?): ServerResponse
+    fun setAddress(@RequestBody address: Address?): ServerResponse
     {
         println("deleteAddress客户端传来的数据----------->$address")
         val result = ServerResponse(if (address?.address_content == null || address.user_id == null) 400 else 200)
@@ -142,6 +142,9 @@ class UserController
         return result
     }
 
+    /**
+     * 更新用户数据
+     */
     @ResponseBody
     @RequestMapping("/update", method = arrayOf(RequestMethod.POST))
     fun update(@RequestBody user: User?): ServerResponse

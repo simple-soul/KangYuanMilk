@@ -26,14 +26,18 @@ data class User(
 @Bean
 data class Address(
         val address_id: Int?,
-        val address_content: String?
+        var address_content: String?,
+        val user_id: Int?,
+        val ads_id: Int?
                   )
 
 @Bean
-data class DefaultAddress(
-        val address_id: Int?,
-        val address_content: String?,
-        val user_id: Int?)
+data class Ads(
+        val id: Int,
+        val parentId: Int,
+        val code: Int,
+        val name: String
+)
 
 @Bean
 data class Milk(

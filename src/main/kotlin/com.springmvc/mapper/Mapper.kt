@@ -10,9 +10,7 @@ import com.springmvc.Bean.*
  */
 interface UserMapper
 {
-    /**
-     *
-     */
+
     fun addUser(user: User): Int?
 
     fun findUserByName(name: String): User?
@@ -29,9 +27,11 @@ interface UserMapper
 
     fun deleteAddress(id: Int): Int?
 
-    fun setDefaultAddress(address: DefaultAddress): Int?
+    fun setDefaultAddress(address: Address): Int?
 
-    fun setAddress(address: DefaultAddress): Int?
+    fun setAddress(address: Address): Int?
+
+    fun findAdsById(id: Int): Ads
 
 }
 

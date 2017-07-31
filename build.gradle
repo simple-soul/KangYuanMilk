@@ -20,13 +20,12 @@ apply plugin: 'war'
 apply plugin: 'kotlin-noarg'
 apply plugin: 'kotlin-allopen'
 
-noArg{
+noArg {
     annotation("com.springmvc.annotations.Bean")
 }
-allOpen{
+allOpen {
     annotation("com.springmvc.annotations.Bean")
 }
-
 
 repositories {
     jcenter()

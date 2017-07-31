@@ -1,7 +1,6 @@
 package com.springmvc.utils
 
 import com.qiniu.util.Auth
-import org.junit.Test
 import org.springframework.jdbc.datasource.DriverManagerDataSource
 
 

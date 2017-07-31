@@ -77,14 +77,14 @@ interface UserService
      * @param address 收货地址的id和用户id
      * @return Boolean 是否设置成功
      */
-    fun setDefaultAddress(address: DefaultAddress): Boolean
+    fun setDefaultAddress(address: Address): Boolean
 
     /**
      * 添加收货地址
      * @param address 收货地址的id和用户id
      * @return Boolean 是否添加成功
      */
-    fun setAddress(address: DefaultAddress): Boolean
+    fun setAddress(address: Address): Boolean
 
     /**
      * 获取用户信息
@@ -92,6 +92,13 @@ interface UserService
      * @return User 用户信息
      */
     fun getUserInfo(id: Int): User?
+
+    /**
+     * 获取地址的全称(Utils)
+     * @param list 需要获取全称的address对象
+     * @return List<Address> 返回全称
+     */
+    fun getAllName(list: ArrayList<Address>): List<Address>
 }
 
 /**

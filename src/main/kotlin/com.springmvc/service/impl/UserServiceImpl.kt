@@ -1,7 +1,6 @@
 package com.springmvc.service.impl
 
 import com.springmvc.Bean.Address
-import com.springmvc.Bean.DefaultAddress
 import com.springmvc.Bean.User
 import com.springmvc.mapper.OtherMapper
 import com.springmvc.mapper.UserMapper
@@ -9,6 +8,7 @@ import com.springmvc.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by simple_soul on 2017/7/15.
@@ -19,15 +19,53 @@ import java.util.*
 @Service("userService")
 open class UserServiceImpl : UserService
 {
+
     @Autowired lateinit var userMapper: UserMapper
     @Autowired lateinit var otherMapper: OtherMapper
+
+    override fun getAllName(list: ArrayList<Address>): List<Address>
+    {
+        println("开始$list")
+        for ((index, item) in list.withIndex())
+        {
+            val array = arrayListOf<String>()
+            array.add(item.address_content!!)
+            val id = item.ads_id
+            if(id != null)
+            {
+                var ads = userMapper.findAdsById(id)
+                array.add(ads.name)
+                while (ads.parentId != 0)
+                {
+                    ads = userMapper.findAdsById(ads.parentId)
+                    println(ads)
+                    array.add(ads.name)
+                }
+            }
+            else
+            {
+                list[index].address_content = array[0]
+                break
+            }
+            println("array=$array,size=${array.size}")
+            val sb = StringBuffer()
+            for ((index,value) in array.withIndex())
+            {
+                sb.insert(0, array[index])
+            }
+            println("中间$sb")
+            list[index].address_content = sb.toString()
+        }
+        println("最后$list")
+        return list
+    }
 
     override fun getUserInfo(id: Int): User?
     {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setAddress(address: DefaultAddress): Boolean
+    override fun setAddress(address: Address): Boolean
     {
         val result = userMapper.setAddress(address)
         val dResult = userMapper.setDefaultAddress(address)
@@ -41,7 +79,7 @@ open class UserServiceImpl : UserService
         return false
     }
 
-    override fun setDefaultAddress(address: DefaultAddress): Boolean
+    override fun setDefaultAddress(address: Address): Boolean
     {
         val result = userMapper.setDefaultAddress(address)
         result?.let { return result > 0 }
@@ -64,14 +102,14 @@ open class UserServiceImpl : UserService
     override fun getUserAddress(user_id: Int): List<Address>?
     {
         val list = userMapper.findAddressById(user_id)
-        return list
+        return list?.let { getAllName(list as ArrayList<Address>) }
     }
 
     override fun getUserHead(name: String): String?
     {
         val head = userMapper.findHeadByName(name)
         val domainName = otherMapper.getDomainName()
-        return head?.let { domainName+it }
+        return head?.let { domainName + it }
     }
 
     override fun checkName(name: String): Boolean
@@ -85,7 +123,7 @@ open class UserServiceImpl : UserService
     override fun changeInfo(user: User): Boolean
     {
         val result = userMapper.updateUser(user)
-        return result?.let { result > 0}?:false
+        return result?.let { result > 0 } ?: false
     }
 
 
@@ -96,7 +134,7 @@ open class UserServiceImpl : UserService
         fUser?.apply {
             if (fUser.user_pwd == user.user_pwd)
             {
-                fUser.user_head =head
+                fUser.user_head = head
                 return fUser
             }
 

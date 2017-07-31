@@ -67,7 +67,7 @@
     </select>
 
     <select id="findAddressById" parameterType="Int" resultType="address">
-        SELECT `address_id`, `address_content` FROM address WHERE `user_id` = #{user_id}
+        SELECT * FROM address WHERE `user_id` = #{user_id}
         <include refid="notDelete"/>
     </select>
 
@@ -82,26 +82,33 @@
 
     </update>
 
-    <update id="setDefaultAddress" parameterType="defaultAddress">
+    <update id="setDefaultAddress" parameterType="address">
         UPDATE `user` SET `address_id` = #{address_id} WHERE `user_id`=#{user_id}
         <include refid="notDelete"/>
     </update>
 
-    <insert id="setAddress" parameterType="defaultAddress">
+    <insert id="setAddress" parameterType="address">
         INSERT INTO `kangyuan`.`address` (
             `address_content`,
-            `user_id`
+            `user_id`,
+            `ads_id`
         )
         VALUES
             (
                 #{address_content},
-                #{user_id}
+                #{user_id},
+                #{ads_id}
             )
         <selectKey keyProperty="address_id" resultType="Int" order="AFTER">
             SELECT @@IDENTITY AS address_id
         </selectKey>
 
     </insert>
+
+    <select id="findAdsById" parameterType="Int" resultType="ads">
+        SELECT * FROM ads WHERE id=#{id}
+    </select>
+
 
     <sql id="selectUser">
         SELECT

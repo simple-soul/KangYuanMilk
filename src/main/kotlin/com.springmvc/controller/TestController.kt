@@ -16,7 +16,7 @@ class TestController
     {
         val mav = ModelAndView()
         mav.viewName ="test.jsp"
-        val address = Address(1, "王家村89号")
+        val address = Address(1, "王家村89号",1,2)
         mav.addObject("address", address)
         return mav
     }

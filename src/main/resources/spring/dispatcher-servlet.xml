@@ -28,7 +28,7 @@
     <mvc:annotation-driven/>
 
     <!--全局异常处理器-->
-    <bean class="com.springmvc.exception.SystemExceptionResolver"/>
+    <!--<bean class="com.springmvc.exception.SystemExceptionResolver"/>-->
 
     <!--视图解析器
     解析jsp，默认使用jstl标签-->

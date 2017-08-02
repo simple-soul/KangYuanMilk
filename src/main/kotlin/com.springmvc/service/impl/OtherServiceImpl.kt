@@ -13,6 +13,11 @@ class OtherServiceImpl: OtherService
 {
     @Autowired lateinit var otherMapper: OtherMapper
 
+    override fun setQiNiu(domain: String): Boolean
+    {
+        return otherMapper.setDomainName(domain) > 0
+    }
+
     override fun getQiNiu(): String
     {
         return otherMapper.getDomainName()

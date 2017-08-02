@@ -1,4 +1,4 @@
-package com.springmvc.service.impl
+package com.springmvc.service.impl.Android
 
 import com.springmvc.Bean.Milk
 import com.springmvc.Bean.MilkCategory

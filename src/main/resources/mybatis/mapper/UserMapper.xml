@@ -53,7 +53,9 @@
         `user_pwd` = #{user_pwd},
         `user_tel` = #{user_tel},
         `user_idcard` = #{user_idcard},
-        `user_head` = #{user_head},
+        <if test="user_head!=null">
+            `user_head` = #{user_head},
+        </if>
         `user_sex` = #{user_sex},
         `remark` = #{remark}
         WHERE `user_id` = #{user_id}

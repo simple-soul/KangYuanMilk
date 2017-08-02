@@ -2,6 +2,9 @@ package com.springmvc.utils
 
 import com.qiniu.util.Auth
 import org.springframework.jdbc.datasource.DriverManagerDataSource
+import java.security.NoSuchAlgorithmException
+import java.security.MessageDigest
+import kotlin.experimental.and
 
 
 /**
@@ -29,3 +32,36 @@ inline fun getKey()
     println(upToken)
 }
 
+inline fun md5(string: String?): String
+{
+    string ?: return ""
+    try {
+        //获取md5加密对象
+        val instance:MessageDigest = MessageDigest.getInstance("MD5")
+        val sb: StringBuffer = StringBuffer()
+        for (a in 1..10)
+        {
+            //对字符串加密，返回字节数组
+            val digest: ByteArray = instance.digest(sb.toString().toByteArray())
+            sb.setLength(0)
+            for (b in digest)
+            {
+                val i = b.toInt() and 0xff//获取低八位有效值
+                var hexString = Integer.toHexString(i)//将整数转化为16进制
+                if (hexString.length < 2)
+                {
+                    hexString = "0" + hexString//如果是一位的话，补0
+                }
+                sb.append(hexString)
+            }
+            if (a != 10)
+                sb.append("mvc")
+        }
+        return sb.toString()
+
+    } catch (e: NoSuchAlgorithmException) {
+        e.printStackTrace()
+    }
+
+    return ""
+}

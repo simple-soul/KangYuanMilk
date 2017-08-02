@@ -21,7 +21,7 @@ data class User(
         val user_sex: Boolean?,
         var user_registerdate: Date?,
         val remark: String?
-               )
+)
 
 @Bean
 data class Address(
@@ -29,7 +29,7 @@ data class Address(
         var address_content: String?,
         val user_id: Int?,
         val ads_id: Int?
-                  )
+)
 
 @Bean
 data class Ads(
@@ -49,14 +49,14 @@ data class Milk(
         val milk_spec: String?,
         val milk_sales: Int?,
         val remark: String?
-               )
+)
 
 @Bean
 data class MilkCategory(
         val category_id: Int?,
         val category_name: String?,
         val remark: String?
-                       )
+)
 
 @Bean
 data class Order(
@@ -71,9 +71,26 @@ data class Order(
         var order_date: Date?,
         val order_money: BigDecimal?,
         val remark: String?
-                )
+)
 
+@Bean
+data class Staff(
+        val staff_id: Int?,
+        val staff_name: String?,
+        val staff_username: String?,
+        val staff_pwd: String?,
+        val staff_sex: Boolean?,
+        val staff_idcard: String?,
+        val staff_tel: String?,
+        val staff_authority: Int?,
+        val isdeleted: Boolean?,
+        val remark: String?
+)
 
-
+@Bean
+data class Query(
+        val key: String?,
+        val num: Int?
+)
 
 

@@ -1,4 +1,4 @@
-package com.springmvc.service.impl
+package com.springmvc.service.impl.Android
 
 import com.springmvc.Bean.Address
 import com.springmvc.Bean.User
@@ -48,13 +48,8 @@ open class UserServiceImpl : UserService
                 break
             }
             println("array=$array,size=${array.size}")
-            val sb = StringBuffer()
-            for ((index,value) in array.withIndex())
-            {
-                sb.insert(0, array[index])
-            }
-            println("中间$sb")
-            list[index].address_content = sb.toString()
+
+            list[index].address_content = array.fold(StringBuffer()){acc,i -> acc.insert(0, i)}.toString()
         }
         println("最后$list")
         return list

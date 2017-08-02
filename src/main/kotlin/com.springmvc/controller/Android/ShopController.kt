@@ -1,4 +1,4 @@
-package com.springmvc.controller
+package com.springmvc.controller.Android
 
 import com.springmvc.Bean.MilkCategoryResponse
 import com.springmvc.Bean.MilkResponse
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody
  * Created by simple_soul on 2017/7/24.
  */
 @Controller
-@RequestMapping("/shop")
+@RequestMapping("/android/shop")
 class ShopController
 {
     @Autowired lateinit var shopService: ShopService

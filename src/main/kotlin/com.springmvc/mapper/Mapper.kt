@@ -10,14 +10,13 @@ import com.springmvc.Bean.*
  */
 interface UserMapper
 {
-
     fun addUser(user: User): Int?
 
     fun findUserByName(name: String): User?
 
     fun findUserById(id: Int): User?
 
-    fun updateUser(user: User):Int?
+    fun updateUser(user: User):Int
 
     fun findHeadByName(name: String):String?
 
@@ -32,7 +31,6 @@ interface UserMapper
     fun setAddress(address: Address): Int?
 
     fun findAdsById(id: Int): Ads
-
 }
 
 /**
@@ -66,5 +64,23 @@ interface OtherMapper
 {
     fun getDomainName(): String
 
+    fun setDomainName(domain: String): Int
+
     fun getAdvert()
+}
+
+
+interface StaffMapper
+{
+    fun findStaffByUsername(staff: Staff): Staff?
+
+    fun updatePassword(staff: Staff): Int
+
+    fun getStaffList(start: Int): List<Staff>?
+
+    fun findSomeoneInStaffs(query: Query): List<Staff>?
+
+    fun getStaffsCount(): Int
+
+
 }

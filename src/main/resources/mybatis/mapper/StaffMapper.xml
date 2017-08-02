@@ -4,15 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--对sql进行分类隔离,指定对应的mapper接口-->
-<mapper namespace="com.springmvc.mapper.OtherMapper" >
+<mapper namespace="com.springmvc.mapper.StaffMapper" >
 
-    <select id="getDomainName" resultType="String">
-        SELECT `qiniu` FROM config
+    <select id="findStaffByUsername" parameterType="staff" resultType="staff">
+        SELECT * FROM `staff` WHERE `staff_username` = #{staff_username}
     </select>
-
-    <update id="setDomainName" parameterType="String">
-        UPDATE `qiniu` SET `qiniu`= #{domain}
-    </update>
 
     <sql id="whereNotDelete">
         <where>

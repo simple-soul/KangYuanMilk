@@ -7,7 +7,7 @@ import com.springmvc.Bean.*
  */
 
 /**
- *  对用户操作的业务层,实现详见 {@link com.springmvc.service.impl.UserServiceImpl}
+ *  对用户操作的业务层,实现详见 {@link com.springmvc.service.impl.Android.UserServiceImpl}
  */
 interface UserService
 {
@@ -121,6 +121,7 @@ interface ShopService
 
 interface OrderService
 {
+
     fun getOrderInfo(id: Int)
 
     fun getCartInfo(id: Int)
@@ -132,5 +133,31 @@ interface OrderService
 
 interface OtherService
 {
+    /**
+     * 获取七牛云域名
+     * @return String 返回域名
+     */
     fun getQiNiu(): String
+
+    /**
+     * 修改七牛云域名
+     * @param domain 现在的域名
+     */
+    fun setQiNiu(domain: String): Boolean
+}
+
+interface StaffWebService
+{
+    /**
+     * 员工登录
+     * @param staff 员工信息(用户名和密码)
+     * @return Boolean 是否成功
+     */
+    fun login(staff: Staff): Boolean
+
+    fun updatePassword(staff: Staff): Boolean
+
+    fun searchStaffs(query: Query): List<Staff>
+
+
 }

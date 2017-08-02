@@ -28,6 +28,8 @@
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
+        <url-pattern>/assets/**</url-pattern>
+        <url-pattern>/js/**</url-pattern>
     </servlet-mapping>
 
     <!--post乱码过滤器-->

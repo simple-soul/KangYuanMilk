@@ -1,4 +1,4 @@
-package com.springmvc.controller
+package com.springmvc.controller.Android
 
 import com.springmvc.Bean.*
 import com.springmvc.service.OtherService
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody
  * 关于用户的表现层操作
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/android/user")
 class UserController
 {
     @Autowired lateinit var userService: UserService

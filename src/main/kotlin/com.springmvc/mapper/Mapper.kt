@@ -14,15 +14,15 @@ interface UserMapper
 
     fun findUserByName(name: String): User?
 
-    fun findUserById(id: Int): User?
+    fun updateUser(user: User): Int
 
-    fun updateUser(user: User):Int
+    fun findHeadByName(name: String): String?
 
-    fun findHeadByName(name: String):String?
+    fun findAddressListByUserId(id: Int): List<Address>?
 
-    fun findAddressById(id: Int):List<Address>?
+    fun findAddressById(id: Int): Address
 
-    fun findDefaultAddressIdById(id: Int):Int?
+    fun findDefaultAddressIdById(id: Int): Int?
 
     fun deleteAddress(id: Int): Int?
 
@@ -72,7 +72,7 @@ interface OtherMapper
 
 interface StaffMapper
 {
-    fun findStaffByUsername(staff: Staff): Staff?
+    fun findStaffByUsername(check: Check): Staff?
 
     fun updatePassword(staff: Staff): Int
 

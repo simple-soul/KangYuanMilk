@@ -55,11 +55,6 @@ open class UserServiceImpl : UserService
         return list
     }
 
-    override fun getUserInfo(id: Int): User?
-    {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun setAddress(address: Address): Boolean
     {
         val result = userMapper.setAddress(address)
@@ -96,15 +91,14 @@ open class UserServiceImpl : UserService
 
     override fun getUserAddress(user_id: Int): List<Address>?
     {
-        val list = userMapper.findAddressById(user_id)
+        val list = userMapper.findAddressListByUserId(user_id)
         return list?.let { getAllName(list as ArrayList<Address>) }
     }
 
     override fun getUserHead(name: String): String?
     {
         val head = userMapper.findHeadByName(name)
-        val domainName = otherMapper.getDomainName()
-        return head?.let { domainName + it }
+        return head
     }
 
     override fun checkName(name: String): Boolean
@@ -118,21 +112,23 @@ open class UserServiceImpl : UserService
     override fun changeInfo(user: User): Boolean
     {
         val result = userMapper.updateUser(user)
-        return result?.let { result > 0 } ?: false
+        return result > 0
     }
 
 
     override fun login(user: User): User?
     {
         val fUser = user.user_name?.let { userMapper.findUserByName(it) }
-        val head = user.user_name?.let { getUserHead(it) }
         fUser?.apply {
             if (fUser.user_pwd == user.user_pwd)
             {
-                fUser.user_head = head
+                val address = fUser.address_id?.let { userMapper.findAddressById(it) }
+                val list = ArrayList<Address>()
+                address?.let { list.add(it) } ?: return fUser
+                val array = getAllName(list)
+                fUser.address_content = array[0].address_content
                 return fUser
             }
-
         }
         return null
     }
@@ -140,14 +136,14 @@ open class UserServiceImpl : UserService
 
     override fun forget()
     {
-
+        TODO("忘记密码")
     }
 
 
     override fun register(user: User): Boolean
     {
-        val fuser = user.user_name?.let { userMapper.findUserByName(it) }
-        if (fuser == null)
+        val fUser = user.user_name?.let { userMapper.findUserByName(it) }
+        if (fUser == null)
         {
             user.user_registerdate = Date()
             val user_id = userMapper.addUser(user)

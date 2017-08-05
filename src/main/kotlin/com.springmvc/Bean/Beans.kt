@@ -16,7 +16,8 @@ data class User(
         val user_pwd: String?,
         val user_tel: String?,
         val user_idcard: String?,
-        val address_content: String?,
+        val address_id: Int?,
+        var address_content: String?,
         var user_head: String?,
         val user_sex: Boolean?,
         var user_registerdate: Date?,
@@ -91,6 +92,14 @@ data class Staff(
 data class Query(
         val key: String?,
         val num: Int?
+)
+
+@Bean
+data class Check(
+        val username: String,
+        val password: String,
+        val code: String,
+        val remember: Boolean
 )
 
 

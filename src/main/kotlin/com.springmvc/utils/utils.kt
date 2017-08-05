@@ -2,9 +2,13 @@ package com.springmvc.utils
 
 import com.qiniu.util.Auth
 import org.springframework.jdbc.datasource.DriverManagerDataSource
+import java.awt.Color
 import java.security.NoSuchAlgorithmException
 import java.security.MessageDigest
 import kotlin.experimental.and
+import java.util.Random
+
+
 
 
 /**
@@ -65,3 +69,4 @@ inline fun md5(string: String?): String
 
     return ""
 }
+

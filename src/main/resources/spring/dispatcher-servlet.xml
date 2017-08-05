@@ -44,9 +44,10 @@
             <mvc:exclude-mapping path="/**/*.gif"/>
             <mvc:exclude-mapping path="/**/*.jpg"/>
             <mvc:exclude-mapping path="/**/*.jpeg"/>
-            <mvc:exclude-mapping path="/**/login"/>
+            <mvc:exclude-mapping path="/**/*login*"/>
             <mvc:exclude-mapping path="/**/*test*"/>
             <mvc:exclude-mapping path="/android/**"/>
+            <mvc:exclude-mapping path="/**/getCode"/>
             <bean class="com.springmvc.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
@@ -54,8 +55,8 @@
     <!--视图解析器
     解析jsp，默认使用jstl标签-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
+        <!--<property name="prefix" value="/WEB-INF/jsp/"/>-->
+        <!--<property name="suffix" value=".jsp"/>-->
     </bean>
 
 </beans>

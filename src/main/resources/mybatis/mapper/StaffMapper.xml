@@ -6,8 +6,8 @@
 <!--对sql进行分类隔离,指定对应的mapper接口-->
 <mapper namespace="com.springmvc.mapper.StaffMapper" >
 
-    <select id="findStaffByUsername" parameterType="staff" resultType="staff">
-        SELECT * FROM `staff` WHERE `staff_username` = #{staff_username}
+    <select id="findStaffByUsername" parameterType="check" resultType="staff">
+        SELECT * FROM `staff` WHERE `staff_username` = #{username}
     </select>
 
     <sql id="whereNotDelete">

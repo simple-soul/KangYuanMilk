@@ -2,9 +2,7 @@
   <artifact type="exploded-war" name="Gradle : com.spring.mvc : SpringMVC-1.0-SNAPSHOT.war (exploded)">
     <output-path>$PROJECT_DIR$/build/libs/exploded/SpringMVC-1.0-SNAPSHOT.war</output-path>
     <properties id="gradle-properties">
-      <options external-project-path="$PROJECT_DIR$">
-        <manifest>TWFuaWZlc3QtVmVyc2lvbjogMS4wDQoNCg==</manifest>
-      </options>
+      <options external-project-path="$PROJECT_DIR$" />
     </properties>
     <root id="root">
       <element id="directory" name="META-INF">
@@ -63,6 +61,7 @@
           <element id="library" level="project" name="Gradle: org.jetbrains:annotations:13.0" />
           <element id="library" level="project" name="Gradle: org.apache.ant:ant-launcher:1.9.6" />
           <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.8.0" />
+          <element id="extracted-dir" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/ValidateCode.jar" path-in-jar="/" />
         </element>
       </element>
     </root>

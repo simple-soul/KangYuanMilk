@@ -21,7 +21,7 @@ class LoginInterceptor : HandlerInterceptor
     override fun preHandle(request: HttpServletRequest?, response: HttpServletResponse?, handler: Any?): Boolean
     {
         request?.requestURL?.let {
-            request.session?.getAttribute("name")?.let { return true } ?: request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response)
+            request.session?.getAttribute("kangyuan_name")?.let { return true } ?: request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response)
         } ?: return false
         return false
     }

@@ -31,9 +31,7 @@ class UserController
     fun register(@RequestBody user: User?): ServerResponse
     {
         println("register客户端传来的数据----------->$user")
-        val result = ServerResponse(if (user?.user_name == null) 400 else 200)
-        user?.user_name?.let { result.response.result = userService.register(user) }
-        return result
+        user?.user_name?.let { return ServerResponse(200, BooleanResponse(userService.register(user))) } ?: return ServerResponse(400)
     }
 
     /**
@@ -44,10 +42,10 @@ class UserController
     fun login(@RequestBody user: User?): ServerResponse
     {
         println("login客户端传来的数据----------->$user")
-        val result = ServerResponse(if (user?.user_name == null) 400 else 200)
-        val fuser = user?.let { userService.login(it) }
-        result.response = UserResponse(fuser != null, fuser?.let{ it })
-        return result
+        user?.user_name?.let {
+            val result = userService.login(user)
+            return ServerResponse(200, UserResponse(result !== null, result))
+        } ?: return ServerResponse(400)
     }
 
     /**
@@ -58,9 +56,7 @@ class UserController
     fun checkName(@RequestBody user: User?): ServerResponse
     {
         println("checkName客户端传来的数据----------->$user")
-        val result = ServerResponse(if (user?.user_name == null) 400 else 200)
-        user?.user_name?.apply { result.response.result = userService.checkName(user.user_name!!) }
-        return result
+        user?.user_name?.let { return ServerResponse(200, BooleanResponse(userService.checkName(it))) } ?: return ServerResponse(400)
     }
 
     /**
@@ -71,11 +67,10 @@ class UserController
     fun getHead(@RequestBody user: User?): ServerResponse
     {
         println("getHead客户端传来的数据----------->$user")
-        val result = ServerResponse(if (user == null) 400 else 200)
-        val headUrl = user?.user_name?.let { userService.getUserHead(it) }
-        println("获取用户头像--------->$headUrl"+(headUrl != null))
-        result.response = StringResponse(headUrl != null, headUrl?.let { it })
-        return result
+        user?.user_name?.let {
+            val result = userService.getUserHead(it)
+            return ServerResponse(200, StringResponse(result != null, result))
+        } ?: return ServerResponse(400)
     }
 
     /**
@@ -86,15 +81,11 @@ class UserController
     fun getAddress(@RequestBody user: User?): ServerResponse
     {
         println("getAddress客户端传来的数据----------->$user")
-        val result = ServerResponse(if (user == null) 400 else 200)
-        val list = user?.user_id?.let { userService.getUserAddress(it) }
-        val id = user?.user_id?.let { userService.getUserDefaultAddress(it) }
-        result.response = if(list != null && id != null)
-            AddressResponse(true, list, id)
-        else
-            AddressResponse(false)
-
-        return result
+        user?.user_id?.let {
+            val list = userService.getUserAddress(it)
+            val id = userService.getUserDefaultAddress(it)
+            return ServerResponse(200, AddressResponse((list != null && id != null), list, id))
+        } ?: return ServerResponse(400)
     }
 
     /**
@@ -105,9 +96,7 @@ class UserController
     fun deleteAddress(@RequestBody address: Address?): ServerResponse
     {
         println("deleteAddress客户端传来的数据----------->$address")
-        val result = ServerResponse(if (address?.address_id == null) 400 else 200)
-        address?.address_id?.let { result.response.result = userService.deleteAddress(it) }
-        return result
+        address?.address_id?.let { return ServerResponse(200, BooleanResponse(userService.deleteAddress(it))) } ?: return ServerResponse(400)
     }
 
     /**
@@ -119,7 +108,7 @@ class UserController
     {
         println("deleteAddress客户端传来的数据----------->$address")
         val result = ServerResponse(if (address?.address_id == null || address.user_id == null) 400 else 200)
-        if(address?.address_id != null && address.user_id != null)
+        if (address?.address_id != null && address.user_id != null)
         {
             result.response.result = userService.setDefaultAddress(address)
         }
@@ -135,7 +124,7 @@ class UserController
     {
         println("deleteAddress客户端传来的数据----------->$address")
         val result = ServerResponse(if (address?.address_content == null || address.user_id == null) 400 else 200)
-        if(address?.address_content != null && address.user_id != null)
+        if (address?.address_content != null && address.user_id != null)
         {
             result.response.result = userService.setAddress(address)
         }
@@ -150,8 +139,6 @@ class UserController
     fun update(@RequestBody user: User?): ServerResponse
     {
         println("update客户端传来的数据----------->$user")
-        val result = ServerResponse(if(user == null)400 else 200)
-        result.response = StringResponse(user?.let { userService.changeInfo(it) }?:false, otherService.getQiNiu())
-        return result
+        user?.let { return ServerResponse(200, StringResponse(userService.changeInfo(it), otherService.getQiNiu())) } ?: return ServerResponse(400)
     }
 }

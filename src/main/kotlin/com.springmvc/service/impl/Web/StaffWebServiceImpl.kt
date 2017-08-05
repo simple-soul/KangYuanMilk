@@ -1,5 +1,6 @@
 package com.springmvc.service.impl.Web
 
+import com.springmvc.Bean.Check
 import com.springmvc.Bean.Query
 import com.springmvc.Bean.Staff
 import com.springmvc.mapper.StaffMapper
@@ -12,10 +13,10 @@ class StaffWebServiceImpl : StaffWebService
 {
     @Autowired lateinit var staffMapper: StaffMapper
 
-    override fun login(staff: Staff): Boolean
+    override fun login(check: Check): Boolean
     {
-        val stf = staffMapper.findStaffByUsername(staff)
-        stf?.staff_pwd?.let { staff.staff_pwd?.let { if (it == staff.staff_pwd) return true } } ?: return false
+        val stf = staffMapper.findStaffByUsername(check)
+        stf?.staff_pwd?.let { check.password?.let { if (it == check.password) return true } } ?: return false
         return false
     }
 

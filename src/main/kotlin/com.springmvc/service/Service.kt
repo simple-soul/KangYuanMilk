@@ -87,13 +87,6 @@ interface UserService
     fun setAddress(address: Address): Boolean
 
     /**
-     * 获取用户信息
-     * @param id 用户id
-     * @return User 用户信息
-     */
-    fun getUserInfo(id: Int): User?
-
-    /**
      * 获取地址的全称(Utils)
      * @param list 需要获取全称的address对象
      * @return List<Address> 返回全称
@@ -153,7 +146,7 @@ interface StaffWebService
      * @param staff 员工信息(用户名和密码)
      * @return Boolean 是否成功
      */
-    fun login(staff: Staff): Boolean
+    fun login(check: Check): Boolean
 
     fun updatePassword(staff: Staff): Boolean
 

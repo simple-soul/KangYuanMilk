@@ -86,12 +86,16 @@
     <insert id="setAddress" parameterType="address">
         INSERT INTO `kangyuan`.`address` (
             `address_content`,
+            `consignee`,
+            `consignee_tel`,
             `user_id`,
             `ads_id`
         )
         VALUES
             (
                 #{address_content},
+                #{consignee},
+                #{consignee_tel},
                 #{user_id},
                 #{ads_id}
             )

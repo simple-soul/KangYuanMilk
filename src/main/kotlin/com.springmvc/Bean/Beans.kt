@@ -28,6 +28,8 @@ data class User(
 data class Address(
         val address_id: Int?,
         var address_content: String?,
+        val consignee: String?,
+        val consignee_tel: String?,
         val user_id: Int?,
         val ads_id: Int?
 )

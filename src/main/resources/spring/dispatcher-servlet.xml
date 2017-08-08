@@ -31,7 +31,7 @@
     <mvc:default-servlet-handler/>
 
     <!--全局异常处理器-->
-    <bean class="com.springmvc.exception.SystemExceptionResolver"/>
+    <!--<bean class="com.springmvc.exception.SystemExceptionResolver"/>-->
 
     <!--拦截器-->
     <mvc:interceptors>
@@ -48,6 +48,7 @@
             <mvc:exclude-mapping path="/**/*test*"/>
             <mvc:exclude-mapping path="/android/**"/>
             <mvc:exclude-mapping path="/**/getCode"/>
+            <mvc:exclude-mapping path="/**/forget"/>
             <bean class="com.springmvc.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

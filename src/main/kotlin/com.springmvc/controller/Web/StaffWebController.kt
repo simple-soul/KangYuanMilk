@@ -1,6 +1,7 @@
 package com.springmvc.controller.Web
 
 import cn.dsna.util.images.ValidateCode
+import com.springmvc.Bean.BooleanResponse
 import com.springmvc.Bean.Check
 import com.springmvc.Bean.ServerResponse
 import com.springmvc.Bean.Staff
@@ -42,27 +43,25 @@ class StaffWebController
         val code = check.code.toLowerCase()
         val vCode = session.getAttribute("code").toString().toLowerCase()
         println("vCode-------->$vCode")
+        val staff = staffService.login(check)
+        val cookies = ArrayList<Cookie>()
         //先验证身份
-        if (staffService.login(check) && code == vCode)
+        if (staff != null && staff.staff_pwd == check.password && code == vCode)
         {
-            val cookie = Cookie("kangyuan_name", check.username)
+            cookies.add(Cookie("kangyuan_name", staff.staff_name))
+            cookies.add(Cookie("kangyuan_pass", staff.staff_pwd))
+            cookies.add(Cookie("kangyuan_lv", "${staff.staff_authority}"))
+
             //勾选了记住密码
             if (check.remember)
             {
-                //保存session
-                session.setAttribute("kangyuan_name", check.username)
                 //设置cookie过期时间
-                cookie.maxAge = 60 * 60 * 24 * 7
+                cookies.forEach { it.maxAge = 60 * 60 * 24 * 7 }
             }
-            else
-            {
-                //保存session
-                session.setAttribute("kangyuan_name", check.username)
-                //设置cookie过期时间
-                cookie.maxAge = 0
-            }
+            //保存session
+            session.setAttribute("kangyuan_name", check.username)
             //发送cookie
-            response.addCookie(cookie)
+            cookies.forEach { response.addCookie(it) }
 
             return ServerResponse(200)
         }
@@ -84,9 +83,28 @@ class StaffWebController
     fun getCode(session: HttpSession, response: HttpServletResponse)
     {
         response.contentType = "image/png"
-        val vCode = ValidateCode(120,50,4,20)
+        val vCode = ValidateCode(120, 50, 4, 20)
         val code = vCode.code
         session.setAttribute("code", code)
         vCode.write(response.outputStream)
+    }
+
+    @ResponseBody
+    @RequestMapping("/forget", method = arrayOf(RequestMethod.POST))
+    fun forget(@RequestBody staff: Staff): ServerResponse
+    {
+        println("forget客户端传来的数据----------->$staff")
+
+        return ServerResponse(200, BooleanResponse(staffService.forget(staff)))
+    }
+
+    @ResponseBody
+    @RequestMapping("/change", method = arrayOf(RequestMethod.POST))
+    fun change(request: HttpServletRequest, pass: String): ServerResponse
+    {
+        println("change客户端传来的数据----------->$pass")
+        var name: String? = null
+        request.cookies.forEach { if(it.name == "kangyuan_name") name = it.value}
+        return ServerResponse(200, BooleanResponse(staffService.updatePassword(Check(name!!, pass))))
     }
 }

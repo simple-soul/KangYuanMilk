@@ -39,12 +39,13 @@
             </div>
         </div>
     </div>
+
     <div class="tpl-login">
         <div class="tpl-login-content">
             <div class="tpl-login-logo">
 
             </div>
-
+            <%--登录表单--%>
             <form class="am-form tpl-form-line-form" id="login">
                 <div class="am-form-group">
                     <input type="text" class="tpl-form-input" id="user-name" name="username" placeholder="请输入账号">
@@ -99,10 +100,91 @@
                     </button>
 
                 </div>
+
             </form>
+            <%--忘记密码--%>
+            <div class="am-text-sm">
+                <a data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0}">忘记密码</a>
+            </div>
         </div>
     </div>
+    <%--忘记密码表单--%>
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1" hidden="hidden">
+
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">忘记密码
+                <a href="javascript: void(0)" class="am-close am-close-spin"
+                   data-am-modal-close>&times;</a>
+            </div>
+
+            <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+
+            <div class="am-modal-bd">
+                <div class="tpl-login-content">
+                    <form class="am-form tpl-form-line-form" id="forget">
+
+                        <div class="am-form-group">
+                            <input type="text" class="tpl-form-input" id="forget_name" name="staff_name"
+                                   placeholder="请输入姓名">
+                        </div>
+                        <div class="am-alert am-alert-danger" data-am-alert hidden="hidden" id="alert_name">
+                            <button type="button" class="am-close">&times;</button>
+                            <p></p>
+                        </div>
+
+                        <div class="am-form-group">
+                            <input type="text" class="tpl-form-input" id="forget_idcard"
+                                   name="staff_idcard"
+                                   placeholder="请输入身份证号码">
+                        </div>
+                        <div class="am-alert am-alert-danger" data-am-alert hidden="hidden" id="alert_idcard">
+                            <button type="button" class="am-close">&times;</button>
+                            <p></p>
+                        </div>
+
+                        <div class="am-form-group">
+                            <input type="text" class="tpl-form-input" id="forget_tel" name="staff_tel"
+                                   placeholder="请输入电话号码">
+                        </div>
+                        <div class="am-alert am-alert-danger" data-am-alert hidden="hidden" id="alert_tel">
+                            <button type="button" class="am-close">&times;</button>
+                            <p></p>
+                        </div>
+
+                        <div class="am-form-group">
+                            <input type="password" class="tpl-form-input" name="staff_pwd" id="forget_pass"
+                                   placeholder="请输入密码">
+                        </div>
+
+                        <div class="am-form-group">
+                            <input type="password" class="tpl-form-input" name="double_password" id="forget_dou_pass"
+                                   placeholder="请重复密码">
+                        </div>
+                        <div class="am-alert am-alert-danger" data-am-alert hidden="hidden" id="alert_pass">
+                            <button type="button" class="am-close">&times;</button>
+                            <p></p>
+                        </div>
+
+                        <div class="am-form-group">
+                            <button type="button" id="submitForget"
+                                    class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success data-am-modal-close">
+                                提交
+                            </button>
+                        </div>
+                        <div class="am-alert am-alert-danger" data-am-alert hidden="hidden" id="alert_forget">
+                            <button type="button" class="am-close">&times;</button>
+                            <p></p>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
+
 <script src="../../js/login.js"></script>
 <script src="../../assets/js/amazeui.min.js"></script>
 <script src="../../assets/js/app.js"></script>

@@ -1,9 +1,12 @@
 package com.springmvc.interceptor
 
 import com.google.gson.Gson
+import com.springmvc.Bean.Check
 import com.springmvc.Bean.ServerResponse
 import com.springmvc.Bean.StringResponse
 import com.springmvc.exception.SystemException
+import com.springmvc.service.StaffWebService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.servlet.HandlerInterceptor
 import org.springframework.web.servlet.ModelAndView
 import java.lang.Exception
@@ -15,13 +18,32 @@ import javax.servlet.http.HttpServletResponse
  */
 class LoginInterceptor : HandlerInterceptor
 {
+    @Autowired lateinit var staffService: StaffWebService
     /**
      * 进入页面前,拦截判断
      */
     override fun preHandle(request: HttpServletRequest?, response: HttpServletResponse?, handler: Any?): Boolean
     {
         request?.requestURL?.let {
-            request.session?.getAttribute("kangyuan_name")?.let { return true } ?: request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response)
+            request.session?.getAttribute("kangyuan_name")?.let { return true } ?: request.cookies?.let {
+                var name: String? = null
+                var pass: String? = null
+                it.forEach {
+                    if (it.name == "kangyuan_name")
+                        name = it.value
+                    if (it.name == "kangyuan_pass")
+                        pass = it.value
+                }
+                if (name != null && pass != null)
+                {
+                    val staff = staffService.login(Check(name!!, pass!!))
+                    if(staff != null && staff.staff_pwd == pass)
+                    {
+                        return true
+                    }
+                }
+                request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response)
+            }
         } ?: return false
         return false
     }
@@ -39,27 +61,6 @@ class LoginInterceptor : HandlerInterceptor
      */
     override fun afterCompletion(request: HttpServletRequest?, response: HttpServletResponse?, handler: Any?, ex: Exception?)
     {
-        val systemException: SystemException?
-        val result: ServerResponse = ServerResponse(500)
-        if (null != ex)
-        {
-            if (ex.message != null && ex is Exception)
-            {
-                systemException = SystemException(ex.message!!)
-            }
-            else
-            {
-                systemException = SystemException("服务器发生未知错误")
-            }
-            println("服务器错误----------->${ex.message}")
-        }
-        else
-        {
-            systemException = SystemException("服务器发生未知错误")
-        }
 
-        result.response = StringResponse(false, systemException.message)
-        val gson = Gson()
-        response?.writer!!.write(gson.toJson(result))
     }
 }

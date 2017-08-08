@@ -11,22 +11,35 @@ import org.springframework.stereotype.Service
 @Service(value = "StaffWebService")
 class StaffWebServiceImpl : StaffWebService
 {
-    @Autowired lateinit var staffMapper: StaffMapper
-
-    override fun login(check: Check): Boolean
+    override fun forget(staff: Staff): Boolean
     {
-        val stf = staffMapper.findStaffByUsername(check)
-        stf?.staff_pwd?.let { check.password?.let { if (it == check.password) return true } } ?: return false
+        val fStaff = staff.staff_idcard?.let { staffMapper.findStaffByIdcard(it)}
+        if(fStaff != null && fStaff.staff_name == staff.staff_name && fStaff.staff_tel == staff.staff_tel)
+        {
+            return staffMapper.updatePassword(Check(fStaff.staff_username!!, staff.staff_pwd)) > 0
+        }
         return false
     }
 
-    override fun updatePassword(staff: Staff): Boolean
+    override fun getStaffCount(): Int
     {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return staffMapper.getStaffsCount()
     }
 
-    override fun searchStaffs(query: Query): List<Staff>
+    @Autowired lateinit var staffMapper: StaffMapper
+
+    override fun login(check: Check): Staff?
     {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return staffMapper.findStaffByUsername(check)
+    }
+
+    override fun updatePassword(check: Check): Boolean
+    {
+        return staffMapper.updatePassword(check) > 0
+    }
+
+    override fun searchStaffs(query: Query): List<Staff>?
+    {
+        return staffMapper.findStaffs(query)
     }
 }

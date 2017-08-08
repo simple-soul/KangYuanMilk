@@ -143,14 +143,37 @@ interface StaffWebService
 {
     /**
      * 员工登录
-     * @param staff 员工信息(用户名和密码)
-     * @return Boolean 是否成功
+     * @param check 验证信息
+     * @return Staff 返回员工信息
      */
-    fun login(check: Check): Boolean
+    fun login(check: Check): Staff?
 
-    fun updatePassword(staff: Staff): Boolean
+    /**
+     * 更新用户密码
+     * @param check 验证信息(包含用户名和密码)
+     * @return
+     */
+    fun updatePassword(check: Check): Boolean
 
-    fun searchStaffs(query: Query): List<Staff>
+    /**
+     * 搜索用户
+     * @param query 一个查询信息(包括关键字和第几行)
+     * @return 一组员工信息
+     */
+    fun searchStaffs(query: Query): List<Staff>?
+
+    /**
+     * 得到员工人数
+     * @return Int 员工人数
+     */
+    fun getStaffCount(): Int
+
+    /**
+     * 忘记密码
+     * @param staff 员工信息(进行对比验证)
+     * @return Boolean 是否验证通过
+     */
+    fun forget(staff: Staff): Boolean
 
 
 }

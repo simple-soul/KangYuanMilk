@@ -79,11 +79,11 @@ data class Staff(
         val staff_id: Int?,
         val staff_name: String?,
         val staff_username: String?,
-        val staff_pwd: String?,
+        val staff_pwd: String,
         val staff_sex: Boolean?,
         val staff_idcard: String?,
         val staff_tel: String?,
-        val staff_authority: Int?,
+        val staff_authority: Int,
         val isdeleted: Boolean?,
         val remark: String?
 )
@@ -91,15 +91,15 @@ data class Staff(
 @Bean
 data class Query(
         val key: String?,
-        val num: Int?
+        val num: Int = 0
 )
 
 @Bean
 data class Check(
         val username: String,
         val password: String,
-        val code: String,
-        val remember: Boolean
+        val code: String = "",
+        val remember: Boolean = false
 )
 
 

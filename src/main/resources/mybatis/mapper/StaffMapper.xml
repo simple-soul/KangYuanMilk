@@ -8,11 +8,34 @@
 
     <select id="findStaffByUsername" parameterType="check" resultType="staff">
         SELECT * FROM `staff` WHERE `staff_username` = #{username}
+        <include refid="whereNotDelete"/>
+    </select>
+
+    <update id="updatePassword" parameterType="check">
+        UPDATE `staff` SET `staff_pwd` = #{password} WHERE `staff_username` = #{username}
+        <include refid="whereNotDelete"/>
+    </update>
+
+    <select id="findStaffs" parameterType="query" resultType="staff">
+        SELECT * from `staff`
+        <where>
+        <if test="key ?= null">
+            CONCAT(`staff_name`,`staff_username`,`staf_idcard`,`staff_tel`) LIKE concat(concat('%',#{key}),'%')
+        </if>
+        </where>
+        <include refid="whereNotDelete"/>
+        limit #{num}, 20
+    </select>
+
+    <select id="getStaffsCount" resultType="Int">
+        SELECT COUNT(*) FROM `staff`
+    </select>
+
+    <select id="findStaffByIdcard" parameterType="String" resultType="staff">
+        SELECT * FROM `staff` WHERE `staff_idcard` = #{idcard}
     </select>
 
     <sql id="whereNotDelete">
-        <where>
-            `isdeleted`=0
-        </where>
+            and `isdeleted`=0
     </sql>
 </mapper>

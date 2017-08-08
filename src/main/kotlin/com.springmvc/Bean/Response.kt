@@ -32,4 +32,3 @@ class MilkResponse(override var result: Boolean, var milks: List<Milk>? = null):
 class MilkCategoryResponse(override var result: Boolean, var milkCategory: List<MilkCategory>? = null): Response
 
 
-

@@ -74,13 +74,12 @@ interface StaffMapper
 {
     fun findStaffByUsername(check: Check): Staff?
 
-    fun updatePassword(staff: Staff): Int
+    fun updatePassword(check: Check): Int
 
-    fun getStaffList(start: Int): List<Staff>?
-
-    fun findSomeoneInStaffs(query: Query): List<Staff>?
+    fun findStaffs(query: Query): List<Staff>?
 
     fun getStaffsCount(): Int
 
+    fun findStaffByIdcard(idcard: String): Staff
 
 }

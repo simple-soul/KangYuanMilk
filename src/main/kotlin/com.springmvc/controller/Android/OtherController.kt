@@ -1,5 +1,6 @@
 package com.springmvc.controller.Android
 
+import com.springmvc.Bean.AdsResponse
 import com.springmvc.Bean.ServerResponse
 import com.springmvc.Bean.StringResponse
 import com.springmvc.service.OtherService
@@ -20,5 +21,12 @@ class OtherController
     fun getQiniu(): ServerResponse
     {
         return ServerResponse(200, StringResponse(true, otherService.getQiNiu()))
+    }
+
+    @ResponseBody
+    @RequestMapping("/getAdsList", method = arrayOf(RequestMethod.POST))
+    fun getAdsList(): ServerResponse
+    {
+        return ServerResponse(200, AdsResponse(true, otherService.getAdsList()))
     }
 }

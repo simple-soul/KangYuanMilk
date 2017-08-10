@@ -116,7 +116,7 @@ class UserController
     }
 
     /**
-     * 添加收货地址并设为默认
+     * 添加收货地址
      */
     @ResponseBody
     @RequestMapping("/setAddress", method = arrayOf(RequestMethod.POST))
@@ -140,5 +140,16 @@ class UserController
     {
         println("update客户端传来的数据----------->$user")
         user?.let { return ServerResponse(200, StringResponse(userService.changeInfo(it), otherService.getQiNiu())) } ?: return ServerResponse(400)
+    }
+
+    /**
+     * 修改地址信息
+     */
+    @ResponseBody
+    @RequestMapping("/changeAddress", method = arrayOf(RequestMethod.POST))
+    fun changeAddress(@RequestBody address: Address?): ServerResponse
+    {
+        println("update客户端传来的数据----------->$address")
+        address?.address_id?.let { return ServerResponse(200, BooleanResponse(userService.changeAddress(address))) } ?: return ServerResponse(400)
     }
 }

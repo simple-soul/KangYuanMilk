@@ -21,7 +21,12 @@ open class UserServiceImpl : UserService
 {
 
     @Autowired lateinit var userMapper: UserMapper
-    @Autowired lateinit var otherMapper: OtherMapper
+
+    override fun changeAddress(address: Address): Boolean
+    {
+        return userMapper.changeAddress(address) > 0
+    }
+
 
     override fun getAllName(list: ArrayList<Address>): List<Address>
     {
@@ -29,9 +34,8 @@ open class UserServiceImpl : UserService
         for ((index, item) in list.withIndex())
         {
             val array = arrayListOf<String>()
-            array.add(item.address_content!!)
             val id = item.ads_id
-            if(id != null)
+            if (id != null)
             {
                 var ads = userMapper.findAdsById(id)
                 array.add(ads.name)
@@ -44,12 +48,12 @@ open class UserServiceImpl : UserService
             }
             else
             {
-                list[index].address_content = array[0]
+                list[index].address_all = array[0]
                 break
             }
             println("array=$array,size=${array.size}")
 
-            list[index].address_content = array.fold(StringBuffer()){acc,i -> acc.insert(0, i)}.toString()
+            list[index].address_all = array.fold(StringBuffer()) { acc, i -> acc.insert(0, i) }.toString()
         }
         println("最后$list")
         return list
@@ -58,14 +62,8 @@ open class UserServiceImpl : UserService
     override fun setAddress(address: Address): Boolean
     {
         val result = userMapper.setAddress(address)
-        val dResult = userMapper.setDefaultAddress(address)
-        if (result != null && dResult != null)
-        {
-            if (result > 0 && dResult > 0)
-            {
-                return true
-            }
-        }
+        if (result != null && result > 0)
+            return true
         return false
     }
 

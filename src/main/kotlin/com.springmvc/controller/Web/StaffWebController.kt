@@ -1,10 +1,7 @@
 package com.springmvc.controller.Web
 
 import cn.dsna.util.images.ValidateCode
-import com.springmvc.Bean.BooleanResponse
-import com.springmvc.Bean.Check
-import com.springmvc.Bean.ServerResponse
-import com.springmvc.Bean.Staff
+import com.springmvc.Bean.*
 import com.springmvc.service.StaffWebService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -76,7 +73,22 @@ class StaffWebController
     @RequestMapping("/index")
     fun index(): String
     {
+        return "/WEB-INF/jsp/frame.jsp"
+    }
+    @RequestMapping("/index2")
+    fun index2(): String
+    {
         return "/WEB-INF/jsp/index.jsp"
+    }
+    @RequestMapping("/address")
+    fun address(): String
+    {
+        return "/WEB-INF/jsp/address.jsp"
+    }
+    @RequestMapping("/staff")
+    fun staff(): String
+    {
+        return "/WEB-INF/jsp/staff.jsp"
     }
 
     @RequestMapping("/getCode")
@@ -106,5 +118,15 @@ class StaffWebController
         var name: String? = null
         request.cookies.forEach { if(it.name == "kangyuan_name") name = it.value}
         return ServerResponse(200, BooleanResponse(staffService.updatePassword(Check(name!!, pass))))
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/findStaff")
+    fun findStaff(@RequestBody query: Query): ServerResponse
+    {
+        println("findStaff客户端传来的数据----------->$query")
+        val result = staffService.searchStaffs(query)
+        return ServerResponse(200, StaffsResponse(result != null, result, staffService.getStaffCount()))
     }
 }

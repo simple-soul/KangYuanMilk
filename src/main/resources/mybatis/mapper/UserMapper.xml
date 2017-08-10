@@ -65,11 +65,13 @@
     <select id="findAddressListByUserId" parameterType="Int" resultType="address">
         SELECT * FROM address WHERE `user_id` = #{user_id}
         <include refid="notDelete"/>
+        order by `address_id` desc
     </select>
 
     <select id="findDefaultAddressIdById" parameterType="Int" resultType="Int">
         SELECT `address_id` FROM user WHERE `user_id` = #{user_id}
         <include refid="notDelete"/>
+
     </select>
 
     <update id="deleteAddress" parameterType="Int">
@@ -85,20 +87,20 @@
 
     <insert id="setAddress" parameterType="address">
         INSERT INTO `kangyuan`.`address` (
-            `address_content`,
-            `consignee`,
-            `consignee_tel`,
-            `user_id`,
-            `ads_id`
+        `address_content`,
+        `consignee`,
+        `consignee_tel`,
+        `user_id`,
+        `ads_id`
         )
         VALUES
-            (
-                #{address_content},
-                #{consignee},
-                #{consignee_tel},
-                #{user_id},
-                #{ads_id}
-            )
+        (
+        #{address_content},
+        #{consignee},
+        #{consignee_tel},
+        #{user_id},
+        #{ads_id}
+        )
         <selectKey keyProperty="address_id" resultType="Int" order="AFTER">
             SELECT @@IDENTITY AS address_id
         </selectKey>
@@ -112,6 +114,17 @@
     <select id="findAddressById" parameterType="Int" resultType="address">
         SELECT * FROM `address` WHERE `address_id` = #{address_id}
     </select>
+
+    <update id="changeAddress" parameterType="address">
+        UPDATE address
+            SET
+            `address_content` = #{address_content} ,
+            `consignee` = #{consignee} ,
+            `consignee_tel` = #{consignee_tel} ,
+            `ads_id` = #{ads_id}
+            WHERE
+            address_id = #{address_id}
+    </update>
 
     <sql id="selectUser">
         SELECT * FROM USER

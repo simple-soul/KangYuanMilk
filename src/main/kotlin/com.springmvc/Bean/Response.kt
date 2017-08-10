@@ -31,4 +31,6 @@ class MilkResponse(override var result: Boolean, var milks: List<Milk>? = null):
 
 class MilkCategoryResponse(override var result: Boolean, var milkCategory: List<MilkCategory>? = null): Response
 
+class StaffsResponse(override var result: Boolean, val staffs: List<Staff>?, val count: Int): Response
 
+class AdsResponse(override var result: Boolean, val adsList: List<Ads>): Response

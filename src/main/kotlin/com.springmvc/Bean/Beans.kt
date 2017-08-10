@@ -27,7 +27,8 @@ data class User(
 @Bean
 data class Address(
         val address_id: Int?,
-        var address_content: String?,
+        var address_all: String?,
+        val address_content: String?,
         val consignee: String?,
         val consignee_tel: String?,
         val user_id: Int?,
@@ -93,6 +94,7 @@ data class Staff(
 @Bean
 data class Query(
         val key: String?,
+        var level: Int? = null,
         val num: Int = 0
 )
 

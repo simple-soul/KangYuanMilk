@@ -92,6 +92,13 @@ interface UserService
      * @return List<Address> 返回全称
      */
     fun getAllName(list: ArrayList<Address>): List<Address>
+
+    /**
+     * 更改收货地址
+     * @param address 地址信息
+     * @return Boolean 修改是否成功
+     */
+    fun changeAddress(address: Address): Boolean
 }
 
 /**
@@ -137,6 +144,12 @@ interface OtherService
      * @param domain 现在的域名
      */
     fun setQiNiu(domain: String): Boolean
+
+    /**
+     * 获取全国地址
+     * @return List<Ads> 地址列表
+     */
+    fun getAdsList(): List<Ads>
 }
 
 interface StaffWebService

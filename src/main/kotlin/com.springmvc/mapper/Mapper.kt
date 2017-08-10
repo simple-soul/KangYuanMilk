@@ -31,6 +31,8 @@ interface UserMapper
     fun setAddress(address: Address): Int?
 
     fun findAdsById(id: Int): Ads
+
+    fun changeAddress(address: Address): Int
 }
 
 /**
@@ -66,7 +68,7 @@ interface OtherMapper
 
     fun setDomainName(domain: String): Int
 
-    fun getAdvert()
+    fun getAdsList(): List<Ads>
 }
 
 

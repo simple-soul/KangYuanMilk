@@ -19,12 +19,15 @@
     <select id="findStaffs" parameterType="query" resultType="staff">
         SELECT * from `staff`
         <where>
-        <if test="key ?= null">
+        <if test="key != null">
             CONCAT(`staff_name`,`staff_username`,`staf_idcard`,`staff_tel`) LIKE concat(concat('%',#{key}),'%')
         </if>
-        </where>
+        <if test="level != null">
+            and  `staff_authority` = #{level}
+        </if>
         <include refid="whereNotDelete"/>
         limit #{num}, 20
+        </where>
     </select>
 
     <select id="getStaffsCount" resultType="Int">

@@ -202,11 +202,10 @@ $('#submitForget').click(function ()
             contentType: 'application/json',
             success: function (data)
             {
-                var json = JSON.parse(data);
-                console.log("json:" + json);
-                if (json.status === 200)
+
+                if (data.status === 200)
                 {
-                    if (json.response.result === true)
+                    if (data.response.result === true)
                     {
                         location.href = '/web/login';
                     }
@@ -216,7 +215,7 @@ $('#submitForget').click(function ()
                         alert_forget.show();
                     }
                 }
-                else if (json.status === 500)
+                else if (data.status === 500)
                 {
                     alert_forget.find('p').text("服务器错误!");
                     alert_forget.show();

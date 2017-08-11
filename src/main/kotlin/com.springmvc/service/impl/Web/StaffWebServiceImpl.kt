@@ -11,6 +11,21 @@ import org.springframework.stereotype.Service
 @Service(value = "StaffWebService")
 class StaffWebServiceImpl : StaffWebService
 {
+    override fun insert(staff: Staff): Boolean
+    {
+        return staffMapper.insertStaff(staff) > 0
+    }
+
+    override fun update(staff: Staff): Boolean
+    {
+        return staffMapper.updateStaff(staff) > 0
+    }
+
+    override fun delete(staff: Staff): Boolean
+    {
+        return staffMapper.deleteStaff(staff) > 0
+    }
+
     override fun forget(staff: Staff): Boolean
     {
         val fStaff = staff.staff_idcard?.let { staffMapper.findStaffByIdcard(it)}

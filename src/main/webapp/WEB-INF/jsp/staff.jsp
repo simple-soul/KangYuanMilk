@@ -44,32 +44,29 @@
                                 <div class="am-form-group">
                                     <div class="am-btn-toolbar">
                                         <div class="am-btn-group am-btn-group-xs">
-                                            <button type="button" class="am-btn am-btn-default am-btn-success" id="add">
+                                            <button type="button" class="am-btn am-btn-default am-btn-success" data-am-modal="{target: '#my-insert'}" id="add">
                                                 <span class="am-icon-plus"></span> 新增
                                             </button>
-                                            <%--<button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>--%>
-                                            <%--<button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>--%>
-                                            <%--<button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>--%>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
                                 <div class="am-form-group tpl-table-list-select">
-                                    <select data-am-selected="{btnSize: 'sm'}">
-                                        <option value="option1">所有员工</option>
-                                        <option value="option2">配送员</option>
-                                        <option value="option3">管理员</option>
-                                        <option value="option4">boss</option>
+                                    <select data-am-selected="{btnSize: 'sm'}" id="level">
+                                        <option value="null">所有员工</option>
+                                        <option value="0">配送员</option>
+                                        <option value="1">管理员</option>
+                                        <option value="2">boss</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
                                 <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                    <input type="text" class="am-form-field ">
+                                    <input type="text" class="am-form-field" id="search_input">
                                     <span class="am-input-group-btn">
             <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-                    type="button"></button>
+                    type="button" id="search"></button>
           </span>
                                 </div>
                             </div>
@@ -89,21 +86,6 @@
                                     </tr>
                                     </thead>
                                     <tbody id="page">
-                                    <%--<tr class="gradeX">--%>
-                                    <%--<td>Amaze UI 模式窗口</td>--%>
-                                    <%--<td>张鹏飞</td>--%>
-                                    <%--<td>2016-09-26</td>--%>
-                                    <%--<td>--%>
-                                    <%--<div class="tpl-table-black-operation">--%>
-                                    <%--<a href="javascript:;">--%>
-                                    <%--<i class="am-icon-pencil"></i> 编辑--%>
-                                    <%--</a>--%>
-                                    <%--<a href="javascript:;" class="tpl-table-black-operation-del">--%>
-                                    <%--<i class="am-icon-trash"></i> 删除--%>
-                                    <%--</a>--%>
-                                    <%--</div>--%>
-                                    <%--</td>--%>
-                                    <%--</tr>--%>
 
                                     <!-- more data -->
                                     </tbody>
@@ -116,29 +98,29 @@
                                 </div>
 
                             </div>
-                            <div class="am-u-lg-12 am-u-lg-4">
+                            <div class="am-u-lg-12 ">
 
-                                <ul data-am-widget="pagination"
-                                    class="am-pagination am-pagination-select">
+                                <div class="am-fr am-u-lg-3">
 
-                                    <li class="am-pagination-prev ">
-                                        <a href="#" id="previous">上一页</a>
-                                    </li>
+                                    <ul data-am-widget="pagination"
+                                        class="am-pagination am-pagination-select am-text-middle">
 
+                                        <li class="am-pagination-prev ">
+                                            <a href="#" id="previous">上一页</a>
+                                        </li>
 
-                                    <li class="am-pagination-select">
-                                        <%--<select>--%>
-                                            <%--<option value="#" class="">1--%>
-                                                <%--/--%>
-                                            <%--</option>--%>
-                                        <%--</select>--%>
-                                    </li>
+                                        <li class="am-pagination-select">
+                                            <select id="paging">
 
-                                    <li class="am-pagination-next">
-                                        <a href="#" id="next">下一页</a>
-                                    </li>
+                                            </select>
+                                        </li>
 
-                                </ul>
+                                        <li class="am-pagination-next">
+                                            <a href="#" id="next">下一页</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -147,6 +129,141 @@
         </div>
     </div>
 
+    <%--删除用户信息--%>
+    <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">你确定要删除这条信息吗?</div>
+
+            <div class="am-modal-bd"></div>
+            <%--分割线--%>
+
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" id="ok">确定</span>
+                <span class="am-modal-btn" id="cancel">取消</span>
+            </div>
+        </div>
+    </div>
+
+    <%--修改用户信息--%>
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="my-model">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">员工信息修改
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <%--分割线--%>
+            <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+            <%--内容--%>
+            <div class="am-modal-bd">
+                <div class="tpl-login-content">
+                    <form id="modify" class="am-form tpl-form-line-form">
+                        <div class="am-form-group">
+                            <label>员工编号：</label>
+                            <input name="staff_id" type="text" id="id" minlength="1" readonly="readonly" required/>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label>姓名：</label>
+                            <input type="text" id="name" name="staff_name" minlength="2" required/>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="username">用户名：</label>
+                            <input type="text" id="username" name="staff_username" minlength="2" maxlength="10" required/>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="tel">电话号码：</label>
+                            <input type="number" id="tel" name="staff_tel" minlength="11" maxlength="11" required/>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label>性别：</label>
+                            <label class="am-radio-inline">
+                                <input type="radio" id="man" value="true" name="staff_sex"> 男
+                            </label>
+                            <label class="am-radio-inline">
+                                <input type="radio" id="female" value="false" name="staff_sex"> 女
+                            </label>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="select">职务</label>
+                            <select id="select" name="staff_authority" required>
+                                <option value="0">配送员</option>
+                                <option value="1">管理员</option>
+                                <option value="2">boss</option>
+                            </select>
+                            <span class="am-form-caret"></span>
+                        </div>
+
+                        <button class="am-btn am-btn-secondary" id="submit" type="button" data-am-modal-close>确定
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%--添加用户--%>
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="my-insert">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">添加员工
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <%--分割线--%>
+            <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+            <%--内容--%>
+            <div class="am-modal-bd">
+                <div class="tpl-login-content">
+                    <form id="insert" class="am-form tpl-form-line-form">
+
+                        <div class="am-form-group">
+                            <label>姓名：</label>
+                            <input type="text" id="insert_name" name="staff_name" minlength="2" required/>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="username">用户名：</label>
+                            <input type="text" id="insert_username" name="staff_username" minlength="2" maxlength="10" required/>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="tel">身份证号码：</label>
+                            <input type="text" id="insert_idcard" name="staff_idcard" minlength="18" maxlength="18" required/>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="tel">电话号码：</label>
+                            <input type="number" id="insert_tel" name="staff_tel" minlength="11" maxlength="11" required/>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label>性别：</label>
+                            <label class="am-radio-inline">
+                                <input type="radio" id="insert_man" value="true" name="staff_sex"> 男
+                            </label>
+                            <label class="am-radio-inline">
+                                <input type="radio" id="insert_female" value="false" name="staff_sex"> 女
+                            </label>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="select">职务</label>
+                            <select id="insert_select" name="staff_authority" required>
+                                <option value="0">配送员</option>
+                                <option value="1">管理员</option>
+                                <option value="2">boss</option>
+                            </select>
+                            <span class="am-form-caret"></span>
+                        </div>
+
+                        <button class="am-btn am-btn-secondary" id="insert_submit" type="button" data-am-modal-close>确定
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="../../assets/js/amazeui.min.js"></script>
 <script src="../../assets/js/amazeui.datatables.min.js"></script>

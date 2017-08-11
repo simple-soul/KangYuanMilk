@@ -19,7 +19,7 @@ $('#submit').click(function ()
         {
             var str = md5(pass);
             $.ajax({
-                url: '/web/change',
+                url: '/web/staff/changePass',
                 type: 'post',
                 data: "pass=" + str,
                 success: function (data)

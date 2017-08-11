@@ -111,8 +111,8 @@ class StaffWebController
     }
 
     @ResponseBody
-    @RequestMapping("/change", method = arrayOf(RequestMethod.POST))
-    fun change(request: HttpServletRequest, pass: String): ServerResponse
+    @RequestMapping("/staff/changePass", method = arrayOf(RequestMethod.POST))
+    fun changePass(request: HttpServletRequest, pass: String): ServerResponse
     {
         println("change客户端传来的数据----------->$pass")
         var name: String? = null
@@ -122,11 +122,35 @@ class StaffWebController
 
 
     @ResponseBody
-    @RequestMapping("/findStaff")
+    @RequestMapping("/findStaff", method = arrayOf(RequestMethod.POST))
     fun findStaff(@RequestBody query: Query): ServerResponse
     {
         println("findStaff客户端传来的数据----------->$query")
         val result = staffService.searchStaffs(query)
         return ServerResponse(200, StaffsResponse(result != null, result, staffService.getStaffCount()))
+    }
+
+    @ResponseBody
+    @RequestMapping("/staff/delete", method = arrayOf(RequestMethod.POST))
+    fun delete(@RequestBody staff: Staff): ServerResponse
+    {
+        println("delete客户端传来的数据----------->$staff")
+        staff.staff_id?.let { return ServerResponse(200, BooleanResponse(staffService.delete(staff))) } ?: return ServerResponse(400)
+    }
+
+    @ResponseBody
+    @RequestMapping("/staff/update", method = arrayOf(RequestMethod.POST))
+    fun update(@RequestBody staff: Staff): ServerResponse
+    {
+        println("update客户端传来的数据----------->$staff")
+        staff.staff_id?.let { return ServerResponse(200, BooleanResponse(staffService.update(staff))) } ?: return ServerResponse(400)
+    }
+
+    @ResponseBody
+    @RequestMapping("/staff/insert", method = arrayOf(RequestMethod.POST))
+    fun insert(@RequestBody staff: Staff): ServerResponse
+    {
+        println("insert客户端传来的数据----------->$staff")
+        staff.staff_idcard?.let { return ServerResponse(200, BooleanResponse(staffService.insert(staff))) } ?: return ServerResponse(400)
     }
 }

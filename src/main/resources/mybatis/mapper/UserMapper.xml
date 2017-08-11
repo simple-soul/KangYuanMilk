@@ -126,6 +126,10 @@
             address_id = #{address_id}
     </update>
 
+    <select id="getDefaultAddress" parameterType="user" resultType="address">
+        SELECT * FROM `address` WHERE `address_id`=#{address_id}
+    </select>
+
     <sql id="selectUser">
         SELECT * FROM USER
 

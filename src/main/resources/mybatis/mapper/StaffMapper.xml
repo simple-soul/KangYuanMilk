@@ -20,7 +20,7 @@
         SELECT * from `staff`
         <where>
         <if test="key != null">
-            CONCAT(`staff_name`,`staff_username`,`staf_idcard`,`staff_tel`) LIKE concat(concat('%',#{key}),'%')
+            CONCAT(`staff_name`,`staff_username`,`staff_idcard`,`staff_tel`) LIKE concat(concat('%',#{key}),'%')
         </if>
         <if test="level != null">
             and  `staff_authority` = #{level}
@@ -37,6 +37,47 @@
     <select id="findStaffByIdcard" parameterType="String" resultType="staff">
         SELECT * FROM `staff` WHERE `staff_idcard` = #{idcard}
     </select>
+
+    <update id="deleteStaff" parameterType="staff">
+        UPDATE `staff` SET  `isdeleted` = 1 WHERE `staff_id`=#{staff_id}
+    </update>
+
+    <update id="updateStaff" parameterType="staff">
+        UPDATE `staff`
+        SET
+        staff_name = #{staff_name} ,
+        staff_username = #{staff_username} ,
+        staff_sex = #{staff_sex} ,
+        staff_tel = #{staff_tel} ,
+        staff_authority = #{staff_authority}
+        WHERE
+        staff_id = #{staff_id}
+    </update>
+
+    <insert id="insertStaff" parameterType="staff">
+        INSERT INTO kangyuan.staff
+        (
+        staff_name,
+        staff_username,
+        staff_sex,
+        staff_idcard,
+        staff_tel,
+        staff_authority
+        )
+        VALUES
+        (
+        #{staff_name},
+        #{staff_username},
+        #{staff_sex},
+        #{staff_idcard},
+        #{staff_tel},
+        #{staff_authority}
+        )
+
+        <selectKey keyProperty="staff_id" resultType="Int" order="AFTER">
+            SELECT @@IDENTITY AS staff_id
+        </selectKey>
+    </insert>
 
     <sql id="whereNotDelete">
             and `isdeleted`=0

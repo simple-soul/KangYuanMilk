@@ -19,6 +19,14 @@ import kotlin.collections.ArrayList
 @Service("userService")
 open class UserServiceImpl : UserService
 {
+    override fun getDefaultAddress(user: User): Address?
+    {
+        val address = userMapper.getDefaultAddress(user)
+        val list = ArrayList<Address>()
+        address?.let { list.add(it) } ?: return null
+        val array = getAllName(list)
+        return array[0]
+    }
 
     @Autowired lateinit var userMapper: UserMapper
 
@@ -124,7 +132,7 @@ open class UserServiceImpl : UserService
                 val list = ArrayList<Address>()
                 address?.let { list.add(it) } ?: return fUser
                 val array = getAllName(list)
-                fUser.address_content = array[0].address_content
+                fUser.address_content = array[0].address_all+fUser.address_content
                 return fUser
             }
         }

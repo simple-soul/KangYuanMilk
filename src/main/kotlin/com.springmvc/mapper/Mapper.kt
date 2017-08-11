@@ -28,6 +28,8 @@ interface UserMapper
 
     fun setDefaultAddress(address: Address): Int?
 
+    fun getDefaultAddress(user: User): Address?
+
     fun setAddress(address: Address): Int?
 
     fun findAdsById(id: Int): Ads
@@ -84,4 +86,9 @@ interface StaffMapper
 
     fun findStaffByIdcard(idcard: String): Staff
 
+    fun deleteStaff(staff: Staff): Int
+
+    fun updateStaff(staff: Staff): Int
+
+    fun insertStaff(staff: Staff): Int
 }

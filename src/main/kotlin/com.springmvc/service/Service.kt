@@ -80,6 +80,13 @@ interface UserService
     fun setDefaultAddress(address: Address): Boolean
 
     /**
+     * 获取默认收货地址
+     * @param user 用户信息
+     * @return Address 地址信息
+     */
+    fun getDefaultAddress(user: User): Address?
+
+    /**
      * 添加收货地址
      * @param address 收货地址的id和用户id
      * @return Boolean 是否添加成功
@@ -99,6 +106,7 @@ interface UserService
      * @return Boolean 修改是否成功
      */
     fun changeAddress(address: Address): Boolean
+
 }
 
 /**
@@ -164,14 +172,14 @@ interface StaffWebService
     /**
      * 更新用户密码
      * @param check 验证信息(包含用户名和密码)
-     * @return
+     * @return Boolean 是否成功
      */
     fun updatePassword(check: Check): Boolean
 
     /**
      * 搜索用户
      * @param query 一个查询信息(包括关键字和第几行)
-     * @return 一组员工信息
+     * @return List<Staff> 一组员工信息
      */
     fun searchStaffs(query: Query): List<Staff>?
 
@@ -188,5 +196,24 @@ interface StaffWebService
      */
     fun forget(staff: Staff): Boolean
 
+    /**
+     * 删除员工信息
+     * @param staff 员工信息
+     * @return Boolean
+     */
+    fun delete(staff: Staff): Boolean
 
+    /**
+     * 修改员工信息
+     * @param staff 员工信息
+     * @return Boolean
+     */
+    fun update(staff: Staff): Boolean
+
+    /**
+     * 添加员工
+     * @param staff 员工信息
+     * @return Boolean
+     */
+    fun insert(staff: Staff): Boolean
 }

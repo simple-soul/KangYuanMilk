@@ -1,3 +1,5 @@
+document.documentElement.style.overflow='hidden';
+
 //获取用户名
 var name = $.cookie("kangyuan_name");
 
@@ -89,6 +91,12 @@ $('#staff').click(function ()
     noSelected();
     $('#staff').attr("class", "active");
     frame.attr("src", "/web/staff");
+});
+$('#user').click(function ()
+{
+    noSelected();
+    $('#user').attr("class", "active");
+    frame.attr("src", "/web/user");
 });
 $('#address').click(function ()
 {

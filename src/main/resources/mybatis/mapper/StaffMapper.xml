@@ -20,7 +20,7 @@
         SELECT * from `staff`
         <where>
         <if test="key != null">
-            CONCAT(`staff_name`,`staff_username`,`staff_idcard`,`staff_tel`) LIKE concat(concat('%',#{key}),'%')
+            CONCAT(IFNULL(`staff_name`,''),IFNULL(`staff_username`,''),IFNULL(`staff_idcard`,''),IFNULL(`staff_tel`,'')) LIKE concat(concat('%',#{key}),'%')
         </if>
         <if test="level != null">
             and  `staff_authority` = #{level}

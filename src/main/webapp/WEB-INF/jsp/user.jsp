@@ -21,12 +21,7 @@
     <script src="../../js/lib/md5.js"></script>
     <script src="../../js/lib/jquery.cookie.js"></script>
     <script src="../../js/lib/serialize.js"></script>
-    <style type="text/css">
-        .tpl-login-content{
-            margin-top: 5px;
-            margin-bottom: 15px;
-        }
-    </style>
+
 </head>
 
 <body data-type="widgets" class="theme-white">
@@ -40,33 +35,11 @@
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                     <div class="widget am-cf">
                         <div class="widget-head am-cf">
-                            <div class="widget-title  am-cf">员工列表</div>
+                            <div class="widget-title  am-cf">用户列表</div>
 
                         </div>
                         <div class="widget-body  am-fr">
-
-                            <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                                <div class="am-form-group">
-                                    <div class="am-btn-toolbar">
-                                        <div class="am-btn-group am-btn-group-xs">
-                                            <button type="button" class="am-btn am-btn-default am-btn-success" data-am-modal="{target: '#my-insert'}" id="add">
-                                                <span class="am-icon-plus"></span> 新增
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
-                                <div class="am-form-group tpl-table-list-select">
-                                    <select data-am-selected="{btnSize: 'sm'}" id="level">
-                                        <option value="null">所有员工</option>
-                                        <option value="0">配送员</option>
-                                        <option value="1">管理员</option>
-                                        <option value="2">boss</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
+                            <div class="am-u-lg-4 am-u-end am-fr">
                                 <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
                                     <input type="text" class="am-form-field" id="search_input">
                                     <span class="am-input-group-btn">
@@ -81,14 +54,14 @@
                                        id="example-r">
                                     <thead>
                                     <tr>
-                                        <th>员工编码</th>
-                                        <th>姓名</th>
+                                        <th>用户头像</th>
+                                        <th>用户id</th>
                                         <th>用户名</th>
                                         <th>性别</th>
-                                        <th>身份证号码</th>
                                         <th>电话号码</th>
-                                        <th>职位</th>
-                                        <th>操作</th>
+                                        <th>身份证号码</th>
+                                        <th>默认收货地址</th>
+                                        <th>注册时间</th>
                                     </tr>
                                     </thead>
                                     <tbody id="page">
@@ -275,7 +248,7 @@
 <script src="../../assets/js/amazeui.datatables.min.js"></script>
 <script src="../../assets/js/dataTables.responsive.min.js"></script>
 <script src="../../assets/js/app.js"></script>
-<script src="../../js/staff.js"></script>
+<script src="../../js/user.js"></script>
 
 </body>
 

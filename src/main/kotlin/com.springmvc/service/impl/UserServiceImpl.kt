@@ -1,8 +1,8 @@
-package com.springmvc.service.impl.Android
+package com.springmvc.service.impl
 
 import com.springmvc.Bean.Address
+import com.springmvc.Bean.Query
 import com.springmvc.Bean.User
-import com.springmvc.mapper.OtherMapper
 import com.springmvc.mapper.UserMapper
 import com.springmvc.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,6 +19,25 @@ import kotlin.collections.ArrayList
 @Service("userService")
 open class UserServiceImpl : UserService
 {
+    override fun getCount(): Int
+    {
+        return userMapper.getUserCount()
+    }
+
+    override fun findUsers(query: Query): List<User>
+    {
+        val users = userMapper.findUsers(query)
+        users.forEach {user ->
+            user.address_id?.let {
+                val list = ArrayList<Address>()
+                list.add(userMapper.findAddressById(it))
+                val address = getAllName(list)[0]
+                user.address_content = address.address_all+address.address_content
+            }
+        }
+        return users
+    }
+
     override fun getDefaultAddress(user: User): Address?
     {
         val address = userMapper.getDefaultAddress(user)
@@ -54,11 +73,7 @@ open class UserServiceImpl : UserService
                     array.add(ads.name)
                 }
             }
-            else
-            {
-                list[index].address_all = array[0]
-                break
-            }
+
             println("array=$array,size=${array.size}")
 
             list[index].address_all = array.fold(StringBuffer()) { acc, i -> acc.insert(0, i) }.toString()
@@ -114,13 +129,11 @@ open class UserServiceImpl : UserService
         return (fUser == null)
     }
 
-
     override fun changeInfo(user: User): Boolean
     {
         val result = userMapper.updateUser(user)
         return result > 0
     }
-
 
     override fun login(user: User): User?
     {
@@ -139,12 +152,10 @@ open class UserServiceImpl : UserService
         return null
     }
 
-
     override fun forget()
     {
         TODO("忘记密码")
     }
-
 
     override fun register(user: User): Boolean
     {

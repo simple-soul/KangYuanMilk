@@ -7,7 +7,7 @@ import com.springmvc.Bean.*
  */
 
 /**
- *  对用户操作的业务层,实现详见 {@link com.springmvc.service.impl.Android.UserServiceImpl}
+ *  对用户操作的业务层,实现详见 {@link com.springmvc.service.impl.UserServiceImpl}
  */
 interface UserService
 {
@@ -107,6 +107,18 @@ interface UserService
      */
     fun changeAddress(address: Address): Boolean
 
+    /**
+     * 按条件查找用户
+     * @param query 查询条件
+     * @return List<User> 返回用户列表
+     */
+    fun findUsers(query: Query): List<User>
+
+    /**
+     * 获取用户数量
+     * @return Int 返回数量
+     */
+    fun getCount(): Int
 }
 
 /**

@@ -45,7 +45,7 @@ class StaffWebController
         //先验证身份
         if (staff != null && staff.staff_pwd == check.password && code == vCode)
         {
-            cookies.add(Cookie("kangyuan_name", staff.staff_name))
+            cookies.add(Cookie("kangyuan_name", staff.staff_username))
             cookies.add(Cookie("kangyuan_pass", staff.staff_pwd))
             cookies.add(Cookie("kangyuan_lv", "${staff.staff_authority}"))
 
@@ -122,7 +122,7 @@ class StaffWebController
 
 
     @ResponseBody
-    @RequestMapping("/findStaff", method = arrayOf(RequestMethod.POST))
+    @RequestMapping("/staff/findStaff", method = arrayOf(RequestMethod.POST))
     fun findStaff(@RequestBody query: Query): ServerResponse
     {
         println("findStaff客户端传来的数据----------->$query")

@@ -1,4 +1,4 @@
-package com.springmvc.service.impl.Android
+package com.springmvc.service.impl
 
 import com.springmvc.Bean.Ads
 import com.springmvc.mapper.OtherMapper

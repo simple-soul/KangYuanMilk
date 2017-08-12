@@ -33,7 +33,7 @@ load(true);
 function load(isPaging)
 {
     $.ajax({
-        url: "/web/findStaff",
+        url: "/web/staff/findStaff",
         type: "post",
         data: JSON.stringify(query),
         contentType: 'application/json',
@@ -60,6 +60,7 @@ function load(isPaging)
                             "            <td>" + staffs[i].staff_name + "</td>\n" +
                             "            <td>" + staffs[i].staff_username + "</td>\n" +
                             "            <td>" + sex(staffs[i].staff_sex) + "</td>\n" +
+                            "            <td>" + staffs[i].staff_idcard + "</td>\n" +
                             "            <td>" + staffs[i].staff_tel + "</td>\n" +
                             "            <td>" + lev[staffs[i].staff_authority] + "</td>\n" +
                             "            <td>\n" +

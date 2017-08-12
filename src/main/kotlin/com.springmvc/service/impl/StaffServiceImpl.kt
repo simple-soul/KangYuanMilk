@@ -1,4 +1,4 @@
-package com.springmvc.service.impl.Web
+package com.springmvc.service.impl
 
 import com.springmvc.Bean.Check
 import com.springmvc.Bean.Query
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service(value = "StaffWebService")
-class StaffWebServiceImpl : StaffWebService
+class StaffServiceImpl : StaffWebService
 {
     override fun insert(staff: Staff): Boolean
     {

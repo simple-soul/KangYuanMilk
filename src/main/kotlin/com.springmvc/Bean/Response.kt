@@ -36,3 +36,6 @@ class StaffsResponse(override var result: Boolean, val staffs: List<Staff>?, val
 class AdsResponse(override var result: Boolean, val adsList: List<Ads>): Response
 
 class DefAddressResponse(override var result: Boolean, var address: Address?): Response
+
+class UserListResponse(override var result: Boolean, var users: List<User>, val domain: String, val count: Int): Response
+

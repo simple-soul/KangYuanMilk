@@ -35,6 +35,10 @@ interface UserMapper
     fun findAdsById(id: Int): Ads
 
     fun changeAddress(address: Address): Int
+
+    fun findUsers(query: Query): List<User>
+
+    fun  getUserCount(): Int
 }
 
 /**

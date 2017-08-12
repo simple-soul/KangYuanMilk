@@ -1,4 +1,4 @@
-package com.springmvc.service.impl.Android
+package com.springmvc.service.impl
 
 import com.springmvc.service.OrderService
 import org.springframework.stereotype.Service

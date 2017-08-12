@@ -130,9 +130,23 @@
         SELECT * FROM `address` WHERE `address_id`=#{address_id}
     </select>
 
+    <select id="findUsers" parameterType="query" resultType="user">
+        <include refid="selectUser"/>
+        <where>
+            <if test="key != null">
+                CONCAT( IFNULL(`user_name`,''),IFNULL(`user_idcard`,''),IFNULL(`user_tel`,'')) LIKE concat(concat('%',#{key}),'%')
+            </if>
+            <include refid="notDelete"/>
+            limit #{num}, 20
+        </where>
+    </select>
+
+    <select id="getUserCount" resultType="Int">
+        SELECT COUNT(*) FROM `user`
+    </select>
+
     <sql id="selectUser">
         SELECT * FROM USER
-
     </sql>
 
     <sql id="notDelete_user">

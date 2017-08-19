@@ -32,7 +32,7 @@ load(true);
 function load(isPaging)
 {
     $.ajax({
-        url: "/web/user/find",
+        url: "/user/find",
         type: "post",
         data: JSON.stringify(query),
         contentType: 'application/json',

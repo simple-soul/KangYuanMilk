@@ -18,7 +18,7 @@ $('#submitFrom').click(function ()
         alert_all.hide();
 
         $.ajax({
-            url: "/web/login2",
+            url: "/login2",
             dataType: 'text',
             data: JSON.stringify(v),
             type: "post",
@@ -31,7 +31,7 @@ $('#submitFrom').click(function ()
                 {
                     if (json.response.result === true)
                     {
-                        location.href = '/web/index';
+                        location.href = '/index';
                     }
                     else
                     {
@@ -119,7 +119,7 @@ function checkLogin()
 $('#image').click(function ()
 {
     var date = new Date();
-    $('#image').attr('src', "/web/getCode?date=" + date.getMilliseconds());
+    $('#image').attr('src', "/getCode?date=" + date.getMilliseconds());
 });
 
 //检查忘记密码表单
@@ -195,7 +195,7 @@ $('#submitForget').click(function ()
         alert_pass.hide();
 
         $.ajax({
-            url: "/web/forget",
+            url: "/forget",
             dataType: 'text',
             data: JSON.stringify(v),
             type: "post",
@@ -207,7 +207,7 @@ $('#submitForget').click(function ()
                 {
                     if (data.response.result === true)
                     {
-                        location.href = '/web/login';
+                        location.href = '/login';
                     }
                     else
                     {

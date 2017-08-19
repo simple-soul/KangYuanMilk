@@ -21,7 +21,7 @@ $('#submit').click(function ()
         {
             var str = md5(pass);
             $.ajax({
-                url: '/web/staff/changePass',
+                url: '/staff/changePass',
                 type: 'post',
                 data: "pass=" + str,
                 success: function (data)
@@ -84,23 +84,29 @@ $('#index').click(function ()
 {
     noSelected();
     $('#index').attr("class", "active");
-    frame.attr("src", "/web/index2");
+    frame.attr("src", "/index2");
 });
 $('#staff').click(function ()
 {
     noSelected();
     $('#staff').attr("class", "active");
-    frame.attr("src", "/web/staff");
+    frame.attr("src", "/staff");
 });
 $('#user').click(function ()
 {
     noSelected();
     $('#user').attr("class", "active");
-    frame.attr("src", "/web/user");
+    frame.attr("src", "/user");
 });
 $('#address').click(function ()
 {
     noSelected();
     $('#address').attr("class", "active");
-    frame.attr("src", "/web/address");
+    frame.attr("src", "/address");
+});
+$('#compile').click(function ()
+{
+    noSelected();
+    $('#compile').attr("class", "active");
+    frame.attr("src", "/compile");
 });

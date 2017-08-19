@@ -25,7 +25,7 @@ inline fun DBUtils(): DriverManagerDataSource
     return dm
 }
 
-inline fun getKey()
+inline fun getKey(): String
 {
     val accessKey: String = "KXLzuFCOxgNar5whqU3-0bmrH6rTHOqaidcohRes"
     val secretKey: String = "aiw1aAh-dwA9k6nkWAQLExy2Taz9cE1nFYA_01WY"
@@ -33,7 +33,7 @@ inline fun getKey()
 
     val auth = Auth.create(accessKey, secretKey)
     val upToken = auth.uploadToken(bucket)
-    println(upToken)
+    return upToken
 }
 
 inline fun md5(string: String?): String

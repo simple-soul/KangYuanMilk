@@ -2,10 +2,12 @@ package com.springmvc.controller.Android
 
 import com.springmvc.Bean.MilkCategoryResponse
 import com.springmvc.Bean.MilkResponse
+import com.springmvc.Bean.Pages
 import com.springmvc.Bean.ServerResponse
 import com.springmvc.service.ShopService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
@@ -24,7 +26,7 @@ class ShopController
      */
     @ResponseBody
     @RequestMapping("/getMilkData", method = arrayOf(RequestMethod.POST))
-    fun getMilkData(): ServerResponse
+    fun getMilkData(@RequestBody pages: Pages): ServerResponse
     {
         val result = ServerResponse(200)
         val milks = shopService.getMilkData()

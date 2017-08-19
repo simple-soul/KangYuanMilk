@@ -33,7 +33,7 @@ load(true);
 function load(isPaging)
 {
     $.ajax({
-        url: "/web/staff/findStaff",
+        url: "/staff/findStaff",
         type: "post",
         data: JSON.stringify(query),
         contentType: 'application/json',
@@ -182,7 +182,7 @@ page.delegate('a[id^=bar-]', 'click', function(){
 $('#submit').click(function ()
 {
     $.ajax({
-        url: "/web/staff/update",
+        url: "/staff/update",
         type: "post",
         dataType: 'text',
         data: JSON.stringify($('#modify').serializeObject()),
@@ -208,7 +208,7 @@ page.delegate('a[id^=del-]', 'click', function(){
 $('#ok').click(function ()
 {
     $.ajax({
-        url: "/web/staff/delete",
+        url: "/staff/delete",
         type: "post",
         data: JSON.stringify(staffs[sel]),
         contentType: 'application/json',
@@ -226,7 +226,7 @@ $('#ok').click(function ()
 $('#insert_submit').click(function ()
 {
     $.ajax({
-        url: "/web/staff/insert",
+        url: "/staff/insert",
         type: "post",
         dataType: 'text',
         data: JSON.stringify($('#insert').serializeObject()),

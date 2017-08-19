@@ -87,7 +87,7 @@ data class Staff(
         val staff_idcard: String?,
         val staff_tel: String?,
         val staff_authority: Int,
-        val isdeleted: Boolean?,
+        val isdeleted: Boolean,
         val remark: String?
 )
 
@@ -106,4 +106,20 @@ data class Check(
         val remember: Boolean = false
 )
 
+data class Pages(val num: Int, val page: Int)
 
+@Bean
+data class Activity(val activity_id: Int,
+                    val activity_title: String,
+                    val activity_image: String,
+                    val activity_content: String,
+                    val isSplash: Boolean,
+                    val isdeleted: Boolean,
+                    val remark: String?
+)
+
+@Bean
+data class Classify(val classify_id: Int,
+                    val classify_name: String,
+                    val classify_type: String,
+                    val isdeleted: Boolean)

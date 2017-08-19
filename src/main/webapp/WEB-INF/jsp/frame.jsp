@@ -66,7 +66,7 @@
 
                     <!-- 退出 -->
                     <li class="am-text-sm">
-                        <a href="/web/login">
+                        <a href="/login">
                             <span class="am-icon-sign-out"></span> 退出
                         </a>
                     </li>
@@ -143,6 +143,11 @@
                     </li>
                 </ul>
             </li>
+                <li class="sidebar-nav-link">
+                    <a id="compile">
+                        <i class="am-icon-tv sidebar-nav-link-logo"></i> 地址管理
+                    </a>
+                </li>
 
         </ul>
     </div>
@@ -187,7 +192,7 @@
         </div>
     </div>
 
-    <iframe id="myFrame" src="/web/index2" frameBorder="0" width="100%" scrolling="yes" height="100%"></iframe>
+    <iframe id="myFrame" src="/index2" frameBorder="0" width="100%" scrolling="yes" height="100%"></iframe>
 
 </div>
 <script src="../../assets/js/amazeui.min.js"></script>

@@ -20,6 +20,12 @@
     <script src="../../js/lib/md5.js"></script>
     <script src="../../js/lib/jquery.cookie.js"></script>
     <script src="../../js/lib/serialize.js"></script>
+    <style type="text/css">
+        #content_forget{
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 
 <body data-type="login" class="theme-white">
@@ -27,7 +33,7 @@
 <div class="am-g tpl-g">
 
     <div class="tpl-login">
-        <div class="tpl-login-content">
+        <div class="tpl-login-content" id="content_login">
             <div class="tpl-login-logo">
 
             </div>
@@ -56,7 +62,7 @@
                     </div>
 
                     <div class="am-form-group">
-                        <img src="${pageContext.request.contextPath}/web/getCode" id="image" class="am-img-responsive">
+                        <img src="${pageContext.request.contextPath}/getCode" id="image" class="am-img-responsive">
 
                     </div>
 
@@ -106,7 +112,7 @@
             <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
 
             <div class="am-modal-bd">
-                <div class="tpl-login-content">
+                <div class="tpl-login-content" id="content_forget">
                     <form class="am-form tpl-form-line-form" id="forget">
 
                         <div class="am-form-group">

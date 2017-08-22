@@ -4,6 +4,7 @@ import com.springmvc.annotations.Bean
 import sun.security.x509.DistributionPoint
 import java.math.BigDecimal
 import java.util.*
+import javax.xml.bind.PrintConversionEvent
 
 /**
  * Created by simple_soul on 2017/7/15.
@@ -87,7 +88,6 @@ data class Staff(
         val staff_idcard: String?,
         val staff_tel: String?,
         val staff_authority: Int,
-        val isdeleted: Boolean,
         val remark: String?
 )
 
@@ -95,6 +95,7 @@ data class Staff(
 data class Query(
         val key: String?,
         var level: Int? = null,
+        var page: Int,
         val num: Int = 0
 )
 
@@ -106,20 +107,37 @@ data class Check(
         val remember: Boolean = false
 )
 
-data class Pages(val num: Int, val page: Int)
+data class Pages(var num: Int, var page: Int)
 
 @Bean
-data class Activity(val activity_id: Int,
-                    val activity_title: String,
-                    val activity_image: String,
-                    val activity_content: String,
-                    val isSplash: Boolean,
-                    val isdeleted: Boolean,
-                    val remark: String?
+data class Activity(
+        val activity_id: Int,
+        val activity_title: String,
+        val activity_image: String,
+        val activity_content: String,
+        val isSplash: Boolean,
+        val remark: String?
 )
 
 @Bean
-data class Classify(val classify_id: Int,
-                    val classify_name: String,
-                    val classify_type: String,
-                    val isdeleted: Boolean)
+data class Classify(
+        val classify_id: Int,
+        val classify_name: String,
+        val classify_type: String
+)
+
+@Bean
+data class Data(
+        val id: Int,
+        val imageview: String,
+        val price: BigDecimal,
+        val spec: String,
+        val title: String
+)
+
+data class Result(
+        val ModuleTitle: String,
+        var dataInfoList: List<Data>?,
+        val type: String
+)
+

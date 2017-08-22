@@ -6,9 +6,10 @@
 <!--对sql进行分类隔离,指定对应的mapper接口-->
 <mapper namespace="com.springmvc.mapper.ShopMapper" >
     
-    <select id="getMilkData" resultType="milk">
+    <select id="getMilkData" parameterType="pages" resultType="milk">
         SELECT * FROM milk
         <include refid="whereNotDelete"/>
+        limit #{page}, #{num}
     </select>
     
     <select id="getMilkCategory" resultType="milkCategory">
@@ -16,9 +17,75 @@
         <include refid="whereNotDelete"/>
     </select>
 
+    <select id="getClassify" resultType="classify">
+        SELECT * FROM classify
+        <include refid="whereNotDelete"/>
+    </select>
+
+    <select id="getActivityByClassify" parameterType="Int" resultMap="selectActivity">
+        SELECT * FROM activity WHERE `classify`=#{id}
+        <include refid="notDelete"/>
+    </select>
+
+    <select id="getHotMilk" resultMap="selectMilk">
+        SELECT * FROM milk ORDER BY `milk_sales` DESC limit 0, 6
+    </select>
+
+    <select id="getNewMilk" resultMap="selectMilk">
+        SELECT * FROM milk ORDER BY `milk_date` DESC limit 0, 3
+    </select>
+
+    <select id="getActivityById" parameterType="int" resultType="activity">
+        select * from activity WHERE `activity_id` = #{id}
+        <include refid="notDelete"/>
+    </select>
+
+    <select id="getMilkById" parameterType="int" resultType="milk">
+        select * from milk WHERE `milk_id`= #{id}
+        <include refid="notDelete"/>
+    </select>
+
+    <select id="getMilkByCategory" parameterType="query" resultMap="selectMilk">
+        SELECT * FROM milk WHERE `category_id` = #{level}
+        <include refid="notDelete"/>
+        limit #{page}, #{num}
+    </select>
+    
+    <select id="search" parameterType="query" resultMap="selectMilk">
+        SELECT * from milk
+        <where>
+            <if test="key != null">
+                CONCAT(IFNULL(`milk_name`,''),IFNULL(`milk_spec`,''),IFNULL(`milk_introduce`,''),IFNULL(`milk_price`,'')) LIKE concat(concat('%',#{key}),'%')
+            </if>
+
+            <include refid="notDelete"/>
+            limit #{page}, #{num}
+        </where>
+    </select>
+
     <sql id="whereNotDelete">
         <where>
             `isdeleted`=0
         </where>
     </sql>
+
+    <sql id="notDelete">
+           AND `isdeleted`=0
+    </sql>
+
+
+    <resultMap id="selectActivity" type="com.springmvc.Bean.Data">
+        <id property="id" column="activity_id"/>
+        <result property="title" column="activity_title"/>
+        <result property="imageview" column="activity_image"/>
+    </resultMap>
+
+    <resultMap id="selectMilk" type="data">
+        <id column="milk_id" property="id"/>
+        <result column="milk_img" property="imageview"/>
+        <result column="milk_price" property="price"/>
+        <result column="milk_spec" property="spec"/>
+        <result column="milk_name" property="title"/>
+    </resultMap>
+
 </mapper>

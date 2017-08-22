@@ -46,9 +46,25 @@ interface UserMapper
  */
 interface ShopMapper
 {
-    fun getMilkData(): List<Milk>
+    fun getMilkData(pages: Pages): List<Milk>
 
     fun getMilkCategory(): List<MilkCategory>
+
+    fun getClassify(): List<Classify>
+
+    fun getActivityByClassify(classify: Int): List<Data>
+
+    fun getHotMilk(): List<Data>
+
+    fun getNewMilk(): List<Data>
+
+    fun getActivityById(activity_id: Int): Activity
+
+    fun getMilkById(milk_id: Int): Milk
+
+    fun getMilkByCategory(query: Query): List<Data>
+
+    fun search(query: Query): List<Data>
 }
 
 /**

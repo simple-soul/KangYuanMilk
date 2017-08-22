@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody
 @RequestMapping("/android/user")
 class UserController
 {
-    @Autowired lateinit var userService: UserService
-    @Autowired lateinit var otherService: OtherService
+    @Autowired private lateinit var userService: UserService
+    @Autowired private lateinit var otherService: OtherService
 
     /**
      * 用户注册

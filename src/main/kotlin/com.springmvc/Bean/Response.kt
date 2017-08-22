@@ -27,7 +27,9 @@ class UserResponse(override var result: Boolean, var user: User? = null): Respon
 
 class AddressResponse(override var result: Boolean, var addresses: List<Address>? = null, var defaultId: Int? = null): Response
 
-class MilkResponse(override var result: Boolean, var milks: List<Milk>? = null): Response
+class MilksResponse(override var result: Boolean, var milks: List<Milk>? = null): Response
+
+class MilkResponse(override var result: Boolean, var milk: Milk): Response
 
 class MilkCategoryResponse(override var result: Boolean, var milkCategory: List<MilkCategory>? = null): Response
 
@@ -38,4 +40,11 @@ class AdsResponse(override var result: Boolean, val adsList: List<Ads>): Respons
 class DefAddressResponse(override var result: Boolean, var address: Address?): Response
 
 class UserListResponse(override var result: Boolean, var users: List<User>, val domain: String, val count: Int): Response
+
+class ResultsResponse(override var result: Boolean, val resultList: List<Result>): Response
+
+class DataResponse(override var result: Boolean, val dataList: List<Data>): Response
+
+class ActivityResponse(override var result: Boolean, val activity: Activity): Response
+
 

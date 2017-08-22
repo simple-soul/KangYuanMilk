@@ -23,13 +23,13 @@ class SystemExceptionResolver : HandlerExceptionResolver
         val result: ServerResponse = ServerResponse(500)
         if (null != ex)
         {
-            if (ex.message != null && ex is Exception)
+            systemException = if (ex.message != null && ex is SystemException)
             {
-                systemException = SystemException(ex.message!!)
+                SystemException(ex.message)
             }
             else
             {
-                systemException = SystemException("服务器发生未知错误")
+                SystemException("服务器发生未知错误")
             }
             println("服务器错误----------->${ex.message}")
         }

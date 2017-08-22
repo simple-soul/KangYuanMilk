@@ -22,11 +22,12 @@
     <script src="../../js/lib/jquery.cookie.js"></script>
     <script src="../../js/lib/serialize.js"></script>
     <style type="text/css">
-        .tpl-login-content{
+        .tpl-login-content {
             margin-top: 5px;
             margin-bottom: 15px;
         }
-        .am-icon-cog{
+
+        .am-icon-cog {
             margin-top: 5px;
         }
     </style>
@@ -123,31 +124,40 @@
                     <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 地址管理
                 </a>
             </li>
-            <%--商品管理--%>
+            <%--商城管理--%>
             <li class="sidebar-nav-link">
                 <a href="javascript:;" class="sidebar-nav-sub-title">
-                    <i class="am-icon-table sidebar-nav-link-logo"></i> 商品管理
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 商城管理
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
+
                 <ul class="sidebar-nav sidebar-nav-sub">
+                    <%--活动管理--%>
                     <li class="sidebar-nav-link">
-                        <a href="table-list.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
+                        <a id="activity">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 活动管理
                         </a>
                     </li>
-
+                    <%--商品管理--%>
                     <li class="sidebar-nav-link">
-                        <a href="table-list-img.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
+                        <a id="goods">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 商品管理
                         </a>
                     </li>
                 </ul>
             </li>
-                <li class="sidebar-nav-link">
-                    <a id="compile">
-                        <i class="am-icon-tv sidebar-nav-link-logo"></i> 地址管理
-                    </a>
-                </li>
+            <%--订单管理--%>
+            <li class="sidebar-nav-link">
+                <a id="order">
+                    <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 订单管理
+                </a>
+            </li>
+            <%--富文本编辑器--%>
+            <li class="sidebar-nav-link">
+                <a id="compile">
+                    <i class="am-icon-tv sidebar-nav-link-logo"></i> 富文本编辑器
+                </a>
+            </li>
 
         </ul>
     </div>

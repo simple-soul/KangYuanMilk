@@ -130,13 +130,27 @@ interface ShopService
      * 获取牛奶数据
      * @return List<Milk> 所有的牛奶数据
      */
-    fun getMilkData(): List<Milk>?
+    fun getMilkData(pages: Pages): List<Milk>?
 
     /**
      * 获取牛奶分类
      * @return List<MilkCategory> 所有的牛奶分类
      */
     fun getMilkCategory(): List<MilkCategory>?
+
+    /**
+     * 获取首页信息
+     * @return List<Result> 所有信息
+     */
+    fun getIndex(): List<Result>
+
+    fun getActivityById(activity_id: Int): Activity
+
+    fun getMilkById(milk_id: Int): Milk
+
+    fun getMilkByCategory(query: Query): List<Data>
+
+    fun search(query: Query): List<Data>
 }
 
 interface OrderService

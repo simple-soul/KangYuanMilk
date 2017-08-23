@@ -43,8 +43,13 @@ class UserListResponse(override var result: Boolean, var users: List<User>, val 
 
 class ResultsResponse(override var result: Boolean, val resultList: List<Result>): Response
 
-class DataResponse(override var result: Boolean, val dataList: List<Data>): Response
+class DataResponse(override var result: Boolean, val dataList: List<Data>, val count: Int): Response
 
 class ActivityResponse(override var result: Boolean, val activity: Activity): Response
+
+class ActivitiesResponse(override var result: Boolean, val activityList: List<Activity>, val count: Int): Response
+
+
+
 
 

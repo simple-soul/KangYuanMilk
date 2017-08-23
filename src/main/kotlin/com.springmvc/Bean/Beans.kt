@@ -115,6 +115,7 @@ data class Activity(
         val activity_title: String,
         val activity_image: String,
         val activity_content: String,
+        val classify: Int,
         val isSplash: Boolean,
         val remark: String?
 )

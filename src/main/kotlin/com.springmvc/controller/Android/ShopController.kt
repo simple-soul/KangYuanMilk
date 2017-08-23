@@ -76,7 +76,7 @@ class ShopController
     fun getMilkByCategory(@PathVariable("id") id: Int, @PathVariable("page") page: Int, @PathVariable("num") num: Int): ServerResponse
     {
         val query = Query("", id, (page-1)*num, num)
-        return ServerResponse(200, DataResponse(true, shopService.getMilkByCategory(query)))
+        return ServerResponse(200, DataResponse(true, shopService.getMilkByCategory(query), 0))
     }
 
     /**
@@ -86,7 +86,7 @@ class ShopController
     @RequestMapping("/search", method = arrayOf(RequestMethod.POST))
     fun search(@RequestBody query: Query): ServerResponse
     {
-        return ServerResponse(200, DataResponse(true, shopService.search(query)))
+        return ServerResponse(200, DataResponse(true, shopService.search(query), shopService.getMilkCount()))
     }
 }
 

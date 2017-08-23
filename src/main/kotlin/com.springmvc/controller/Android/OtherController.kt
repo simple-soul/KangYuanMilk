@@ -20,7 +20,7 @@ class OtherController
     @Autowired lateinit var otherService: OtherService
 
     @ResponseBody
-    @RequestMapping("/getQiniu", method = arrayOf(RequestMethod.POST))
+    @RequestMapping("/getQiniu", method = arrayOf(RequestMethod.POST, RequestMethod.GET))
     fun getQiniu(): ServerResponse
     {
         return ServerResponse(200, StringResponse(true, otherService.getQiNiu()))

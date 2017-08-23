@@ -57,10 +57,34 @@
             <if test="key != null">
                 CONCAT(IFNULL(`milk_name`,''),IFNULL(`milk_spec`,''),IFNULL(`milk_introduce`,''),IFNULL(`milk_price`,'')) LIKE concat(concat('%',#{key}),'%')
             </if>
-
+            <if test="level != null">
+                and  `category_id` = #{level}
+            </if>
             <include refid="notDelete"/>
             limit #{page}, #{num}
         </where>
+    </select>
+
+    <select id="searchActivity" parameterType="query" resultType="activity">
+        SELECT * from activity
+        <where>
+            <if test="key != null">
+                CONCAT(IFNULL(`activity_title`,''),IFNULL(`activity_content`,'')) LIKE concat(concat('%',#{key}),'%')
+            </if>
+            <if test="level != null">
+                and  `classify` = #{level}
+            </if>
+            <include refid="notDelete"/>
+            limit #{page}, #{num}
+        </where>
+    </select>
+
+    <select id="getActivityCount" resultType="int">
+        SELECT COUNT(*) FROM activity
+    </select>
+
+    <select id="getMilkCount" resultType="int">
+        SELECT COUNT(*) FROM milk
     </select>
 
     <sql id="whereNotDelete">

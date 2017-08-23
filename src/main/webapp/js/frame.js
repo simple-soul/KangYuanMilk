@@ -104,6 +104,18 @@ $('#address').click(function ()
     $('#address').attr("class", "active");
     frame.attr("src", "/address");
 });
+$('#activity').click(function ()
+{
+    noSelected();
+    $('#activity').attr("class", "active");
+    frame.attr("src", "/activity");
+});
+$('#goods').click(function ()
+{
+    noSelected();
+    $('#goods').attr("class", "active");
+    frame.attr("src", "/goods");
+});
 $('#compile').click(function ()
 {
     noSelected();

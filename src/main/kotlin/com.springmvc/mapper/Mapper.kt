@@ -39,6 +39,7 @@ interface UserMapper
     fun findUsers(query: Query): List<User>
 
     fun  getUserCount(): Int
+
 }
 
 /**
@@ -65,6 +66,12 @@ interface ShopMapper
     fun getMilkByCategory(query: Query): List<Data>
 
     fun search(query: Query): List<Data>
+
+    fun searchActivity(query: Query): List<Activity>
+
+    fun getActivityCount(): Int
+
+    fun getMilkCount(): Int
 }
 
 /**

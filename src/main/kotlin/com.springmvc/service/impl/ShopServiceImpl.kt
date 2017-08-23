@@ -12,6 +12,22 @@ import org.springframework.stereotype.Service
 @Service("shopService")
 class ShopServiceImpl : ShopService
 {
+    override fun searchActivity(query: Query): List<Activity>
+    {
+        query.page = (query.page-1)*query.num
+        return shopMapper.searchActivity(query)
+    }
+
+    override fun getActivityCount(): Int
+    {
+        return shopMapper.getActivityCount()
+    }
+
+    override fun getMilkCount(): Int
+    {
+        return shopMapper.getMilkCount()
+    }
+
     override fun getActivityById(activity_id: Int): Activity
     {
         return shopMapper.getActivityById(activity_id)
@@ -24,6 +40,7 @@ class ShopServiceImpl : ShopService
 
     override fun getMilkByCategory(query: Query): List<Data>
     {
+        query.page = (query.page-1)*query.num
         return shopMapper.getMilkByCategory(query)
     }
 

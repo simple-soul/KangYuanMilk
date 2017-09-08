@@ -116,6 +116,12 @@ $('#goods').click(function ()
     $('#goods').attr("class", "active");
     frame.attr("src", "/goods");
 });
+$('#order').click(function ()
+{
+    noSelected();
+    $('#order').attr("class", "active");
+    frame.attr("src", "/order");
+});
 $('#compile').click(function ()
 {
     noSelected();

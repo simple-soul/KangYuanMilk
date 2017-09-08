@@ -157,18 +157,21 @@ interface ShopService
     fun getActivityCount(): Int
 
     fun getMilkCount(): Int
+
+    fun getClassify(): List<Classify>
 }
 
 interface OrderService
 {
 
-    fun getOrderInfo(id: Int)
+    fun getOrderInfo(id: Int): List<Order>
 
-    fun getCartInfo(id: Int)
+    fun getCartInfo(id: Int): List<Order>
 
-    fun setOrderInfo()
+    fun setOrderInfo(order : Order): Int
 
-    fun setCartInfo()
+    fun setCartInfo(order : Order): Int
+
 }
 
 interface OtherService

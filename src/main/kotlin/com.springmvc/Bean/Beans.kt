@@ -47,6 +47,7 @@ data class Ads(
 @Bean
 data class Milk(
         val milk_id: Int?,
+        val milk_img: String?,
         val milk_name: String?,
         val category_id: Int?,
         val milk_price: BigDecimal?,
@@ -70,13 +71,23 @@ data class Order(
         val user_id: Int?,
         val address_content: String?,
         val courier_id: Int?,
+        val distribution_id: Int?,
         val distribution_startdate: Date?,
         val distribution_enddate: Date?,
         val distribution_renew: Int?,
         var order_date: Date?,
         val order_money: BigDecimal?,
+        val order_currentstate: Int,
         val remark: String?
 )
+
+@Bean
+data class Distribution(
+        val distribution_id: Int?,
+        val distribution_startdate: Date?,
+        val distribution_enddate: Date?,
+        val distribution_renew: Int?
+                       )
 
 @Bean
 data class Staff(

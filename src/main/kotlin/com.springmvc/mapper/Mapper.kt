@@ -79,13 +79,15 @@ interface ShopMapper
  */
 interface OrderMapper
 {
-    fun getOrderInfo(id: Int)
+    fun getOrderInfo(id: Int): List<Order>
 
-    fun getCartInfo(id: Int)
+    fun getCartInfo(id: Int): List<Order>
 
-    fun setOrderInfo()
+    fun setOrderInfo(order : Order): Int
 
-    fun setCartInfo()
+    fun setCartInfo(order : Order): Int
+
+    fun setDistribution(distribution : Distribution): Int
 }
 
 /**

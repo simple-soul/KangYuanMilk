@@ -1,6 +1,8 @@
 package com.springmvc.service.impl
 
+import com.springmvc.Bean.Order
 import com.springmvc.service.OrderService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 /**
@@ -9,23 +11,26 @@ import org.springframework.stereotype.Service
 @Service(value = "orderService")
 class OrderServiceImpl: OrderService
 {
-    override fun getOrderInfo(id: Int)
+    @Autowired private lateinit var orderService: OrderService
+
+    override fun getOrderInfo(id : Int) : List<Order>
     {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return orderService.getOrderInfo(id)
     }
 
-    override fun getCartInfo(id: Int)
+    override fun getCartInfo(id : Int) : List<Order>
     {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return orderService.getCartInfo(id)
     }
 
-    override fun setOrderInfo()
+    override fun setOrderInfo(order : Order) : Int
     {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return orderService.setOrderInfo(order)
     }
 
-    override fun setCartInfo()
+    override fun setCartInfo(order : Order) : Int
     {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return orderService.setCartInfo(order)
     }
+
 }

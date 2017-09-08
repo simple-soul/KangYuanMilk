@@ -35,7 +35,7 @@
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                     <div class="widget am-cf">
                         <div class="widget-head am-cf">
-                            <div class="widget-title  am-cf">用户列表</div>
+                            <div class="widget-title  am-cf">商品列表</div>
 
                         </div>
                         <div class="widget-body  am-fr">
@@ -68,11 +68,13 @@
                                 <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black "
                                        id="example-r">
                                     <thead>
+                                    <%--列表--%>
                                     <tr>
-                                        <th>活动图片</th>
-                                        <th>活动id</th>
-                                        <th>活动名称</th>
-                                        <th>分类</th>
+                                        <th>商品图片</th>
+                                        <th>商品id</th>
+                                        <th>商品名称</th>
+                                        <th>商品价格/元</th>
+                                        <th>商品规格/ml</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -120,7 +122,7 @@
         </div>
     </div>
 
-    <%--删除用户信息--%>
+    <%--删除商品信息--%>
     <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
         <div class="am-modal-dialog">
             <div class="am-modal-hd">你确定要删除这条信息吗?</div>
@@ -135,10 +137,10 @@
         </div>
     </div>
 
-    <%--修改用户信息--%>
+    <%--修改商品信息--%>
     <div class="am-modal am-modal-no-btn" tabindex="-1" id="my-model">
         <div class="am-modal-dialog">
-            <div class="am-modal-hd">员工信息修改
+            <div class="am-modal-hd">商品信息修改
                 <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
             </div>
             <%--分割线--%>
@@ -147,30 +149,24 @@
             <div class="am-modal-bd">
                 <div class="tpl-login-content">
                     <form id="modify" class="am-form tpl-form-line-form">
-
-                        <th>活动图片</th>
-                        <th>活动id</th>
-                        <th>活动名称</th>
-                        <th>分类</th>
-
                         <div class="am-form-group">
-                            <label>员工编号：</label>
-                            <input name="staff_id" type="text" id="id" minlength="1" readonly="readonly" required/>
+                            <label for="id">商品编号：</label>
+                            <input name="milk_id" type="text" id="id" minlength="1" readonly="readonly" required/>
                         </div>
 
                         <div class="am-form-group">
-                            <label>活动id：</label>
-                            <input type="text" id="name" name="staff_name" minlength="2" readonly="readonly" required/>
+                            <label for="name">商品名：</label>
+                            <input type="text" id="name" name="milk_name" minlength="2" required/>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="username">活动名称：</label>
-                            <input type="text" id="username" name="staff_username" minlength="2" maxlength="10" required/>
+                            <label for="price">商品价格：</label>
+                            <input type="number" id="price" name="milk_price" minlength="2" maxlength="11" required/>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="tel">分类：</label>
-                            <input type="number" id="tel" name="staff_tel" minlength="11" maxlength="11" required/>
+                            <label for="spec">商品规格：</label>
+                            <input type="text" id="spec" name="milk_spec" minlength="2" maxlength="11" required/>
                         </div>
 
                         <button class="am-btn am-btn-secondary" id="submit" type="button" data-am-modal-close>确定
@@ -181,7 +177,7 @@
         </div>
     </div>
 
-    <%--添加用户--%>
+    <%--添加商品--%>
     <div class="am-modal am-modal-no-btn" tabindex="-1" id="my-insert">
         <div class="am-modal-dialog">
             <div class="am-modal-hd">添加员工
@@ -195,43 +191,23 @@
                     <form id="insert" class="am-form tpl-form-line-form">
 
                         <div class="am-form-group">
-                            <label>姓名：</label>
-                            <input type="text" id="insert_name" name="staff_name" minlength="2" required/>
+                            <label for="insert_id">商品编号：</label>
+                            <input name="milk_id" type="text" id="insert_id" minlength="1" readonly="readonly" required/>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="username">用户名：</label>
-                            <input type="text" id="insert_username" name="staff_username" minlength="2" maxlength="10" required/>
+                            <label for="insert_name">商品名：</label>
+                            <input type="text" id="insert_name" name="milk_name" minlength="2" required/>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="tel">身份证号码：</label>
-                            <input type="text" id="insert_idcard" name="staff_idcard" minlength="18" maxlength="18" required/>
+                            <label for="insert_price">商品价格：</label>
+                            <input type="number" id="insert_price" name="milk_price" minlength="2" maxlength="11" required/>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="tel">电话号码：</label>
-                            <input type="number" id="insert_tel" name="staff_tel" minlength="11" maxlength="11" required/>
-                        </div>
-
-                        <div class="am-form-group">
-                            <label>性别：</label>
-                            <label class="am-radio-inline">
-                                <input type="radio" id="insert_man" value="true" name="staff_sex"> 男
-                            </label>
-                            <label class="am-radio-inline">
-                                <input type="radio" id="insert_female" value="false" name="staff_sex"> 女
-                            </label>
-                        </div>
-
-                        <div class="am-form-group">
-                            <label for="select">职务</label>
-                            <select id="insert_select" name="staff_authority" required>
-                                <option value="0">配送员</option>
-                                <option value="1">管理员</option>
-                                <option value="2">boss</option>
-                            </select>
-                            <span class="am-form-caret"></span>
+                            <label for="insert_spec">商品规格：</label>
+                            <input type="number" id="insert_spec" name="milk_spec" minlength="2" maxlength="11" required/>
                         </div>
 
                         <button class="am-btn am-btn-secondary" id="insert_submit" type="button" data-am-modal-close>确定
@@ -246,7 +222,7 @@
 <script src="../../assets/js/amazeui.datatables.min.js"></script>
 <script src="../../assets/js/dataTables.responsive.min.js"></script>
 <script src="../../assets/js/app.js"></script>
-<script src="../../js/activity.js"></script>
+<script src="../../js/goods.js"></script>
 
 </body>
 

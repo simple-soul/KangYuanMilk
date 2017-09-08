@@ -94,7 +94,7 @@ class StaffWebController
     fun getCode(session: HttpSession, response: HttpServletResponse)
     {
         response.contentType = "image/png"
-        val vCode = ValidateCode(120, 50, 4, 20)
+        val vCode = ValidateCode(100, 50, 4, 20)
         val code = vCode.code
         session.setAttribute("code", code)
         vCode.write(response.outputStream)

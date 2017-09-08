@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service
 @Service("shopService")
 class ShopServiceImpl : ShopService
 {
+    override fun getClassify() : List<Classify>
+    {
+        return shopMapper.getClassify()
+    }
+
     override fun searchActivity(query: Query): List<Activity>
     {
         query.page = (query.page-1)*query.num

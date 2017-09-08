@@ -6,7 +6,78 @@
 <!--对sql进行分类隔离,指定对应的mapper接口-->
 <mapper namespace="com.springmvc.mapper.OrderMapper" >
     
+    <select id="getOrderInfo" parameterType="Int" resultType="order">
+        SELECT `order`.*,`order_distribution`.`distribution_startdate`,`order_distribution`.`distribution_enddate`,`order_distribution`.`distribution_renew` FROM `order` INNER JOIN `order_distribution` WHERE order_currentstate = 1, user_id = #{id}
+        <include refid="whereNotDelete"/>
+    </select>
 
+    <select id="getCartInfo" parameterType="Int" resultType="order">
+        SELECT `order`.*,`order_distribution`.`distribution_startdate`,`order_distribution`.`distribution_enddate`,`order_distribution`.`distribution_renew` FROM `order` INNER JOIN `order_distribution` WHERE order_currentstate = 0, user_id = #{id}
+        <include refid="whereNotDelete"/>
+    </select>
+    
+    <insert id="setDistribution" parameterType="Distribution">
+        INSERT INTO `kangyuan`.`order_distribution`
+        (`distribution_id`,
+        `distribution_startdate`,
+        `distribution_enddate`,
+        `distribution_renew`)
+        VALUES ('distribution_id',
+        'distribution_startdate',
+        'distribution_enddate',
+        'distribution_renew')
+        <selectKey keyProperty="distribution_id" resultType="Int" order="AFTER">
+            SELECT @@IDENTITY AS distribution_id
+        </selectKey>
+    </insert>
+
+    <insert id="setOrderInfo" parameterType="order">
+        INSERT INTO `kangyuan`.`order`
+        (
+        `order_number`,
+        `user_id`,
+        `address_id`,
+        `distribution_id`,
+        `order_date`,
+        `order_money`,
+        `order_currentstate`,
+        `remark`)
+        VALUES (
+        'order_number',
+        'user_id',
+        'address_id',
+        'distribution_id',
+        'order_date',
+        'order_money',
+        'order_currentstate',
+        'remark')
+        <selectKey keyProperty="order_id" resultType="Int" order="AFTER">
+            SELECT @@IDENTITY AS order_id
+        </selectKey>
+    </insert>
+
+    <insert id="setCartInfo" parameterType="order">
+        INSERT INTO `kangyuan`.`order`
+        (
+        `user_id`,
+        `address_id`,
+        `distribution_id`,
+        `order_date`,
+        `order_money`,
+        `order_currentstate`,
+        `remark`)
+        VALUES (
+        'user_id',
+        'address_id',
+        'distribution_id',
+        'order_date',
+        'order_money',
+        'order_currentstate',
+        'remark')
+        <selectKey keyProperty="order_id" resultType="Int" order="AFTER">
+            SELECT @@IDENTITY AS order_id
+        </selectKey>
+    </insert>
 
     <sql id="whereNotDelete">
         <where>

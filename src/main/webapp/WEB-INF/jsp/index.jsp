@@ -34,10 +34,10 @@
         <div class="container-fluid am-cf">
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                    <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 部件首页
-                        <small>Amaze UI</small>
+                    <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 首页
+                        <small>康源乳业</small>
                     </div>
-                    <p class="page-header-description">Amaze UI 含近 20 个 CSS 组件、20 余 JS 组件，更有多个包含不同主题的 Web 组件。</p>
+                    <p class="page-header-description">扬州市扬大康源乳业有限公司是2009年11月由扬州大学实验农牧场（建立于1952年）在原扬大乳业的基础上申请注册成立的国有全资公司，注册资金5000万元。公司主要从事饲料种植、奶牛饲养、乳品加工及销售服务，年销售产值过亿元，现已成为苏中地区规模最大、设备最新、环境最优的乳制品生产企业。</p>
                 </div>
                 <div class="am-u-lg-3 tpl-index-settings-button">
                     <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置
@@ -164,16 +164,14 @@
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-4 widget-margin-bottom-lg ">
                     <div class="tpl-user-card am-text-center widget-body-lg">
                         <div class="tpl-user-card-title">
-                            禁言小张
+                            张华
                         </div>
                         <div class="achievement-subheading">
                             月度最佳员工
                         </div>
                         <img class="achievement-image" src="../../assets/img/user07.png" alt="">
                         <div class="achievement-description">
-                            禁言小张在
-                            <strong>30天内</strong> 禁言了
-                            <strong>200多</strong>人。
+                            张华在一个月内配送了3万单牛奶
                         </div>
                     </div>
                 </div>

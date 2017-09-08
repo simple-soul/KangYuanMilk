@@ -97,7 +97,6 @@
            AND `isdeleted`=0
     </sql>
 
-
     <resultMap id="selectActivity" type="com.springmvc.Bean.Data">
         <id property="id" column="activity_id"/>
         <result property="title" column="activity_title"/>

@@ -36,6 +36,7 @@
 <body data-type="widgets" class="theme-white">
 <script src="../../assets/js/theme.js"></script>
 <div class="am-g tpl-g">
+
     <!-- 头部 -->
     <header>
         <!-- logo -->

@@ -26,8 +26,9 @@ var search_input = $('#search_input');
 //搜索按钮
 var search_btn = $('#search');
 //活动列表
-var activityList;
+var milks;
 var domain;
+var classify;
 
 $.ajax("/android/other/getQiniu", {
     success: function (data)
@@ -39,10 +40,16 @@ $.ajax("/android/other/getQiniu", {
     }
 });
 
+$.ajax("/shop/getClassify", {
+    success: function (data) {
+        classify = data.response.classify;
+    }
+});
+
 function load(isPaging)
 {
     $.ajax({
-        url: "/shop/findActivity",
+        url: "/shop/findMilk",
         type: "post",
         data: JSON.stringify(query),
         contentType: 'application/json',
@@ -59,30 +66,34 @@ function load(isPaging)
                 else
                 {
                     page.find('tr').remove();
-                    activityList = response.activityList;
+                    milks = response.dataList;
                     var count = response.count;
-                    console.log("dongxi====>"+activityList[0].activity_title);
+                    console.log("dongxi====>"+milks[0].title);
                     //加载数据
-                    for (var i = 0; i < activityList.length; i++)
+                    for (var i = 0; i < milks.length; i++)
                     {
                         var url = "../../assets/img/user04.png";
-                        console.log(activityList[i].activity_image);
-                        if(activityList[i].activity_image !== null)
+                        console.log(milks[i].imageview);
+                        if(milks[i].imageview !== null)
                         {
-                            url = domain+activityList[i].activity_image;
+                            url = domain+milks[i].imageview;
                         }
                         console.log("i--->"+url);
                         page.append("<tr class=\"gradeX\">\n" +
                             "            <td>\n" +
                             "                <img src=\""+url+"\" class=\"tpl-table-line-img\" width=\"48\" height=\"48\">\n" +
                             "            </td>\n" +
-                            "            <td class='am-text-middle'>" + activityList[i].activity_id + "</td>\n" +
-                            "            <td class='am-text-middle'>" + activityList[i].activity_title + "</td>\n" +
-                            "            <td class='am-text-middle'>" + lev[activityList[i].classify-1] + "</td>\n" +
+                            "            <td class='am-text-middle'>" + milks[i].id + "</td>\n" +
+                            "            <td class='am-text-middle'>" + milks[i].title + "</td>\n" +
+                            "            <td class='am-text-middle'>" + milks[i].price + "</td>\n" +
+                            "            <td class='am-text-middle'>" + milks[i].spec + "</td>\n" +
                             "            <td>\n" +
                             "                <div class=\"tpl-table-black-operation\">\n" +
                             "                    <a data-am-modal=\"{target: '#my-model'}\" id=\"bar-"+i+"\" name=\""+i+"\">\n" +
                             "                           <i class=\"am-icon-pencil\"></i> 编辑\n" +
+                            "                    </a>\n" +
+                            "                    <a data-am-modal=\"\" id='mod-"+i+"' name=\""+i+"\" \n" +
+                            "                        <i class=\"am-icon-archive\"></i> 修改简介\n" +
                             "                    </a>\n" +
                             "                    <a data-am-modal=\"{target: '#my-alert'}\" id='del-"+i+"' name=\""+i+"\" class=\"tpl-table-black-operation-del\">\n" +
                             "                        <i class=\"am-icon-trash\"></i> 删除\n" +
@@ -159,4 +170,88 @@ search_btn.click(function ()
     query.key = key;
     query.page = 1;
     load(true);
+});
+
+//编辑员工信息
+page.delegate('a[id^=bar-]', 'click', function(){
+
+    var num = $(this).attr('name');
+    console.log("num="+num);
+    var milk = milks[num];
+    $('#id').val(milk.id);
+    $('#name').val(milk.title);
+    $('#price').val(milk.price);
+    $('#spec').val(milk.spec);
+});
+
+//编辑简介html
+page.delegate('a[id^=mod-]', 'click', function(){
+
+    var num = $(this).attr('name');
+
+});
+
+//修改提交按钮点击事件
+$('#submit').click(function ()
+{
+    $.ajax({
+        url: "/staff/update",
+        type: "post",
+        dataType: 'text',
+        data: JSON.stringify($('#modify').serializeObject()),
+        contentType: 'application/json',
+        success: function (data)
+        {
+            load(false);
+        },
+        error: function (e)
+        {
+            console.log(e);
+        }
+    })
+});
+
+//删除按钮的监听事件
+var sel = undefined;
+page.delegate('a[id^=del-]', 'click', function(){
+    sel = $(this).attr('name');
+});
+
+//确定删除
+$('#ok').click(function ()
+{
+    $.ajax({
+        url: "/shop/delete",
+        type: "post",
+        data: JSON.stringify(milks[sel]),
+        contentType: 'application/json',
+        success: function (data)
+        {
+            load(true);
+        },
+        error: function (e)
+        {
+            console.log(e);
+        }
+    })
+});
+
+//添加商品提交按钮
+$('#insert_submit').click(function ()
+{
+    $.ajax({
+        url: "/milk/insert",
+        type: "post",
+        dataType: 'text',
+        data: JSON.stringify($('#insert').serializeObject()),
+        contentType: 'application/json',
+        success: function (data)
+        {
+            load(true);
+        },
+        error: function (e)
+        {
+            console.log(e);
+        }
+    })
 });

@@ -33,6 +33,13 @@ class ShopWebController
     }
 
     @ResponseBody
+    @RequestMapping("/shop/getClassify")
+    fun getClassify(): ServerResponse
+    {
+        return ServerResponse(200, ClassifyResponse(true, shopService.getClassify()))
+    }
+
+    @ResponseBody
     @RequestMapping("/shop/findMilk", method = arrayOf(RequestMethod.POST))
     fun findMilk(@RequestBody query: Query): ServerResponse
     {

@@ -49,6 +49,7 @@ class ActivityResponse(override var result: Boolean, val activity: Activity): Re
 
 class ActivitiesResponse(override var result: Boolean, val activityList: List<Activity>, val count: Int): Response
 
+class ClassifyResponse(override var result : Boolean, val classify : List<Classify>): Response
 
 
 

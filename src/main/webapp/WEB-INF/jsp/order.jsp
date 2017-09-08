@@ -21,7 +21,12 @@
     <script src="../../js/lib/md5.js"></script>
     <script src="../../js/lib/jquery.cookie.js"></script>
     <script src="../../js/lib/serialize.js"></script>
-
+    <style type="text/css">
+        .tpl-login-content{
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 
 <body data-type="widgets" class="theme-white">
@@ -35,10 +40,11 @@
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                     <div class="widget am-cf">
                         <div class="widget-head am-cf">
-                            <div class="widget-title  am-cf">用户列表</div>
+                            <div class="widget-title  am-cf">员工列表</div>
 
                         </div>
                         <div class="widget-body  am-fr">
+
                             <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
                                 <div class="am-form-group">
                                     <div class="am-btn-toolbar">
@@ -52,9 +58,15 @@
                             </div>
                             <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
                                 <div class="am-form-group tpl-table-list-select">
+                                    <select data-am-selected="{btnSize: 'sm'}" id="level">
+                                        <option value="null">所有员工</option>
+                                        <option value="0">配送员</option>
+                                        <option value="1">管理员</option>
+                                        <option value="2">boss</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="am-u-lg-4 am-u-end am-fr">
+                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
                                 <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
                                     <input type="text" class="am-form-field" id="search_input">
                                     <span class="am-input-group-btn">
@@ -69,10 +81,13 @@
                                        id="example-r">
                                     <thead>
                                     <tr>
-                                        <th>活动图片</th>
-                                        <th>活动id</th>
-                                        <th>活动名称</th>
-                                        <th>分类</th>
+                                        <th>员工编码</th>
+                                        <th>姓名</th>
+                                        <th>用户名</th>
+                                        <th>性别</th>
+                                        <th>身份证号码</th>
+                                        <th>电话号码</th>
+                                        <th>职位</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -147,30 +162,44 @@
             <div class="am-modal-bd">
                 <div class="tpl-login-content">
                     <form id="modify" class="am-form tpl-form-line-form">
-
-                        <th>活动图片</th>
-                        <th>活动id</th>
-                        <th>活动名称</th>
-                        <th>分类</th>
-
                         <div class="am-form-group">
                             <label>员工编号：</label>
                             <input name="staff_id" type="text" id="id" minlength="1" readonly="readonly" required/>
                         </div>
 
                         <div class="am-form-group">
-                            <label>活动id：</label>
-                            <input type="text" id="name" name="staff_name" minlength="2" readonly="readonly" required/>
+                            <label>姓名：</label>
+                            <input type="text" id="name" name="staff_name" minlength="2" required/>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="username">活动名称：</label>
+                            <label for="username">用户名：</label>
                             <input type="text" id="username" name="staff_username" minlength="2" maxlength="10" required/>
                         </div>
 
                         <div class="am-form-group">
-                            <label for="tel">分类：</label>
+                            <label for="tel">电话号码：</label>
                             <input type="number" id="tel" name="staff_tel" minlength="11" maxlength="11" required/>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label>性别：</label>
+                            <label class="am-radio-inline">
+                                <input type="radio" id="man" value="true" name="staff_sex"> 男
+                            </label>
+                            <label class="am-radio-inline">
+                                <input type="radio" id="female" value="false" name="staff_sex"> 女
+                            </label>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="select">职务</label>
+                            <select id="select" name="staff_authority" required>
+                                <option value="0">配送员</option>
+                                <option value="1">管理员</option>
+                                <option value="2">boss</option>
+                            </select>
+                            <span class="am-form-caret"></span>
                         </div>
 
                         <button class="am-btn am-btn-secondary" id="submit" type="button" data-am-modal-close>确定
@@ -246,7 +275,7 @@
 <script src="../../assets/js/amazeui.datatables.min.js"></script>
 <script src="../../assets/js/dataTables.responsive.min.js"></script>
 <script src="../../assets/js/app.js"></script>
-<script src="../../js/activity.js"></script>
+<script src="../../js/staff.js"></script>
 
 </body>
 

@@ -4,28 +4,51 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--对sql进行分类隔离,指定对应的mapper接口-->
-<mapper namespace="com.springmvc.mapper.OrderMapper" >
-    
-    <select id="getOrderInfo" parameterType="Int" resultType="order">
-        SELECT `order`.*,`order_distribution`.`distribution_startdate`,`order_distribution`.`distribution_enddate`,`order_distribution`.`distribution_renew` FROM `order` INNER JOIN `order_distribution` WHERE order_currentstate = 1, user_id = #{id}
-        <include refid="whereNotDelete"/>
+<mapper namespace="com.springmvc.mapper.OrderMapper">
+
+    <select id="getOrderInfo" parameterType="state" resultType="order">
+        SELECT `order`.*,`order_distribution`.`distribution_startdate`,
+        `order_distribution`.`distribution_enddate`,
+        `order_distribution`.`distribution_renew`,
+        `user`.`user_name` FROM `order`
+        INNER JOIN `order_distribution` ON order.distribution_id=order_distribution.distribution_id
+        INNER JOIN `user` ON order.user_id=user.user_id
+        WHERE  user.user_id = #{id}
+        <if test="state != null">
+            and order_currentstate = #{state}
+        </if>
+
     </select>
 
-    <select id="getCartInfo" parameterType="Int" resultType="order">
-        SELECT `order`.*,`order_distribution`.`distribution_startdate`,`order_distribution`.`distribution_enddate`,`order_distribution`.`distribution_renew` FROM `order` INNER JOIN `order_distribution` WHERE order_currentstate = 0, user_id = #{id}
-        <include refid="whereNotDelete"/>
+    <select id="searchOrder" parameterType="query" resultType="order">
+        SELECT `order`.*,`order_distribution`.`distribution_startdate`,
+        `order_distribution`.`distribution_enddate`,
+        `order_distribution`.`distribution_renew`,
+        `user`.`user_name`,`milk`.`milk_name` FROM `order`
+        LEFT JOIN `order_distribution` ON order.distribution_id=order_distribution.distribution_id
+        LEFT JOIN `user` ON order.user_id=user.user_id
+        LEFT JOIN `milk` ON order.milk_id=milk.milk_id
+        <where>
+            <if test="key != null">
+                CONCAT(IFNULL(`order_number`,''),IFNULL(`user_name`,'')) LIKE concat(concat('%',#{key}),'%')
+            </if>
+            <if test="level != null">
+                and  `order_currentstate` = #{level}
+            </if>
+        </where>
+        limit #{page}, #{num}
     </select>
-    
+
     <insert id="setDistribution" parameterType="Distribution">
         INSERT INTO `kangyuan`.`order_distribution`
-        (`distribution_id`,
+        (
         `distribution_startdate`,
         `distribution_enddate`,
         `distribution_renew`)
-        VALUES ('distribution_id',
-        'distribution_startdate',
-        'distribution_enddate',
-        'distribution_renew')
+        VALUES (
+        #{distribution_startdate},
+        #{distribution_enddate},
+        #{distribution_renew})
         <selectKey keyProperty="distribution_id" resultType="Int" order="AFTER">
             SELECT @@IDENTITY AS distribution_id
         </selectKey>
@@ -37,20 +60,24 @@
         `order_number`,
         `user_id`,
         `address_id`,
+        `milk_id`,
+        `milk_num`,
         `distribution_id`,
         `order_date`,
         `order_money`,
         `order_currentstate`,
         `remark`)
         VALUES (
-        'order_number',
-        'user_id',
-        'address_id',
-        'distribution_id',
-        'order_date',
-        'order_money',
-        'order_currentstate',
-        'remark')
+        #{order_number},
+        #{user_id},
+        #{address_id},
+        #{milk_id},
+        #{milk_num},
+        #{distribution_id},
+        #{order_date},
+        #{order_money},
+        #{order_currentstate},
+        #{remark})
         <selectKey keyProperty="order_id" resultType="Int" order="AFTER">
             SELECT @@IDENTITY AS order_id
         </selectKey>
@@ -61,27 +88,42 @@
         (
         `user_id`,
         `address_id`,
+        `milk_id`,
+        `milk_num`,
         `distribution_id`,
         `order_date`,
         `order_money`,
         `order_currentstate`,
         `remark`)
         VALUES (
-        'user_id',
-        'address_id',
-        'distribution_id',
-        'order_date',
-        'order_money',
-        'order_currentstate',
-        'remark')
+        #{user_id},
+        #{address_id},
+        #{milk_id},
+        #{milk_num},
+        #{distribution_id},
+        #{order_date},
+        #{order_money},
+        #{order_currentstate},
+        #{remark})
         <selectKey keyProperty="order_id" resultType="Int" order="AFTER">
             SELECT @@IDENTITY AS order_id
         </selectKey>
     </insert>
 
+    <update id="updateOrder" parameterType="state">
+        UPDATE `order` SET order_currentstate=#{state} WHERE order_id=#{id}
+    </update>
+
+    <select id="getOrderCount" resultType="int">
+        select count(*) FROM `order`
+    </select>
+
     <sql id="whereNotDelete">
         <where>
             `isdeleted`=0
         </where>
+    </sql>
+    <sql id="notDelete">
+           and `isdeleted`=0
     </sql>
 </mapper>

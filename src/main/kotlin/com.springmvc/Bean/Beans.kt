@@ -41,7 +41,9 @@ data class Ads(
         val id: Int,
         val parentId: Int,
         val code: Int,
-        val name: String
+        var name: String,
+        val courier_id: Int?,
+        val staff_name: String?
 )
 
 @Bean
@@ -67,11 +69,15 @@ data class MilkCategory(
 @Bean
 data class Order(
         val order_id: Int?,
-        val order_number: String?,
+        var order_number: String?,
         val user_id: Int?,
+        val user_name : String?,
+        val address_id : Int?,
         val address_content: String?,
-        val courier_id: Int?,
-        val distribution_id: Int?,
+        val milk_id: Int?,
+        val milk_num: Int?,
+        val milk_name: String?,
+        var distribution_id: Int?,
         val distribution_startdate: Date?,
         val distribution_enddate: Date?,
         val distribution_renew: Int?,
@@ -147,9 +153,12 @@ data class Data(
         val title: String
 )
 
+@Bean
 data class Result(
         val ModuleTitle: String,
         var dataInfoList: List<Data>?,
         val type: String
 )
 
+@Bean
+data class State(val id : Int, var state: Int?)

@@ -79,6 +79,31 @@
         </selectKey>
     </insert>
 
+    <select id="getAddress" parameterType="int" resultType="ads">
+        SELECT `ads`.*, `staff`.staff_name  FROM `ads` LEFT JOIN `staff` ON staff.staff_id=courier_id where parentId=#{id}
+    </select>
+
+    <select id="findAdsFromCourierId" parameterType="int" resultType="ads">
+        SELECT * FROM `ads` WHERE courier_id=#{id}
+    </select>
+
+    <select id="findAddressFromAdsId" parameterType="int" resultType="address">
+        SELECT * FROM `address` WHERE ads_id=#{id}
+    </select>
+
+    <select id="findOrderFromAddressId" parameterType="int" resultType="order">
+        SELECT `order`.*,`order_distribution`.`distribution_startdate`,
+        `order_distribution`.`distribution_enddate`,
+        `order_distribution`.`distribution_renew`,
+        `user`.`user_name`, `address`.`address_content`,
+         `milk`.`milk_name` FROM `order`
+        LEFT JOIN `order_distribution` ON order.distribution_id=order_distribution.distribution_id
+        LEFT JOIN `user` ON order.user_id=user.user_id
+        LEFT JOIN `address` ON order.address_id=address.address_id
+        LEFT JOIN `milk` ON order.milk_id=milk.milk_id
+        WHERE  order.address_id=#{id}
+    </select>
+
     <sql id="whereNotDelete">
             and `isdeleted`=0
     </sql>

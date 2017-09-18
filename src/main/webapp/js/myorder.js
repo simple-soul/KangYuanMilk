@@ -7,7 +7,6 @@ var query = {
     num: 0
 };
 
-var lev = ['配送员', '管理员', 'boss'];
 //页面显示列表
 var page = $('#page');
 //分页
@@ -25,7 +24,7 @@ var search_input = $('#search_input');
 //搜索按钮
 var search_btn = $('#search');
 //员工信息
-var addresses;
+var users;
 
 //初始加载
 load(true);
@@ -33,7 +32,7 @@ load(true);
 function load(isPaging)
 {
     $.ajax({
-        url: "/getAddress",
+        url: "/getMyOrder",
         type: "post",
         data: JSON.stringify(query),
         contentType: 'application/json',
@@ -42,6 +41,7 @@ function load(isPaging)
             if (data.status === 200)
             {
                 var response = data.response;
+                var domain = response.domain;
                 if (response.result === false)
                 {
                     alert_error.find('p').text("数据出错");
@@ -50,22 +50,21 @@ function load(isPaging)
                 else
                 {
                     page.find('tr').remove();
-                    addresses = response.adsList;
-                    var count = 10;
+                    orders = response.orders;
+                    var count = 19;
                     //加载数据
-                    for (var i = 0; i < addresses.length; i++)
+                    for (var i = 0; i < orders.length; i++)
                     {
                         page.append("<tr class=\"gradeX\">\n" +
-                            "            <td>" + addresses[i].id + "</td>\n" +
-                            "            <td>" + addresses[i].name + "</td>\n" +
-                            "            <td>" + addresses[i].staff_name + "</td>\n" +
-                            "            <td>\n" +
-                            "                <div class=\"tpl-table-black-operation\">\n" +
-                            "                    <a data-am-modal=\"{target: '#my-model'}\" id=\"bar-"+i+"\" name=\""+i+"\">\n" +
-                            "                           <i class=\"am-icon-pencil\"></i> 修改配送员\n" +
-                            "                    </a>\n" +
-                            "                </div>\n" +
-                            "            </td>\n" +
+                            "            <td>" + orders[i].order_id + "</td>\n" +
+                            "            <td>" + orders[i].order_number + "</td>\n" +
+                            "            <td>" + orders[i].user_name + "</td>\n" +
+                            "            <td>" + orders[i].milk_name + "</td>\n" +
+                            "            <td>" + orders[i].milk_num + "</td>\n" +
+                            "            <td>" + orders[i].address_content + "</td>\n" +
+                            "            <td>" + getMyDate(orders[i].distribution_startdate) + "</td>\n" +
+                            "            <td>" + getMyDate(orders[i].distribution_enddate) + "</td>\n" +
+
                             "        </tr>");
                     }
                     if (isPaging)
@@ -103,6 +102,14 @@ function load(isPaging)
     });
 }
 
+function sex(bool)
+{
+    if (bool)
+        return "男";
+    else
+        return "女";
+}
+
 paging.change(function ()
 {
     var select = paging.find("option:selected").attr('name');
@@ -130,13 +137,6 @@ next.click(function ()
     }
 });
 
-level.change(function ()
-{
-    var select = level.find("option:selected").val();
-    query.level = select;
-    load(true);
-});
-
 search_btn.click(function ()
 {
     var key = search_input.val();
@@ -145,3 +145,22 @@ search_btn.click(function ()
     load(true);
 });
 
+function getMyDate(str){
+    var oDate = new Date(str),
+        oYear = oDate.getFullYear(),
+        oMonth = oDate.getMonth()+1,
+        oDay = oDate.getDate(),
+        oHour = oDate.getHours(),
+        oMin = oDate.getMinutes(),
+        oSen = oDate.getSeconds(),
+        oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间
+    return oTime;
+}
+
+//补0操作
+function getzf(num){
+    if(parseInt(num) < 10){
+        num = '0'+num;
+    }
+    return num;
+}

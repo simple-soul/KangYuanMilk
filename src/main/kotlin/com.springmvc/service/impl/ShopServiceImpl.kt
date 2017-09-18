@@ -45,7 +45,6 @@ class ShopServiceImpl : ShopService
 
     override fun getMilkByCategory(query: Query): List<Data>
     {
-        query.page = (query.page-1)*query.num
         return shopMapper.getMilkByCategory(query)
     }
 

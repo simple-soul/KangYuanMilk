@@ -51,6 +51,7 @@ class ActivitiesResponse(override var result: Boolean, val activityList: List<Ac
 
 class ClassifyResponse(override var result : Boolean, val classify : List<Classify>): Response
 
+class OrderResponse(override var result : Boolean, val orders: List<Order>?, var count : Int = 0): Response
 
 
 

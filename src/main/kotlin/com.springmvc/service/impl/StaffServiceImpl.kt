@@ -1,9 +1,8 @@
 package com.springmvc.service.impl
 
-import com.springmvc.Bean.Check
-import com.springmvc.Bean.Query
-import com.springmvc.Bean.Staff
+import com.springmvc.Bean.*
 import com.springmvc.mapper.StaffMapper
+import com.springmvc.mapper.UserMapper
 import com.springmvc.service.StaffWebService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -11,6 +10,32 @@ import org.springframework.stereotype.Service
 @Service(value = "StaffWebService")
 class StaffServiceImpl : StaffWebService
 {
+    override fun getMyOrder(name: String) : List<Order>?
+    {
+        val staff = staffMapper.findStaffByUsername(Check(name, "", ""))
+        val ads = staff?.let { staffMapper.findAdsFromCourierId(staff.staff_id!!) }
+        val address = ads?.let { staffMapper.findAddressFromAdsId(ads.id) }
+        return address?.let { staffMapper.findOrderFromAddressId(address.address_id!!) }
+    }
+
+    @Autowired lateinit var userMapper: UserMapper
+
+    override fun getAddress() : List<Ads>
+    {
+        //获取扬州所有区的地址信息
+        val adsList = staffMapper.getAddress(341)
+        for ((index, item) in adsList.withIndex())
+        {
+            var ads = item
+            while(ads.parentId != 0)
+            {
+                ads = userMapper.findAdsById(ads.parentId)
+                item.name = ads.name+item.name
+            }
+        }
+        return adsList
+    }
+
     override fun insert(staff: Staff): Boolean
     {
         return staffMapper.insertStaff(staff) > 0

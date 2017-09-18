@@ -4,18 +4,13 @@ alert_error.hide();
 var query = {
     key: null,
     level: null,
-    num: 0
+    num: 20,
+    page: 1
 };
 
-var lev = ['配送员', '管理员', 'boss'];
+var lev = ['购物车','已完成','待付款','配送中','已取消'];
 //页面显示列表
 var page = $('#page');
-//分页
-var paging = $('#paging');
-//下一页
-var next = $('#next');
-//上一页
-var previous = $('#previous');
 //总共页数
 var pages = 0;
 //按等级筛选
@@ -25,7 +20,7 @@ var search_input = $('#search_input');
 //搜索按钮
 var search_btn = $('#search');
 //员工信息
-var milks;
+var orders;
 
 //初始加载
 load(true);
@@ -33,7 +28,7 @@ load(true);
 function load(isPaging)
 {
     $.ajax({
-        url: "/staff/findStaff",
+        url: "/searchOrder",
         type: "post",
         data: JSON.stringify(query),
         contentType: 'application/json',
@@ -50,29 +45,22 @@ function load(isPaging)
                 else
                 {
                     page.find('tr').remove();
-                    milks = response.staffs;
+                    orders = response.orders;
                     var count = response.count;
                     //加载数据
-                    for (var i = 0; i < milks.length; i++)
+                    for (var i = 0; i < orders.length; i++)
                     {
                         page.append("<tr class=\"gradeX\">\n" +
-                            "            <td>" + milks[i].staff_id + "</td>\n" +
-                            "            <td>" + milks[i].staff_name + "</td>\n" +
-                            "            <td>" + milks[i].staff_username + "</td>\n" +
-                            "            <td>" + sex(milks[i].staff_sex) + "</td>\n" +
-                            "            <td>" + milks[i].staff_idcard + "</td>\n" +
-                            "            <td>" + milks[i].staff_tel + "</td>\n" +
-                            "            <td>" + lev[milks[i].staff_authority] + "</td>\n" +
-                            "            <td>\n" +
-                            "                <div class=\"tpl-table-black-operation\">\n" +
-                            "                    <a data-am-modal=\"{target: '#my-model'}\" id=\"bar-"+i+"\" name=\""+i+"\">\n" +
-                            "                           <i class=\"am-icon-pencil\"></i> 编辑\n" +
-                            "                    </a>\n" +
-                            "                    <a data-am-modal=\"{target: '#my-alert'}\" id='del-"+i+"' name=\""+i+"\" class=\"tpl-table-black-operation-del\">\n" +
-                            "                        <i class=\"am-icon-trash\"></i> 删除\n" +
-                            "                    </a>\n" +
-                            "                </div>\n" +
-                            "            </td>\n" +
+                            "            <td>" + orders[i].order_id + "</td>\n" +
+                            "            <td>" + orders[i].order_number + "</td>\n" +
+                            "            <td>" + orders[i].user_name + "</td>\n" +
+                            "            <td>" + orders[i].milk_name + "</td>\n" +
+                            "            <td>" + orders[i].milk_num + "</td>\n" +
+                            "            <td>" + getMyDate(orders[i].distribution_startdate) + "</td>\n" +
+                            "            <td>" + getMyDate(orders[i].distribution_enddate) + "</td>\n" +
+                            "            <td>" + getMyDate(orders[i].order_date) + "</td>\n" +
+                            "            <td>" + orders[i].order_money + "</td>\n" +
+                            "            <td>" + lev[orders[i].order_currentstate] + "</td>\n" +
                             "        </tr>");
                     }
                     if (isPaging)
@@ -110,18 +98,17 @@ function load(isPaging)
     });
 }
 
-function sex(bool)
-{
-    if (bool)
-        return "男";
-    else
-        return "女";
-}
+//分页
+var paging = $('#paging');
+//下一页
+var next = $('#next');
+//上一页
+var previous = $('#previous');
 
 paging.change(function ()
 {
     var select = paging.find("option:selected").attr('name');
-    query.num = (select - 1) * 20;
+    query.page = select;
     load(false);
 });
 
@@ -130,7 +117,7 @@ previous.click(function ()
     var select = paging.find("option:selected").attr('name');
     if (select - 1 > 0)
     {
-        query.num = (select - 1) * 20;
+        query.page = select - 1;
         load(false);
     }
 });
@@ -140,7 +127,7 @@ next.click(function ()
     var select = paging.find("option:selected").attr('name');
     if (select + 1 <= pages)
     {
-        query.num = (select + 1) * 20;
+        query.page = select + 1;
         load(false);
     }
 });
@@ -160,85 +147,22 @@ search_btn.click(function ()
     load(true);
 });
 
-//编辑员工信息
-page.delegate('a[id^=bar-]', 'click', function(){
+function getMyDate(str){
+    var oDate = new Date(str),
+        oYear = oDate.getFullYear(),
+        oMonth = oDate.getMonth()+1,
+        oDay = oDate.getDate(),
+        oHour = oDate.getHours(),
+        oMin = oDate.getMinutes(),
+        oSen = oDate.getSeconds(),
+        oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间
+    return oTime;
+}
 
-    var num = $(this).attr('name');
-    console.log("num="+num);
-    var staff = milks[num];
-    console.log("staff.staff_name"+staff.staff_name);
-    $('#id').val(staff.staff_id);
-    $('#name').val(staff.staff_name);
-    $('#username').val(staff.staff_username);
-    $('#tel').val(staff.staff_tel);
-    if(staff.staff_sex)
-        $('#man').attr("checked",true);
-    else
-        $('#female').attr("checked",true);
-    $('#select').val(staff.staff_authority);
-});
-
-//修改提交按钮点击事件
-$('#submit').click(function ()
-{
-    $.ajax({
-        url: "/staff/update",
-        type: "post",
-        dataType: 'text',
-        data: JSON.stringify($('#modify').serializeObject()),
-        contentType: 'application/json',
-        success: function (data)
-        {
-            load(false);
-        },
-        error: function (e)
-        {
-            console.log(e);
-        }
-    })
-});
-
-//删除按钮的监听事件
-var sel = undefined;
-page.delegate('a[id^=del-]', 'click', function(){
-    sel = $(this).attr('name');
-});
-
-//确定删除
-$('#ok').click(function ()
-{
-    $.ajax({
-        url: "/staff/delete",
-        type: "post",
-        data: JSON.stringify(milks[sel]),
-        contentType: 'application/json',
-        success: function (data)
-        {
-            load(true);
-        },
-        error: function (e)
-        {
-            console.log(e);
-        }
-    })
-});
-
-//添加员工提交按钮
-$('#insert_submit').click(function ()
-{
-    $.ajax({
-        url: "/staff/insert",
-        type: "post",
-        dataType: 'text',
-        data: JSON.stringify($('#insert').serializeObject()),
-        contentType: 'application/json',
-        success: function (data)
-        {
-            load(true);
-        },
-        error: function (e)
-        {
-            console.log(e);
-        }
-    })
-});
+//补0操作
+function getzf(num){
+    if(parseInt(num) < 10){
+        num = '0'+num;
+    }
+    return num;
+}

@@ -164,14 +164,17 @@ interface ShopService
 interface OrderService
 {
 
-    fun getOrderInfo(id: Int): List<Order>
+    fun getOrderInfo(state : State): List<Order>
 
-    fun getCartInfo(id: Int): List<Order>
+    fun searchOrder(query : Query): List<Order>
 
-    fun setOrderInfo(order : Order): Int
+    fun setOrderInfo(order : Order): Boolean
 
-    fun setCartInfo(order : Order): Int
+    fun setCartInfo(order : Order): Boolean
 
+    fun updateOrder(state : State): Boolean
+
+    fun getOrderCount(): Int
 }
 
 interface OtherService
@@ -251,4 +254,8 @@ interface StaffWebService
      * @return Boolean
      */
     fun insert(staff: Staff): Boolean
+
+    fun getAddress(): List<Ads>
+
+    fun getMyOrder(name: String): List<Order>?
 }

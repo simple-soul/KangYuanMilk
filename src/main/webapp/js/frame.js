@@ -2,6 +2,22 @@ document.documentElement.style.overflow='hidden';
 
 //获取用户名
 var name = $.cookie("kangyuan_name");
+var level = $.cookie("kangyuan_lv");
+
+
+if(level == 0)
+{
+    $('#staff').hide();
+    $('#user').hide();
+    $('#address').hide();
+    $('#map').hide();
+    $('#order').hide();
+    $('#compile').hide();
+}
+else
+{
+    $('#myOrder').hide();
+}
 
 $('.user-panel-logged-in-text').find('span').text(name);
 $('.tpl-header-navbar-welcome').find('a').find('span').text(name);
@@ -128,3 +144,10 @@ $('#compile').click(function ()
     $('#compile').attr("class", "active");
     frame.attr("src", "/compile");
 });
+$('#myOrder').click(function ()
+{
+    noSelected();
+    $('#myOrder').attr("class", "active");
+    frame.attr("src", "/myOrder");
+});
+

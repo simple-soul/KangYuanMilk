@@ -13,7 +13,6 @@
           <option name="noStdlib" value="true" />
           <option name="noReflect" value="true" />
           <option name="moduleName" value="KangYuanMilk_main" />
-          <option name="jvmTarget" value="1.6" />
           <option name="addCompilerBuiltIns" value="true" />
           <option name="loadBuiltInsFromDependencies" value="true" />
           <option name="languageVersion" value="1.1" />
@@ -30,6 +29,7 @@
               <option value="$KOTLIN_BUNDLED$/lib/noarg-compiler-plugin.jar" />
             </array>
           </option>
+          <option name="version" value="true" />
         </compilerArguments>
       </configuration>
     </facet>

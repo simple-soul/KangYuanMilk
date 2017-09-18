@@ -70,3 +70,15 @@ inline fun md5(string: String?): String
     return ""
 }
 
+inline fun initCode(): String
+{
+    val base = "abcdefghijklmnopqrstuvwxyz0123456789QWERTYUIOPLKJHGFDSAZXCVBNM"
+    val random = Random()
+    val sb = StringBuffer()
+    for (i in 0..14 - 1)
+    {
+        val number = random.nextInt(base.length)
+        sb.append(base[number])
+    }
+    return sb.toString()
+}

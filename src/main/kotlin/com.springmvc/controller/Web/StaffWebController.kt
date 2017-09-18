@@ -89,6 +89,11 @@ class StaffWebController
     {
         return "/WEB-INF/jsp/staff.jsp"
     }
+    @RequestMapping("/myOrder")
+    fun myOrder(): String
+    {
+        return "/WEB-INF/jsp/myorder.jsp"
+    }
 
     @RequestMapping("/getCode")
     fun getCode(session: HttpSession, response: HttpServletResponse)
@@ -152,4 +157,20 @@ class StaffWebController
         println("insert客户端传来的数据----------->$staff")
         staff.staff_idcard?.let { return ServerResponse(200, BooleanResponse(staffService.insert(staff))) } ?: return ServerResponse(400)
     }
+
+    @ResponseBody
+    @RequestMapping("/getAddress", method = arrayOf(RequestMethod.POST))
+    fun getAddress() :ServerResponse
+    {
+        return ServerResponse(200, AdsResponse(true, staffService.getAddress()))
+    }
+
+    @ResponseBody
+    @RequestMapping("/getMyOrder", method = arrayOf(RequestMethod.POST))
+    fun getMyOrder(session : HttpSession): ServerResponse
+    {
+        val list = staffService.getMyOrder(session.getAttribute("kangyuan_name") as String)
+        return ServerResponse(200, OrderResponse(list != null, list))
+    }
+
 }

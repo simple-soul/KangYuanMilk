@@ -42,11 +42,7 @@
 
                                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
                                     <div class="am-form-group">
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button type="button" class="am-btn am-btn-default am-btn-success" id="add"><span class="am-icon-plus"></span> 新增</button>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
@@ -66,31 +62,13 @@
                                     <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                                         <thead>
                                             <tr>
-                                                <th>员工编码</th>
-                                                <th>姓名</th>
-                                                <th>用户名</th>
-                                                <th>性别</th>
-                                                <th>电话号码</th>
-                                                <th>职位</th>
+                                                <th>地址id</th>
+                                                <th>详细地址</th>
+                                                <th>配送员姓名</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody id="page">
-                                            <tr class="gradeX">
-                                                <td>Amaze UI 模式窗口</td>
-                                                <td>张鹏飞</td>
-                                                <td>2016-09-26</td>
-                                                <td>
-                                                    <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                            <i class="am-icon-trash"></i> 删除
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
 
                                             <!-- more data -->
                                         </tbody>
@@ -98,13 +76,25 @@
                                 </div>
                                 <div class="am-u-lg-12 am-cf">
 
-                                    <div class="am-fr">
-                                        <ul class="am-pagination tpl-pagination" id="paging">
-                                            <li class="am-disabled"><a id="previous">«</a></li>
-                                            <li class="am-active"><a >1</a></li>
+                                    <div class="am-fr am-u-lg-3">
 
-                                            <li><a id="next">»</a></li>
-                                            <li><a id="last">末页</a></li>
+                                        <ul data-am-widget="pagination"
+                                            class="am-pagination am-pagination-select am-text-middle">
+
+                                            <li class="am-pagination-prev ">
+                                                <a href="javascript: void(0)" id="previous">上一页</a>
+                                            </li>
+
+                                            <li class="am-pagination-select">
+                                                <select id="paging">
+
+                                                </select>
+                                            </li>
+
+                                            <li class="am-pagination-next">
+                                                <a href="javascript: void(0)" id="next">下一页</a>
+                                            </li>
+
                                         </ul>
                                     </div>
                                 </div>

@@ -79,15 +79,19 @@ interface ShopMapper
  */
 interface OrderMapper
 {
-    fun getOrderInfo(id: Int): List<Order>
+    fun getOrderInfo(state : State): List<Order>
 
-    fun getCartInfo(id: Int): List<Order>
+    fun searchOrder(query : Query): List<Order>
 
     fun setOrderInfo(order : Order): Int
 
     fun setCartInfo(order : Order): Int
 
     fun setDistribution(distribution : Distribution): Int
+
+    fun updateOrder(state : State): Int
+
+    fun getOrderCount(): Int
 }
 
 /**
@@ -120,4 +124,12 @@ interface StaffMapper
     fun updateStaff(staff: Staff): Int
 
     fun insertStaff(staff: Staff): Int
+
+    fun getAddress(id : Int): List<Ads>
+
+    fun findAdsFromCourierId(id : Int): Ads
+
+    fun findAddressFromAdsId(id : Int): Address
+
+    fun findOrderFromAddressId(id : Int): List<Order>
 }

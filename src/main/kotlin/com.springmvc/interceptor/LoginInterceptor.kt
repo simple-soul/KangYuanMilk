@@ -39,9 +39,11 @@ class LoginInterceptor : HandlerInterceptor
                     val staff = staffService.login(Check(name!!, pass!!))
                     if(staff != null && staff.staff_pwd == pass)
                     {
+                        request.session.setAttribute("kangyuan_name", name)
                         return true
                     }
                 }
+
                 request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response)
             }
         } ?: return false

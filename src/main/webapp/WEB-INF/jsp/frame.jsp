@@ -11,7 +11,8 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="icon" type="image/png" href="../../assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../../assets/i/app-icon72x72@2x.png">
+    <link rel="apple-touch-icon-precomposed"
+          href="../../assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
     <script src="../../assets/js/echarts.min.js"></script>
     <link rel="stylesheet" href="../../assets/css/amazeui.min.css"/>
@@ -27,9 +28,6 @@
             margin-bottom: 15px;
         }
 
-        .am-icon-cog {
-            margin-top: 5px;
-        }
     </style>
 </head>
 
@@ -41,7 +39,7 @@
     <header>
         <!-- logo -->
         <div class="am-fl tpl-header-logo">
-            <a href="javascript:;"><img src="../../assets/img/logo.png" alt=""></a>
+            <a href="javascript:;"><img src="../../assets/logo.png" alt=""></a>
         </div>
         <!-- 右侧内容 -->
         <div class="tpl-header-fluid">
@@ -55,7 +53,8 @@
             <div class="am-fl tpl-header-search" hidden="hidden">
                 <form class="tpl-header-search-form" action="javascript:;">
                     <button class="tpl-header-search-btn am-icon-search"></button>
-                    <input class="tpl-header-search-box" type="text" placeholder="搜索内容...">
+                    <input class="tpl-header-search-box" type="text"
+                           placeholder="搜索内容...">
                 </form>
             </div>
             <!-- 其它功能-->
@@ -83,14 +82,15 @@
         <div class="tpl-sidebar-user-panel">
             <div class="tpl-user-panel-slide-toggleable">
                 <div class="tpl-user-panel-profile-picture">
-                    <img src="../../assets/img/user04.png" alt="">
+                    <img src="../../assets/head3.jpg" alt="">
                 </div>
                 <span class="user-panel-logged-in-text">
                   <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
                   <span>Tom</span>
                 </span>
                 <a data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0}"
-                   class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span>
+                   class="tpl-user-panel-action-link"> <span
+                        class="am-icon-pencil"></span>
                     <span>修改密码</span>
                 </a>
 
@@ -127,7 +127,7 @@
             </li>
             <%--商城管理--%>
             <li class="sidebar-nav-link">
-                <a href="javascript:;" class="sidebar-nav-sub-title">
+                <a href="javascript:;" class="sidebar-nav-sub-title" id="map">
                     <i class="am-icon-table sidebar-nav-link-logo"></i> 商城管理
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
@@ -136,13 +136,15 @@
                     <%--活动管理--%>
                     <li class="sidebar-nav-link">
                         <a id="activity">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 活动管理
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span>
+                            活动管理
                         </a>
                     </li>
                     <%--商品管理--%>
                     <li class="sidebar-nav-link">
                         <a id="goods">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 商品管理
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span>
+                            商品管理
                         </a>
                     </li>
                 </ul>
@@ -153,10 +155,10 @@
                     <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 订单管理
                 </a>
             </li>
-            <%--富文本编辑器--%>
+            <%--我的配送单--%>
             <li class="sidebar-nav-link">
-                <a id="compile">
-                    <i class="am-icon-tv sidebar-nav-link-logo"></i> 富文本编辑器
+                <a id="myOrder">
+                    <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 我的配送单
                 </a>
             </li>
 
@@ -166,27 +168,34 @@
     <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
         <div class="am-modal-dialog">
             <div class="am-modal-hd">修改密码
-                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+                <a href="javascript: void(0)" class="am-close am-close-spin"
+                   data-am-modal-close>&times;</a>
             </div>
             <%--分割线--%>
-            <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+            <hr data-am-widget="divider" style=""
+                class="am-divider am-divider-default"/>
             <%--内容--%>
             <div class="am-modal-bd">
                 <div class="tpl-login-content">
-                    <form class="am-form tpl-form-line-form" id="changePassword">
+                    <form class="am-form tpl-form-line-form"
+                          id="changePassword">
 
                         <div class="am-form-group">
-                            <input type="password" class="tpl-form-input" id="password"
+                            <input type="password" class="tpl-form-input"
+                                   id="password"
                                    placeholder="请输入密码">
                         </div>
 
                         <div class="am-form-group">
-                            <input type="password" class="tpl-form-input" id="double_password"
+                            <input type="password" class="tpl-form-input"
+                                   id="double_password"
                                    placeholder="请重复密码">
                         </div>
 
-                        <div class="am-alert am-alert-danger" data-am-alert hidden="hidden" id="alert_pass">
-                            <button type="button" class="am-close">&times;</button>
+                        <div class="am-alert am-alert-danger" data-am-alert
+                             hidden="hidden" id="alert_pass">
+                            <button type="button" class="am-close">&times;
+                            </button>
                             <p></p>
                         </div>
 
@@ -203,7 +212,8 @@
         </div>
     </div>
 
-    <iframe id="myFrame" src="/index2" frameBorder="0" width="100%" scrolling="yes" height="100%"></iframe>
+    <iframe id="myFrame" src="/index2" frameBorder="0" width="100%"
+            scrolling="yes" height="100%"></iframe>
 
 </div>
 <script src="../../assets/js/amazeui.min.js"></script>
